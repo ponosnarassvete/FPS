@@ -4,10 +4,16 @@ render_mode unshaded;
 // Parameters
 uniform float zNear = 0.05; 
 uniform float zFar = 100;  
+
+uniform float Light_Zones = 0.35;
+uniform float Grey_Zones = 0.45;
+uniform float Dark_Zones = 0.80;
+
 uniform float outlineThickness = 1.5; 
 uniform vec3 outlineColor : source_color = vec3(0.0);
 uniform float wiggleFrequency = 0.08; 
 uniform float wiggleAmplitude = 2.0;
+
 
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
@@ -126,19 +132,19 @@ void fragment() {
 	
 	// Apply hatching based on luminance value (from darker to lighter zones
 	// Dark Zones
-	if(pixelLuma <= 0.35) {
+	if(pixelLuma <= Light_Zones) {
 		if (mod((uv.y + displ.y) * VIEWPORT_SIZE.y , modVal)  < outlineThickness) {
 			pixelColor = outlineColor;
 		}
 	}
 	// Grey Dark
-	if (pixelLuma <= 0.45 ) {
+	if (pixelLuma <= Grey_Zones ) {
 		 if (mod((uv.x + displ.x) * VIEWPORT_SIZE.x , modVal)  < outlineThickness) {
 			pixelColor = mix(pixelColor, outlineColor, 0.25);
 		}
 	}
 	// Light Dark
-	if (pixelLuma <= 0.80) {
+	if (pixelLuma <= Dark_Zones) {
      if (mod((uv.x + displ.x) * VIEWPORT_SIZE.y + (uv.y + displ.y) * VIEWPORT_SIZE.x, modVal) <= outlineThickness) {
 			pixelColor = mix(pixelColor, outlineColor, 0.5);
 		}
