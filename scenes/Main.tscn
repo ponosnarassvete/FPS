@@ -1,0 +1,1908 @@
+[gd_scene load_steps=48 format=4 uid="uid://bim1f1eagd6ev"]
+
+[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/simple_fpsplayer/Player.tscn" id="1_ojamv"]
+[ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_oedvh"]
+[ext_resource type="Script" path="res://scenes/day_night_cycle.gd" id="3_nu7pc"]
+[ext_resource type="PackedScene" uid="uid://bu5t5vtg43t1p" path="res://models/temple_pillar.blend" id="3_wc3m2"]
+[ext_resource type="PackedScene" uid="uid://cbdr5w2xvu6o7" path="res://models/square_pilar.blend" id="4_gt5wo"]
+[ext_resource type="PackedScene" uid="uid://c17l7pq2kjpw5" path="res://models/small_brick_wall.blend" id="5_idnao"]
+[ext_resource type="PackedScene" uid="uid://2vxequ6ikdst" path="res://models/stairs.blend" id="7_6l3ki"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="7_yl6ky"]
+[ext_resource type="PackedScene" uid="uid://33ar0vo02uk6" path="res://models/brick_wall.blend" id="8_ds4vj"]
+[ext_resource type="Resource" path="res://scenes/TerrainData/data.hterrain" id="8_j2o12"]
+[ext_resource type="PackedScene" uid="uid://dcibcx64v3p0q" path="res://models/triangle_brick_wall.blend" id="9_pg2sa"]
+[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="9_tydcr"]
+[ext_resource type="PackedScene" uid="uid://bgi5ovi5y748w" path="res://models/rock.blend" id="13_bccd3"]
+[ext_resource type="PackedScene" uid="uid://b20cvg2k8doh0" path="res://models/path.blend" id="14_kdwn2"]
+[ext_resource type="Resource" path="res://scenes/TerrainData/pathway1/data.hterrain" id="15_8jfk5"]
+[ext_resource type="Shader" path="res://shaders/BoTW_shader.gdshader" id="16_hl783"]
+[ext_resource type="Shader" path="res://shaders/hq_post_process.gdshader" id="16_uppkl"]
+[ext_resource type="Shader" path="res://shaders/moebius_shader.gdshader" id="17_nitd0"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ydowq"]
+load_path = "res://.godot/imported/sun.png-bc9f620bd312b1a1b157dffc45401995.s3tc.ctex"
+
+[sub_resource type="Curve" id="Curve_2a2dt"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.124481, 1), 0.0, 0.0, 0, 0, Vector2(0.979253, 0.714286), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_f3frb"]
+curve = SubResource("Curve_2a2dt")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5n6k5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ddwvj"]
+seamless = true
+noise = SubResource("FastNoiseLite_5n6k5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c6v42"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ijcd5"]
+seamless = true
+noise = SubResource("FastNoiseLite_c6v42")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xrgus"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gl00m"]
+seamless = true
+noise = SubResource("FastNoiseLite_xrgus")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uqc04"]
+shader = ExtResource("2_oedvh")
+shader_parameter/clouds_samples = 32
+shader_parameter/shadow_sample = 4
+shader_parameter/clouds_density = 0.4
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_smoothness = 0.03
+shader_parameter/clouds_light_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_shadow_intensity = 1.0
+shader_parameter/cloud_shape_sampler = SubResource("NoiseTexture2D_ijcd5")
+shader_parameter/cloud_noise_sampler = SubResource("NoiseTexture2D_ddwvj")
+shader_parameter/cloud_curves = SubResource("CurveTexture_f3frb")
+shader_parameter/high_clouds_density = 0.2
+shader_parameter/high_clouds_sampler = SubResource("NoiseTexture2D_gl00m")
+shader_parameter/top_color = Color(0, 0.583333, 1, 1)
+shader_parameter/bottom_color = Color(0, 0.266667, 1, 1)
+shader_parameter/sun_scatter = Color(0.223103, 0.223103, 0.223103, 1)
+shader_parameter/astro_tint = Color(1, 0.8, 0.2, 1)
+shader_parameter/astro_scale = 9.0
+shader_parameter/astro_intensity = 3.0
+shader_parameter/astro_sampler = SubResource("CompressedTexture2D_ydowq")
+shader_parameter/stars_intensity = 0.0
+shader_parameter/shooting_stars_intensity = 0.0
+shader_parameter/shooting_star_tint = null
+
+[sub_resource type="Sky" id="Sky_wrc8x"]
+sky_material = SubResource("ShaderMaterial_uqc04")
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_kgbl7"]
+background_mode = 2
+background_intensity = 100000.0
+sky = SubResource("Sky_wrc8x")
+ambient_light_sky_contribution = 0.1
+tonemap_mode = 1
+tonemap_white = 8.0
+ssao_enabled = true
+ssao_detail = 2.0
+sdfgi_enabled = true
+sdfgi_bounce_feedback = 0.8
+glow_enabled = true
+glow_normalized = true
+glow_bloom = 0.2
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_gi_inject = 1.14
+volumetric_fog_anisotropy = 0.7
+volumetric_fog_length = 75.0
+volumetric_fog_detail_spread = 4.0
+volumetric_fog_ambient_inject = 0.12
+volumetric_fog_sky_affect = 0.295
+adjustment_enabled = true
+adjustment_saturation = 1.17
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qo5hu"]
+exposure_multiplier = 2.0
+auto_exposure_enabled = true
+auto_exposure_scale = 1.0
+auto_exposure_speed = 0.8
+dof_blur_far_distance = 144.0
+dof_blur_near_distance = 0.02
+
+[sub_resource type="Animation" id="Animation_lyxk5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds_light_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:environment:sky:sky_material:shader_parameter/top_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.583333, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:environment:sky:sky_material:shader_parameter/bottom_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.266667, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:environment:sky:sky_material:shader_parameter/sun_scatter")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.223103, 0.223103, 0.223103, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_tint")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.8, 0.2, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:environment:sky:sky_material:shader_parameter/stars_intensity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds_smoothness")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.03]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds_shadow_intensity")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:environment:sky:sky_material:shader_parameter/high_clouds_density")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [9.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_intensity")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Sun3:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Sun3:light_energy")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Sun3:light_indirect_energy")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Sun3:light_volumetric_fog_energy")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Sun3:light_color")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_btbf5"]
+resource_name = "day_night_cycle"
+length = 1440.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds_light_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 240, 420, 600, 720, 840, 1020, 1200, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.969653, 0.633802, 0.529699, 1), Color(0.227451, 0.447059, 1, 1), Color(0.227451, 0.447059, 1, 1), Color(0.227451, 0.447059, 1, 1), Color(0.969653, 0.633802, 0.529699, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:environment:sky:sky_material:shader_parameter/top_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 240, 420, 600, 720, 840, 1020, 1200, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0.583333, 1, 1), Color(0, 0.583333, 1, 1), Color(0.505351, 0.410527, 2.79158e-06, 1), Color(0.027451, 0.101961, 0.25098, 1), Color(0.027451, 0.101961, 0.25098, 1), Color(0.027451, 0.101961, 0.25098, 1), Color(0.505351, 0.410527, 2.79158e-06, 1), Color(0, 0.583333, 1, 1), Color(0, 0.583333, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:environment:sky:sky_material:shader_parameter/bottom_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 240, 420, 600, 720, 840, 1020, 1200, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0.266667, 1, 1), Color(0, 0.266667, 1, 1), Color(0.597273, 0.205001, 0, 1), Color(0.027451, 0.101961, 0.25098, 1), Color(0.027451, 0.101961, 0.25098, 1), Color(0.027451, 0.101961, 0.25098, 1), Color(0.597273, 0.205001, 0, 1), Color(0, 0.266667, 1, 1), Color(0, 0.266667, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:environment:sky:sky_material:shader_parameter/sun_scatter")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 240, 420, 600, 720, 840, 1020, 1200, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.223103, 0.223103, 0.223103, 1), Color(0.223103, 0.223103, 0.223103, 1), Color(0.584523, 0.0710513, 0, 1), Color(0.12549, 0.0862745, 0.372549, 1), Color(0.12549, 0.0862745, 0.372549, 1), Color(0.12549, 0.0862745, 0.372549, 1), Color(0.584523, 0.0710513, 0, 1), Color(0.223103, 0.223103, 0.223103, 1), Color(0.223103, 0.223103, 0.223103, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_tint")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 240, 420, 600, 720, 840, 1020, 1200, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.921569, 0.721569, 1), Color(1, 0.919868, 0.720758, 1), Color(1, 0.254902, 0.101961, 1), Color(0.878836, 0.948514, 0.997423, 1), Color(0.878431, 0.94902, 0.996078, 1), Color(0.878431, 0.94902, 0.996078, 1), Color(1, 0.254902, 0.101961, 1), Color(1, 0.921569, 0.721569, 1), Color(1, 0.921569, 0.721569, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:environment:sky:sky_material:shader_parameter/stars_intensity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 420, 720, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 5.0, 0.0, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds_smoothness")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 420, 720, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.03, 0.03, 0.05, 0.03, 0.03]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:environment:sky:sky_material:shader_parameter/clouds_shadow_intensity")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 420, 720, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 8.0, 1.0, 1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:environment:sky:sky_material:shader_parameter/high_clouds_density")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 420, 720, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.2, 0.2, 0.0, 0.2, 0.2]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_scale")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 720, 1440),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [9.0, 6.0, 9.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:environment:sky:sky_material:shader_parameter/astro_intensity")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 720, 1440),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [3.0, 1.0, 3.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Sun3:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 420, 509, 510, 600, 719, 720, 840, 929, 930, 1020, 1439, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(0, 0, 0), Vector3(1.55334, 0, 0), Vector3(1.5708, 3.14159, 0), Vector3(0, 3.14159, 0), Vector3(-1.55683, 3.14159, 0), Vector3(-1.55683, 0, 0), Vector3(0, 0, 0), Vector3(1.55334, 0, 0), Vector3(1.5708, 3.14159, 0), Vector3(0, 3.14159, 0), Vector3(-1.56731, 3.14159, 0.785398), Vector3(-1.5708, 0, 0.785398)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Sun3:light_energy")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 420, 510, 720, 930, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.5, 0.25, 0.0, 0.01, 0.0, 0.25, 0.5]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Sun3:light_indirect_energy")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 420, 720, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.5, 0.25, 0.5, 1.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Sun3:light_volumetric_fog_energy")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 420, 720, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [8.0, 2.0, 0.5, 2.0, 8.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Sun3:light_color")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 240, 420, 600, 840, 1020, 1200, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.921569, 0.721569, 1), Color(1, 0.921569, 0.721569, 1), Color(1, 0.254902, 0.101961, 1), Color(0.878431, 0.94902, 0.996078, 1), Color(0.878431, 0.94902, 0.996078, 1), Color(1, 0.254902, 0.101961, 1), Color(1, 0.921569, 0.721569, 1), Color(1, 0.921569, 0.721569, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hs8gh"]
+_data = {
+"RESET": SubResource("Animation_lyxk5"),
+"day_night_cycle": SubResource("Animation_btbf5")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lm116"]
+size = Vector3(313.26, 2.9043, 785.516)
+
+[sub_resource type="Resource" id="Resource_b5yv2"]
+script = ExtResource("9_tydcr")
+mode = 0
+textures = [[], []]
+
+[sub_resource type="Resource" id="Resource_62p3l"]
+script = ExtResource("9_tydcr")
+mode = 0
+textures = [[], []]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ufoh8"]
+noise_type = 3
+frequency = 0.006
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3pdg5"]
+in_3d_space = true
+seamless = true
+as_normal_map = true
+bump_strength = 3.7
+noise = SubResource("FastNoiseLite_ufoh8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mojqb"]
+render_priority = 0
+shader = ExtResource("16_hl783")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/shadow_size = 0.045
+shader_parameter/shadow_blend = 0.001
+shader_parameter/shadow_extra_intensity = 0.0
+shader_parameter/shadow_color = null
+shader_parameter/light_tint = Color(1, 1, 1, 1)
+shader_parameter/rimlight_size = 0.921
+shader_parameter/rimlight_blend = 0.01
+shader_parameter/rimlight_color = null
+shader_parameter/use_normalmap = true
+shader_parameter/animated = true
+shader_parameter/time_scale = 0.02
+shader_parameter/normal_bias = Vector3(0, 0, 0)
+shader_parameter/light_bias = Vector3(0, 0, 0)
+shader_parameter/use_view = true
+shader_parameter/view_bias = Color(1, 0, 1, 1)
+shader_parameter/view_multiplier = -1.0
+shader_parameter/normal_map = SubResource("NoiseTexture2D_3pdg5")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_j2fuo"]
+_surfaces = [{
+"aabb": AABB(-0.516164, -0.761534, -0.769662, 1.51431, 2.82689, 1.61692),
+"format": 34359742465,
+"index_count": 1632,
+"index_data": PackedByteArray("BgBtAGwAdQAGAGwABgB6AHsAegB0AHYAdAAGAHUABgB0AHoAeAAGAHcABgATABcAEwB9AHwABgB9ABMAeQAGAHgAcgB5AHEAcwByAG8AgABuAHAAcwB5AHIAgABzAG4AfwCAAIEAfwBzAIAAcwAGAHkABgB+AH0ABgCCAH4AfwAGAHMABgB/AIIAgwAcAB4AgwA6ABwAAwCIAIkAVwCKAIcAVwCGAIoANgCGAFcAhACGADYAhgCFAIUAhgCEAIUANgBXAAgATwAXAFYATwAGABcAPABNAEkATQAQACcATQA8ABAAAAA+AD8AAABHAD4ANAA2AAgARgA0AEMACgBDAAgAQwA0AAgAQQBSAD4AQQBRAFIAPABJAEsAHAAAABkAAAA6ADEAAAAcADoACgAIAAwADgBYAAYAVABVAFMAjgCMAI0AjACLACUAiwCOAB8AjACOAIsAIgAuAB8AGQAiABwAHgAcAB8AHAAiAB8AVABOAFUAJQBNACcAjwAlAC4ATQAlAI8AkgATAJEAlgCMACUAlgCTAIwAkwCWAJgAkACUAJUAmQCQAJcAkACZAJQAMQA6ADQANgA0ADcANAA6ADcAPQA/AD4AQQBQAFEACgAMAEMAQwAMAFAAQQBDAFAAPgBDAEEAQwBHAEYAQwA+AEcAAAAxAEcAmgA/AEsAmgArAD8ASQBNAEsAPAA/AD0APABLAD8ANABHADEANABGAEcAPgBTAD0APgBSAFMAPwArAAAAKwAZAAAAUgBWAFQAFwBUAFYAFwBOAFQAUgBUAFMADAAOAAYATwBRAFAAUQBWAFIAUQBPAFYAEABOABMAEABVAE4APABVABAAPAA9AFUATgAXABMApACqAKsAqgBYAKUApABYAKoAogADAKEAogCjAAMAAwCpAKYApwADAKgAAwCnAKkAtQC0AKwAmwCeAJ8AmwCgAJ4AtQCcALQAnACgAJsAnACdAKAAtQCdAJwArwCtALMAnQCtAK8ArQCdALUArgC2ALEAsgCwALcAvABXALsAVwClAFgAVwC8AKUApgCIAAMAiAC4ALoApgC4AIgAuACmALkAEwC9AJEAVwAOAAgAVwBYAA4ATwAMAAYATwBQAAwACAAOAAwAUwBVAD0AWgBaABQAvwARABQAEQCOAI0AvgARAL8AEQC+AI4AEQBhACoAYQCTAJgAYQARAJMAXwAFAMAABwAFAEAAYQAqAGEAKgAsABEABQAmACoANQABADsAwwBFAMUAxQBFAMQAwQAdAMYAwQDCAB0AxwBsAG0AbAAvAHUALwDIAEUAygCwAMkALwDKAMgAxwAvAGwAygC3ALAAtwAvAMcALwC3AMoA0QBFAMsARQDNAMwAzQDOAM8A0ABFANEARQDOAM0A0ADOAEUALwBFAEIAMwA1ADsAMwA7ADgAOABMADkAOAA7AEwAFgANAAEAMgAvADUALAABAA0ALAAkAAEAfwDSADgAfwCBANIA0wB5ADIAcQA4AHIA0wBxAHkA0wA4AHEAnwAYAJsAGADVACMA1QCfANQAGACfANUA1gBaABQAFAAWACMAFAAsABYAFAARACwAFgAsAA0A4wAgAOIAIADbACMA2wDaANwA2gAgAOMA2gDbACAA3QDZANgA2QDXABgA2QDdANcA4AAgAN4AIADkAOUAIADfAOQA4QAgAOAAIADhAN8A1wDnABgAmwC0AJwA5gCbABgAtACbAOYABQBKACYAOQBMAEoABwA5AAUAOQBKAAUAMwAyADUAQAB/ADgAggBAAOgAfwBAAIIASgAqACYASgAsACoARADqAOkA6wBFAMMARADrAOoARABFAOsAQAA5AAcAQAA4ADkASAAkACwALwB6AO4AegDsAHsA7AAyAO0AMgB6AC8AegAyAOwAQgBFAEQANQBCAEQAIABEAB0AIADvAEQASgBMAEgAOwBIAEwASAABACQASAA7AAEAQgA1AC8AmQDAAAUAmQCXAMAASgBIACwA8AACABUAAgDlAOQAAgDwAOUAKAAPAAIAiQAJAPEACQCIALoAiAAJAIkApgAJALkACQASAA8AEgDyAPMAEgCpAPIApgASAAkAqQASAKYACQAPABoA9QALAPQACwAEABUACwD1AAQAAgAPABIAEgALAAIAKQAaACgA9gD3AAQAGgAPACgAGgCGAAkAGgCKAIYAGgClALwAGgCqAKUAIQD5ABoA+AAhAPgAIQD4APkAFQDaAOMABADaABUABADcANoA9wD3APcA9wAEAPcABAD3ANwA+gD4ACEA+wCtAAQA+wCzAK0A6wD+AOoA6wApAP4AwgAoAAAB/ADGAP0AwgD8ACgA/ADBAMYAwQD8AMIA4QDkAN8A5AAoAAIAKADhAP8A5ADhACgA9gDYANkA2AAEAN0A2AD2AAQArQADAQQAAwEBAQIBAQGtALUArQABAQMB0ADRADAABAEwAAUBMADOANAAGwAaACkAGwAhABoACQCGAIUACwAVAAIABgELABIABgH0AAsAtgAwAAQBBwH6ACEAtgAHATAArgAHAbYABwGxAPoAsQAHAa4AKQDDAMUAKQDrAMMAMADPAM4AvwAfAL4AHwADAB4AAwDWAFkAHwDWAAMAWgBaAFoAWgC/AFoAHwBaANYAvwBaAB8AxwAGAFgAxwBtAAYAWwBuAG8AbwBuAHMA0gCBAIAAEwB8AFwA7AAGAHsABgDtAHcABgDsAO0AfgCCAOgAOgADADcAAwCDAB4AAwA6AIMAXQBXAIcAXgCJAPEAiQA3AAMANgBeAIQAXgA3AIkANwBeADYALQAZACsAGQAuACIAGQAtAC4ALgCLAB8ALgAlAIsAHwCOAL4ATQAuAC0ATQCPAC4AkADAAJcAJQCYAJYAEAAlACcAYAAQABMAwABfAF8AXwAQAGAAwAAQAF8AkAAQAMAAlQAQAJAAlQAlABAAYQBhAGEAmABhAGEAYQAlAJUAYQCYACUAmgAtACsALQBLAE0ALQCaAEsAAQG1AKwAAwBjAKgAAwCjAGMA1AADAFkAAwAGAaEA9ABiAPUAAwD0AAYBngDUAJ8AnQCeAKAAAwBiAPQA1ABiAAMAngBiANQAnQBiAJ4AnQD7AGIAswCdAK8A+wCdALMAqwBYAKQAWAC3AMcAtwAFAbIABAGxALYAtwAEAQUBCAFYAKsABAH6ALEAWAAEAbcA+QBYAAgBWAD6AAQB+AD5APgAWAD4APoAWAD5APgAVwBdALsAEwBkAL0AEwBcAGQAEwCSAGAAFABaAL8AYQAqAGEAjQCMABEAEQCMAJMAYAAFAF8ABQBkAEAAZACRAL0AkgAFAGAABQCRAGQAkgCRAAUAYQCUACoAYQCVAJQAAAEdAMIAAAFlAB0AZgDGAB0AZgD9AMYALwB0AHUAaABFAMwARQBnAMQAaABnAEUAyADLAEUAaQDKAMkAyABpAMsAyADKAGkAIAAWAAEAIAAjABYAcADSAIAAOABvAHIAcAA4ANIAbwBuAFsAbgA4AHAAOABuAG8AMgA4ANMAMgAzADgAMgB5AHgAWgBaABQAIwDWABQAWQDVANQAIwBZANYAIwDVAFkAHQDeACAAHQBlAN4AawDlAPAAIABqAOIAawAgAOUAIABrAGoAGAD2ANkAIwD2ABgA2wD2ACMA9wD3APcA9wDcAPcA2wD3APYA3AD3ANsAGAC0AOYArAACAQEBGACsALQAAgEYAOcArAAYAAIBZAB9AEAAfQBcAHwAfQBkAFwAfQDoAEAAfQB+AOgA6QAdAEQA6QBmAB0AeAB3ADIAMgB3AO0ALwB2AHQAdgDuAHoALwDuAHYARAABADUAAQDvACAAAQBEAO8AXwAFAF8ABQCUAJkABQAqAJQA8AAVAGsAXgDxAAkAuAC5ALoAugC5AAkAEgCjAKIApwDyAKkAqADyAKcAEgBjAKMAqADzAPIA8wBjABIA8wCoAGMAYgAEAPUAagBrABUACQCFAIUA+QCqABoAqgAIAasAqgD5AAgBGgCHAIoAGgBdAIcAuwAaALwAGgC7AF0AFQDiAGoAFQDjAOIAYgD7AAQAZgD8AP0A/AApACgAKQDqAP4AKQDpAOoAZgApAPwA6QApAGYAKABlAAAB3gDhAOAAKADeAGUA3gD/AOEAKAD/AN4A5wADAQIBBADXAN0A1wADAecA1wAEAAMB0QAFATAABQGwALIABQHJALAAywAFAdEABQFpAMkABQHLAGkACQCEAF4ACQCFAIQAogAGARIAogChAAYBGwAHASEAGwAwAAcBxQAbACkAGwDNADAAzABnAGgAGwDMAM0AxAAbAMUAzADEAGcAGwDEAMwAzQDPADAA"),
+"name": "Rock",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 265,
+"vertex_data": PackedByteArray("vSsCv8hr0b7EHbG98F55P/pZlr4s594+en44P4sStb5q1DS+zl56PutA3r6WlQa//K//PqxQ474G0kM++FWQPiE1Kj9Vjyg/h5PePvIvrz9sQ+y9KM2sPtjffD+0wig/uEWfPma+6D9k4hS/TmmHPv5jwT7f+BO/s60hPkgwAEBl9hC/piHsPm36Ab8m4qe+TzmvPlUi/z/bMGC+LTlHP6kz7b4s594+72LoPh5k7T/j6r2+NPDdPijiIr7cuhu/iRMhPn9FhT+vEyI/dRbRPu5k8769Vg0/0SHnPrZ5974CuMS+cKh3PteWhj+a/x4/bCyxPmgy/L6OvaY+mAAkP635Ab/QTec9IFcfP7TvBr9vYJQ+auqoPuHgrz/Algg/0EbEPnWoo74Ogzo+v3ycvrYzKr+kxk0xnk3mPn7H3z4ql/++OQAiP8ybEz8SGtW9wS70vePzQr/l4bu+padGPxCpmjpMC/89QCsMPqzkLr9vsZa+d4pYPtqPNb9Flo0+Rw9gP5BSnL6uYZE+UK3qPlKEIT8/AKC+wS70vePzQr/l4bs+qVMlP0r2+r4j44I+rKJqP+DTmb5RBAY/ktMqPl355L7layM/g2/uPrgVFr4A2S4/2R40vhB8Cj3o5Vg/XcE0PzlMUT730rW+5Dg2P1o7vz5u/2W+Gg6jPhA5n77M1iQ/WCMEvwbfsr6DmqI92FcfP5LuBr8CuBQ/8OvXvg/c2b7lbsM+OL4Wvl6gNL9A+ec+jt0mP5qeej/ANCQ+L0s1P5NPEj9uFxI+1TrxvloU1r4IjWO+gHsqPxr3iT86x2U+qvpXP+9Hiz9T1PQ+dMqfvppLUj6TCEW/ooZ/P78PQD9ZveU+auCLPXxqPb6w0h+/rFN6Pg9B3r5Slwa/3dcyPw3rkj+KLRM/yZEmP1zvhD+Ouiw/pDX0vSryQr8z57u+pap+P7bVQT/g0QM/gjdEvvhHoT9r9R4/6iE/vnj1tD+7xQI/OzbXvkQAvT+jd2W9BlLqvlrelD+Qlqc+huGaPhXkiD9Wbho/f96mvccuBEAtErO+HZFbPzw4Sz/sp1M+oKAhPlMwAEBD9hC/wBhhP63/RD+5gVc+ThhYP6WfSD8gWk4+MFu/vuKCqj+EPSG/In7lvgj3qz8qcMe+TjQ8P1+v273EDiY/D2ScvhTWhD+n9is/hqUtP+pIt71gAys/466uvm7cgT/4YB4/iTNSP2BkXz/ZRyw/fCCbvqBDHz2imUg/vlEXPsRytD985hI/OqJ6PhJhyD9xCTA9udS+PWdXA0DbDPC9HFkdvd3HA0DOuAe+QIRFvl6n1j8FpSQ9z4bWvYcyuz8H5A0+9maPvWxrvD+9YA8+EJjTPQ6EtD9OjxM/NCq8Pa9SwT8eCew9kDqOPiouMT/9uw2/6GjUPv5BKD9meva+7z67PuFs474rG5E+xZ6wPpeY+76jZaY+Wi7gPmhLjz+qA7g+iQqMPtpxgz9dPRM/RtGJPpUezT494gu/GwCEPlapkD4CJgy/2dWBPlU2Rj8yrRw/AAWHPiTSWD+vqhs/q1CYPu/tn7501BM/thmcPm/0yb5L0yq+hDGPPjTBnL7bMNe+i+qJPnOTgT9MPBU/gJxEP0Naczo2KPs9JcBNP0Wcoz5PmB8+9RBIP2Jk4T6R3iM+MJxFP2KZ6j7v/SI+8bwoP3BbFD8Ovgo+V6s2P/ZmmL5XU14+kyo+P0cAir6xcmA+SgETPzBqTT+ocgU+wz8TP38tSz8PFQU+Wi7gPmhLjz+rA7g+KuvgPj0Jjz+VbLU+WS7gPmhLjz+sA7g+xivjPis/jj+fg60+T5bhPkPNjj+OE7M+HwLoPnu1jT+7VpM+KdoLPykvZD+QxAQ+hAQOP4BKXT9F+QQ+KdoLPykvZD+RxAQ+2CzyPtK1iT//L2Y+HkHtPmqljD/lg3U+YojqPgMUjT8adYg+TlAHPzfObz8dxRo+D2ICP1ZufD9arDI++auPPtYbhj+bTBE/uMGUPgHXiT/blA4/kkedPpHQij+88Ag/ewjVPhwxkT+cE8g+QMDaPv03kD+R1r8+Oz3ZPtt5kD8yBMI+yQG8Pk9Ujj+DNOk+K3KdPfLBFb9Otee+lTCFPmgQrj60bgy/MmWGPrbdyz5juAy/MmWGPrfdyz5juAy/YUOJPp3qzD7sBAy/ZleHPsiycj5R2Aq/2HiGPpHUfj4lLwu/LceHPlxfzD7cYQy/I0mAPmbuAr+kyQM/GK3DPl355L4kBAk/sa7DPn7/5L7H/wg/nZ/FPk9z7L5PsQM/aLlpvsUSg73IhD8/q6iJPjBvkT6XPRk/AAWHPibSWD+vqhs/AAWHPiXSWD+vqhs/9PqmPvVHt74uLBA/uKiJPi9vkT6UPRk/oayVPvTQUb4HzhQ/Da3DPlT55L4nBAk/dpqEPufPGT/9dRs/TECiPjTAr74aWhE/efGIPthlqD4Pjhk/9K7avpWLP77iQL8+6i+9PnWoo74tvD0+kDXQPgdvRL18iCU+kDXQPuVuRL10iCU+YGO2PhOHq76FSec97wK9Puptqb4v1EY+6i+9PnKoo74svD0+RdKNPhkpz75VaK6+hF6NPghFzb4CQrO+8keOPvEEtb4VOMW+aETDPtGy4j4A8Pq+ZkTDPsyy4j4F8Pq+9AicPqEDRb1bkgK/9AicPqkDRb1bkgK/9yeVPtHOPr4mh+y+9AicPqcDRb1bkgK/Z0TDPs6y4j4D8Pq+aETDPtOy4j7+7/q+dgbYPtKyBz1qVh0+2fzXPhoCsD2tkNE9CbADP+rcIT/GiIA62fzXPhgCsD2tkNE9TRcIPz+5Gj8aU9s9hj76PkctIj+TOfK9vYwHP5GSHD8nHLk92fzXPhkCsD2tkNE9st3WPmPgrDyXjR4+lljYPq9BtD0RENQ9n6sEPxPrIT/MGpc8ZFQRP/3TQT+NyAA+9AicPocDRb1bkgK/9AicPoYDRb1bkgK/ui6VPmKxPT2yTwW/zm+iPuhd1j7YtAW/e3anPjNB2D7/cQS/9+WHPrmpZT83txk/vFrGPjlB774WsgE/JWK0Po91+b6if7Y+2dWBPlQ2Rj8yrRw/MplEP7SdCjt2Uvs9y5pEP10FyjoJPvs9KFRPP3zdxz54uiY+TXtNP4Zbzj5SACY+u35NP3lPzj6sASY+vJlHP/mU2T3Iygg+LFcTP+tWSj/+8QQ+8bwoP3FbFD8Ovgo+B2IfP3cuFj/OaAI+23UkPycmHz9elQk+2kYpP+s9FD/vUQs+3fA6P1fgCD8jNxw+D4o3PygeDz8MDho+bpk2P2YpED82Rhk+sik3Py2JDz8Fvhk+uWc0PyHcET+5QBc+fEMuP6ksEz/YqhA+Q3bZPiZwkD8GssE+3SvjPis/jj+ng60+5pK8PvTNt77Fel0+t5vBPngGsL5wCk8+IIyzPv7v9L4iiKA+dDPwPi/yZb4+GSE+zUUBP28nur57wVE+DLIBP97xwr4tkVc+UzEnP+UCr75uGlU+hucOP9vLwb7PgFo+Cu4bP+G4t752m1c+h0HyPs3kdb6ejCY+8KtGP7vCor1hxCM+qexHP7cxKr6i/Es+jBxHP7Hqxb2p6ys+RYZHP44lB77gNTw+ZUszPw9Vnb6HUFw+yTwvP1JCo76i5Vk+BxFIP4OFPL5RcVI+1A5GPx1FTr68SFU+BoXMPpMJBr5u9Ss+8mjvPrSwTb4oGiA+UuG5PggWjj9CBew+F+ZOP5nwtz7Z5CM+X/tOP2FpuT6HNCQ+ubhPP96Bxj53+SY+8YL7Ps4jhD8fG0k+J0L3Pmqthj+TWlY+KdoLPyovZD+SxAQ+LQpkPye4Lb7R95s+pndEPwZTXL6/iFc+D+eFPopjgz4GaAu/9AicPqsDRb1bkgK/hDGPPjPBnL7bMNe+CRaOPn1E0L5qkau+NheSPrR2zr4B85K+YggCP9L0yb7EM1w+hecOP9vLwb7PgFo+8CzkPnPHID/TdJ++EfnYPhCCED9D0Lu+yR/vPlZxIj8Eh2C+p6agPiBNtr7/rRW+MplEPzijCjtNUvs9VARKPwKdQj5hwBE+ubhPP9yBxj5t+SY+VlJHP5RT7b1VZTQ+4ZpEP9QBxjrxPPs90pbjPvnFHD5JNhE+P5DuPuq7M74vCR8+19bbPgG3FT0ve+M9qPYFP7T9IT+rrSk9AmsHP8kFHT8JyLA9YAGOPhbuz74Lb6y+ELADP+fcIT8EfYA6lsvUPrdwCj9vY8a+")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_qvao6"]
+resource_name = "rock_Icosphere"
+_surfaces = [{
+"aabb": AABB(-0.516164, -0.761534, -0.769662, 1.51431, 2.82689, 1.61692),
+"attribute_data": PackedByteArray("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"),
+"format": 34359742487,
+"index_count": 1632,
+"index_data": PackedByteArray("KwDuAewBAwIqAOsBKgAQAhICEAIAAgUCAAIqAAMCKgAAAhACCgIpAAYCKQBrAH4AawAYAhYCKQAYAmsADgIpAAoC+wEOAvgB/AH7AfMBIwLwAfYB/AEOAvsBIwL8AfABHwIjAiYCHwL8ASMC/AEpAA4CKQAbAhgCKQAnAhsCHwIpAPwBKQAfAicCKwKSAJoAKwImAZIAEQA4AjsCrQE9AjYCrQEzAj0CEwEzAq0BLQIzAhMBMwIwAkICMwItAjACEwGtATMAiwF9AKsBiwEmAH0AMAGBAW4BgQFaAL8AgQEwAVoABAA8AUEBBABpATwBBQESATEAYwEGAVMBQABUATYATwEEATAASQGZAToBSQGUAZkBMgFvAXgBlAAAAIMAAAApAfYAAACUACkBPwA0AEkAUQC1ASwAogGnAZ0BSwJFAkgCRQJEArcARAJLAp0ARQJLAkQCrQDkAJ0AggCuAJMAmQCRAJ4AkACsAJwAngGGAaMBugCCAcAATgK6AOUAggG6AE4CVQJkAFICYgJGArkAYgJYAkYCWAJiAmcCUAJbAl4CaQJQAmMCUAJpAlsC9QAoAQkBFAEIARgBBwEnARcBNwE+ATkBRwGNAZIBPgBFAFABUgFGAJABSAFRAY8BOwFVAUoBVQFmAWQBVQE7AWYBAgD4AGgBawI/AXoBawLXAD8BcAGEAXkBMQE9ATYBMQF3AT0BCgFnAfcACgFlAWcBOAGcATUBOAGYAZwBQAHZAAMA1gCFAAEAlQGoAZ8BewCgAakBewCHAaABlwGhAZsBSgBQACgAigGTAY4BkwGqAZYBkwGKAaoBVwCIAWUAVwCkAYgBLwGlAVkALwEzAaUBiQF8AGYAhAKUApcClAKyAYcChAKyAZQCfgIVAHwCfgKBAhUAFQCRAooCjAIVAI4CFQCMApECtAKwApsCbQJ0AnYCbQJ5AnQCtAJwArACcAJ5Am0CcAJyAnkCtAJyAnACogKdAq0CcgKdAqICnQJyArQCoQK3AqgCqwKmAroCxwKuAcUCrgGGArABrgHHAoYCiQI5AhIAOQK8AsECiQK8AjkCvAKJAr4CagDLAlMCrwFPADUArwGxAU8AjAFIACcAjAGRAUgAMgBOAEcAmgGmATQB0wLRAm0A1wJdAHAAXQBNAkkCzwJdANcCXQDPAk0CXgDbAtIA2wJZAmgC2wJeAFkC3wIdANwCLwAkAEUB4gLOANkC0QDgAFwAIgC9ANAAEQEJAC4B6QJbAe8C7wJbAewC5AKWAPMC5ALnApYA9QLqAe0B6gHqAAIC6gD5Al0B/gKlAvwC6gD+AvkC9QLqAOoB/gK5AqUCuQLqAPUC6gC5Av4CEgNfAQEDXwEFAwMDBQMIAwsDDgNfARIDXwEIAwUDDgMIA18B6wBiAUwBAwEQAS0BAQEqAR0BHAF+ASIBHgEsAYABeABNAAYA/ADtAAwB3gAFAEwA3gC1AAUAHgIVAxsBHgIlAhUDFgMNAvoA9wEZAfkBFgP3AQ0CFgMZAfcBeAKAAG4CgAAbA7MAGwN4AhoDgAB4AhsDHgPVAm8AbwB6ALMAbgDfAHkAbgBbAN8AdwDdAEsAQQOiAD0DogArA7EAKwMpAy4DKQOiAEEDKQMrA6IALwMlAyMDJQMgA38AJQMvAyADNwOhADMDoQBCA0UDoQA1A0IDOQOhADcDoQA5AzUDIQNKA4EAbwKyAnECSANvAoEAsgJvAkgDHwByAbsAIQF8AXEBLQAkASEAIwF2ASAAAgH9AA4BQwEgAiABKAJDAU0DIAJDASgCcwHPALwAcwHaAM8AVgFTA1ADVgNgAeoCVgFWA1MDVgFgAVYDQgElAS4AQgEfASUBbAG0ANwA7gARAl4DEQJZAxQCWQP/AFwD/wARAu4AEQL/AFkDSwFhAVcBDQFOAVgBpQBZAZgApQBfA1kBdQF9AWsBKwFtAX8BbQEHALYAbQErAQcATQELAewAagLeAiUAagJlAt4CdAFqAdsAYgMOAHUADgBHA0MDDgBiA0cDwwBVAA0APAI8AGYDPAA6AsICOgI8ADwCiwI7AL8COwBjAFYAYwBoA2oDYwCTAmgDiwJjADsAkwJjAIsCOQBSAIYAbwNDAGwDQwAYAHYAQwBvAxgADABUAGAAXwBCAAsAygCJAMIAcgN1AxYAhwBTAMEAigA0AjoAigA+AjQCigCIAskCigCVAogCqgB+A4wAewOqAHgDqgB7A34DcgAoA0ADFwAoA3IAFwAtAygDggN2A4ADggMXAHYDFwCCAy0DhQN5A6sAiAOfAhwAiAOvAp8CVQOOA1IDVQPIAI4D6ALHAJQDigP0Ao0D6AKKA8cAigPlAvQC5QKKA+gCOgNEAzYDRAPFAA8AxQA6A5ADRAM6A8UAcwMkAycDJAMbADEDJANzAxsAngKbAxoAmwOXA5kDlwOeArUCngKXA5sDDQMQA+8AnQPvAKED8gAJAw8DjgCIAMkAjgCpAIgANwAyAkACQQB0AAoApQNEAGIApQNtA0QAtgLwAJ4DpgODA6cAtgKmA/AAoAKmA7YCpgOnAoMDpwKmA6ACywDrAvACywBXA+sC8wAMAwoD1gKfAM4CnwATAJsAEwAdA7YBnwAdAxMA1AK6AdIC1ALWAroBnwDUAh0D1gLUAp8A9gIrALMB9gLuASsAvQHxAfQB9AHxAf0BEwMkAiECaQAVAr4BWAMqABMCKgBaAwcCKgBYA1oDHQIpAk4DJgEQABUBEAAqApoAEAAmASoCwQGsATUCxAE7AmQDOwIWAREAEwHEASwCxAEWATsCFgHEARMB4gCEANUAhADnAK8AhADiAOcA5ABDAp0A5AC3AEMCnQBMAs0CgwHmAOEAgwFPAuYAUQLdAmQCuABmAmECWAC4AL4AywFYAGgA3QLIAeECyAFYAMsB3QJYAMgBUQJYAN0CXwJYAFECXwK4AFgA2gLOAeMCZgLOAdoCzgG4AF8CzgFmArgAbALjANgA4wB7AYUB4wBsAnsBlQOzApoCFQDTAY8CFQCCAtMBGAMUALcBFACjA3sCawPQAW4DFABrA6MDdQIYA3cCcwJ1AnoCFADQAWsDGAPQARQAdQLQARgDcwLQAXUCcwKGA9ABrgJzAqMChgNzAq4CmAK0AYUCtAG7AvcCuwKiA6wCnwOpArgCuwKfA6IDqAO0AZgCnwOEA6kCtAGfA7sCfAO0AagDtAGEA58DdwN8A3oDtAF3A4QDtAF8A3cDrgHCAcQCagDVAcoCagC/AdUBZwBWAsoBcQC7AdgCzQHOAOICSgJHAl4AXgBHAloCzAEjAMkBIwDWAUQB1gFUAswCVwIjAMwBIwBUAtYBVwJUAiMAzwFdAtQAzwFgAl0CkgOWAOYCkgPZAZYA2wHyApYA2wGLA/IC6QD/AQEC4AFeAQIDXgHeAe0C4AHeAV4B+AIAA1wB4wH9AvsC+ALjAQAD+AL9AuMBpAB4AAYApACyAHgA9QEUAyICGwHyAfoB9QEbARQD8gHvAbwB7wEbAfUBGwHvAfIB+wAaARcD+wAAARoB+QAMAgkC0AK5AWwAswAfA28AuAEcAxkDswC4AR8DswAcA7gBlQAyA6AAlQDYATID5wFGA2EDowDlAT4D5wGjAEYDowDnAeUBfwBxAyYDsABxA38AKgNxA7AAdAOBA38DdAMsA4EDKgN0A3EDLAN0AyoDgQCxAkgDnAKYA5YDgQCcArECmAOBAEkDnAKBAJgD1wEaAkYBGgLAARcCGgLXAcABGQJMA0MBGQIcAkwDTwOXAFYBTwPcAZcACwIIAv4A/gAIAlsD6AAEAv4BBAJdAw8C6ABdAwQCWgEIAA8BCABgA6YACABaAWADxwEeAOACJQBcAmoCJQDTAFwCYwN1AOkBxQFlAzwAvQLAAsMCwwLAAjwAYQCDAn8CjQJnA5ICkAJnA40CYQDUAYMCkAJpA2cDaQPUAWEAaQOQAtQB0QEZAHAD5gHoAXMAOABBAi8CfQOWAosAlgKpA5kClgJ9A6kDigA3Aj8CigDDATcCxgKKAMgCigDGAsMBcgA8A+QBcgA/AzwD0gGHAxwA3QGJA4wDiQPNAMQAzQBUA48DzQBRA1QD3QHNAIkDUQPNAN0BxgDaAZMDNAM7AzgDxgA0A9oBNAORAzsDxgCRAzQDSwOcA5oDGgAiAzADIgOcA0sDIgMaAJwDEQOgA+8AoAOkAqoCoAP6AqQC/wKgAxEDoAPiAfoCoAP/AuIBPQAuAsYBPQAxAi4CgAKkA2IAgAJ9AqQDjQCnA6gAjQDxAKcD8QKPAMwAjwAHA/QABAPfAeEBjwAEAwcD7gKPAPECBAPuAt8BjwDuAgQDBgMMA/MA"),
+"material": SubResource("ShaderMaterial_mojqb"),
+"name": "Rock",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 938,
+"vertex_data": PackedByteArray("vSsCv8hr0b7EHbG9vSsCv8hr0b7EHbG9vSsCv8hr0b7EHbG9vSsCv8hr0b7EHbG9vSsCv8hr0b7EHbG98F55P/pZlr4s594+8F55P/pZlr4s594+8F55P/pZlr4s594+8F55P/pZlr4s594+8F55P/pZlr4s594+en44P4sStb5q1DS+en44P4sStb5q1DS+en44P4sStb5q1DS+en44P4sStb5q1DS+en44P4sStb5q1DS+en44P4sStb5q1DS+zl56PutA3r6WlQa/zl56PutA3r6WlQa/zl56PutA3r6WlQa/zl56PutA3r6WlQa/zl56PutA3r6WlQa/zl56PutA3r6WlQa//K//PqxQ474G0kM+/K//PqxQ474G0kM+/K//PqxQ474G0kM+/K//PqxQ474G0kM+/K//PqxQ474G0kM+/K//PqxQ474G0kM+/K//PqxQ474G0kM++FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/+FWQPiE1Kj9Vjyg/h5PePvIvrz9sQ+y9h5PePvIvrz9sQ+y9h5PePvIvrz9sQ+y9h5PePvIvrz9sQ+y9h5PePvIvrz9sQ+y9h5PePvIvrz9sQ+y9h5PePvIvrz9sQ+y9KM2sPtjffD+0wig/KM2sPtjffD+0wig/KM2sPtjffD+0wig/uEWfPma+6D9k4hS/uEWfPma+6D9k4hS/uEWfPma+6D9k4hS/uEWfPma+6D9k4hS/uEWfPma+6D9k4hS/uEWfPma+6D9k4hS/uEWfPma+6D9k4hS/TmmHPv5jwT7f+BO/TmmHPv5jwT7f+BO/TmmHPv5jwT7f+BO/TmmHPv5jwT7f+BO/TmmHPv5jwT7f+BO/TmmHPv5jwT7f+BO/TmmHPv5jwT7f+BO/s60hPkgwAEBl9hC/s60hPkgwAEBl9hC/s60hPkgwAEBl9hC/piHsPm36Ab8m4qe+piHsPm36Ab8m4qe+piHsPm36Ab8m4qe+piHsPm36Ab8m4qe+TzmvPlUi/z/bMGC+TzmvPlUi/z/bMGC+TzmvPlUi/z/bMGC+TzmvPlUi/z/bMGC+TzmvPlUi/z/bMGC+TzmvPlUi/z/bMGC+LTlHP6kz7b4s594+LTlHP6kz7b4s594+LTlHP6kz7b4s594+72LoPh5k7T/j6r2+72LoPh5k7T/j6r2+72LoPh5k7T/j6r2+72LoPh5k7T/j6r2+NPDdPijiIr7cuhu/NPDdPijiIr7cuhu/NPDdPijiIr7cuhu/NPDdPijiIr7cuhu/NPDdPijiIr7cuhu/iRMhPn9FhT+vEyI/iRMhPn9FhT+vEyI/iRMhPn9FhT+vEyI/iRMhPn9FhT+vEyI/dRbRPu5k8769Vg0/dRbRPu5k8769Vg0/dRbRPu5k8769Vg0/dRbRPu5k8769Vg0/0SHnPrZ5974CuMS+0SHnPrZ5974CuMS+0SHnPrZ5974CuMS+0SHnPrZ5974CuMS+0SHnPrZ5974CuMS+cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/cKh3PteWhj+a/x4/bCyxPmgy/L6OvaY+bCyxPmgy/L6OvaY+bCyxPmgy/L6OvaY+bCyxPmgy/L6OvaY+bCyxPmgy/L6OvaY+bCyxPmgy/L6OvaY+mAAkP635Ab/QTec9mAAkP635Ab/QTec9mAAkP635Ab/QTec9mAAkP635Ab/QTec9mAAkP635Ab/QTec9IFcfP7TvBr9vYJQ+IFcfP7TvBr9vYJQ+IFcfP7TvBr9vYJQ+IFcfP7TvBr9vYJQ+auqoPuHgrz/Algg/auqoPuHgrz/Algg/auqoPuHgrz/Algg/auqoPuHgrz/Algg/0EbEPnWoo74Ogzo+0EbEPnWoo74Ogzo+0EbEPnWoo74Ogzo+v3ycvrYzKr+kxk0xv3ycvrYzKr+kxk0xv3ycvrYzKr+kxk0xv3ycvrYzKr+kxk0xnk3mPn7H3z4ql/++nk3mPn7H3z4ql/++nk3mPn7H3z4ql/++nk3mPn7H3z4ql/++nk3mPn7H3z4ql/++nk3mPn7H3z4ql/++nk3mPn7H3z4ql/++OQAiP8ybEz8SGtW9OQAiP8ybEz8SGtW9OQAiP8ybEz8SGtW9wS70vePzQr/l4bu+wS70vePzQr/l4bu+wS70vePzQr/l4bu+wS70vePzQr/l4bu+wS70vePzQr/l4bu+padGPxCpmjpMC/89padGPxCpmjpMC/89padGPxCpmjpMC/89padGPxCpmjpMC/89QCsMPqzkLr9vsZa+QCsMPqzkLr9vsZa+QCsMPqzkLr9vsZa+d4pYPtqPNb9Flo0+d4pYPtqPNb9Flo0+d4pYPtqPNb9Flo0+d4pYPtqPNb9Flo0+Rw9gP5BSnL6uYZE+Rw9gP5BSnL6uYZE+Rw9gP5BSnL6uYZE+Rw9gP5BSnL6uYZE+Rw9gP5BSnL6uYZE+Rw9gP5BSnL6uYZE+Rw9gP5BSnL6uYZE+UK3qPlKEIT8/AKC+UK3qPlKEIT8/AKC+UK3qPlKEIT8/AKC+UK3qPlKEIT8/AKC+UK3qPlKEIT8/AKC+wS70vePzQr/l4bs+wS70vePzQr/l4bs+wS70vePzQr/l4bs+wS70vePzQr/l4bs+qVMlP0r2+r4j44I+qVMlP0r2+r4j44I+qVMlP0r2+r4j44I+qVMlP0r2+r4j44I+rKJqP+DTmb5RBAY/rKJqP+DTmb5RBAY/rKJqP+DTmb5RBAY/ktMqPl355L7layM/ktMqPl355L7layM/ktMqPl355L7layM/ktMqPl355L7layM/g2/uPrgVFr4A2S4/g2/uPrgVFr4A2S4/g2/uPrgVFr4A2S4/2R40vhB8Cj3o5Vg/2R40vhB8Cj3o5Vg/2R40vhB8Cj3o5Vg/XcE0PzlMUT730rW+XcE0PzlMUT730rW+XcE0PzlMUT730rW+XcE0PzlMUT730rW+XcE0PzlMUT730rW+XcE0PzlMUT730rW+XcE0PzlMUT730rW+5Dg2P1o7vz5u/2W+5Dg2P1o7vz5u/2W+5Dg2P1o7vz5u/2W+5Dg2P1o7vz5u/2W+5Dg2P1o7vz5u/2W+5Dg2P1o7vz5u/2W+Gg6jPhA5n77M1iQ/Gg6jPhA5n77M1iQ/Gg6jPhA5n77M1iQ/Gg6jPhA5n77M1iQ/Gg6jPhA5n77M1iQ/Gg6jPhA5n77M1iQ/Gg6jPhA5n77M1iQ/WCMEvwbfsr6DmqI9WCMEvwbfsr6DmqI9WCMEvwbfsr6DmqI9WCMEvwbfsr6DmqI9WCMEvwbfsr6DmqI92FcfP5LuBr8CuBQ/2FcfP5LuBr8CuBQ/2FcfP5LuBr8CuBQ/2FcfP5LuBr8CuBQ/2FcfP5LuBr8CuBQ/2FcfP5LuBr8CuBQ/2FcfP5LuBr8CuBQ/8OvXvg/c2b7lbsM+8OvXvg/c2b7lbsM+8OvXvg/c2b7lbsM+OL4Wvl6gNL9A+ec+OL4Wvl6gNL9A+ec+OL4Wvl6gNL9A+ec+OL4Wvl6gNL9A+ec+jt0mP5qeej/ANCQ+jt0mP5qeej/ANCQ+jt0mP5qeej/ANCQ+jt0mP5qeej/ANCQ+jt0mP5qeej/ANCQ+jt0mP5qeej/ANCQ+jt0mP5qeej/ANCQ+L0s1P5NPEj9uFxI+L0s1P5NPEj9uFxI+L0s1P5NPEj9uFxI+L0s1P5NPEj9uFxI+L0s1P5NPEj9uFxI+L0s1P5NPEj9uFxI+1TrxvloU1r4IjWO+1TrxvloU1r4IjWO+1TrxvloU1r4IjWO+1TrxvloU1r4IjWO+gHsqPxr3iT86x2U+gHsqPxr3iT86x2U+gHsqPxr3iT86x2U+gHsqPxr3iT86x2U+gHsqPxr3iT86x2U+gHsqPxr3iT86x2U+gHsqPxr3iT86x2U+qvpXP+9Hiz9T1PQ+qvpXP+9Hiz9T1PQ+qvpXP+9Hiz9T1PQ+qvpXP+9Hiz9T1PQ+dMqfvppLUj6TCEW/dMqfvppLUj6TCEW/dMqfvppLUj6TCEW/dMqfvppLUj6TCEW/dMqfvppLUj6TCEW/dMqfvppLUj6TCEW/dMqfvppLUj6TCEW/ooZ/P78PQD9ZveU+ooZ/P78PQD9ZveU+ooZ/P78PQD9ZveU+ooZ/P78PQD9ZveU+ooZ/P78PQD9ZveU+ooZ/P78PQD9ZveU+ooZ/P78PQD9ZveU+auCLPXxqPb6w0h+/auCLPXxqPb6w0h+/auCLPXxqPb6w0h+/rFN6Pg9B3r5Slwa/rFN6Pg9B3r5Slwa/rFN6Pg9B3r5Slwa/rFN6Pg9B3r5Slwa/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/3dcyPw3rkj+KLRM/yZEmP1zvhD+Ouiw/yZEmP1zvhD+Ouiw/yZEmP1zvhD+Ouiw/yZEmP1zvhD+Ouiw/yZEmP1zvhD+Ouiw/pDX0vSryQr8z57u+pDX0vSryQr8z57u+pDX0vSryQr8z57u+pDX0vSryQr8z57u+pap+P7bVQT/g0QM/pap+P7bVQT/g0QM/pap+P7bVQT/g0QM/pap+P7bVQT/g0QM/pap+P7bVQT/g0QM/gjdEvvhHoT9r9R4/gjdEvvhHoT9r9R4/gjdEvvhHoT9r9R4/gjdEvvhHoT9r9R4/6iE/vnj1tD+7xQI/6iE/vnj1tD+7xQI/6iE/vnj1tD+7xQI/6iE/vnj1tD+7xQI/6iE/vnj1tD+7xQI/OzbXvkQAvT+jd2W9OzbXvkQAvT+jd2W9OzbXvkQAvT+jd2W9OzbXvkQAvT+jd2W9OzbXvkQAvT+jd2W9BlLqvlrelD+Qlqc+BlLqvlrelD+Qlqc+BlLqvlrelD+Qlqc+BlLqvlrelD+Qlqc+BlLqvlrelD+Qlqc+huGaPhXkiD9Wbho/huGaPhXkiD9Wbho/huGaPhXkiD9Wbho/huGaPhXkiD9Wbho/huGaPhXkiD9Wbho/f96mvccuBEAtErO+f96mvccuBEAtErO+f96mvccuBEAtErO+f96mvccuBEAtErO+HZFbPzw4Sz/sp1M+HZFbPzw4Sz/sp1M+HZFbPzw4Sz/sp1M+HZFbPzw4Sz/sp1M+oKAhPlMwAEBD9hC/oKAhPlMwAEBD9hC/oKAhPlMwAEBD9hC/oKAhPlMwAEBD9hC/oKAhPlMwAEBD9hC/oKAhPlMwAEBD9hC/oKAhPlMwAEBD9hC/wBhhP63/RD+5gVc+wBhhP63/RD+5gVc+wBhhP63/RD+5gVc+wBhhP63/RD+5gVc+wBhhP63/RD+5gVc+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+ThhYP6WfSD8gWk4+MFu/vuKCqj+EPSG/MFu/vuKCqj+EPSG/MFu/vuKCqj+EPSG/In7lvgj3qz8qcMe+In7lvgj3qz8qcMe+In7lvgj3qz8qcMe+In7lvgj3qz8qcMe+TjQ8P1+v273EDiY/TjQ8P1+v273EDiY/TjQ8P1+v273EDiY/TjQ8P1+v273EDiY/D2ScvhTWhD+n9is/D2ScvhTWhD+n9is/D2ScvhTWhD+n9is/hqUtP+pIt71gAys/hqUtP+pIt71gAys/hqUtP+pIt71gAys/hqUtP+pIt71gAys/hqUtP+pIt71gAys/hqUtP+pIt71gAys/466uvm7cgT/4YB4/466uvm7cgT/4YB4/466uvm7cgT/4YB4/466uvm7cgT/4YB4/466uvm7cgT/4YB4/iTNSP2BkXz/ZRyw/iTNSP2BkXz/ZRyw/iTNSP2BkXz/ZRyw/iTNSP2BkXz/ZRyw/iTNSP2BkXz/ZRyw/fCCbvqBDHz2imUg/fCCbvqBDHz2imUg/fCCbvqBDHz2imUg/fCCbvqBDHz2imUg/fCCbvqBDHz2imUg/vlEXPsRytD985hI/vlEXPsRytD985hI/vlEXPsRytD985hI/vlEXPsRytD985hI/OqJ6PhJhyD9xCTA9OqJ6PhJhyD9xCTA9OqJ6PhJhyD9xCTA9udS+PWdXA0DbDPC9udS+PWdXA0DbDPC9udS+PWdXA0DbDPC9udS+PWdXA0DbDPC9udS+PWdXA0DbDPC9HFkdvd3HA0DOuAe+HFkdvd3HA0DOuAe+HFkdvd3HA0DOuAe+QIRFvl6n1j8FpSQ9QIRFvl6n1j8FpSQ9QIRFvl6n1j8FpSQ9QIRFvl6n1j8FpSQ9QIRFvl6n1j8FpSQ9z4bWvYcyuz8H5A0+z4bWvYcyuz8H5A0+z4bWvYcyuz8H5A0+z4bWvYcyuz8H5A0+9maPvWxrvD+9YA8+9maPvWxrvD+9YA8+9maPvWxrvD+9YA8+9maPvWxrvD+9YA8+9maPvWxrvD+9YA8+EJjTPQ6EtD9OjxM/EJjTPQ6EtD9OjxM/EJjTPQ6EtD9OjxM/EJjTPQ6EtD9OjxM/EJjTPQ6EtD9OjxM/NCq8Pa9SwT8eCew9NCq8Pa9SwT8eCew9NCq8Pa9SwT8eCew9NCq8Pa9SwT8eCew9kDqOPiouMT/9uw2/kDqOPiouMT/9uw2/kDqOPiouMT/9uw2/kDqOPiouMT/9uw2/6GjUPv5BKD9meva+6GjUPv5BKD9meva+6GjUPv5BKD9meva+6GjUPv5BKD9meva+6GjUPv5BKD9meva+6GjUPv5BKD9meva+7z67PuFs474rG5E+7z67PuFs474rG5E+7z67PuFs474rG5E+xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+Wi7gPmhLjz+qA7g+Wi7gPmhLjz+qA7g+iQqMPtpxgz9dPRM/iQqMPtpxgz9dPRM/iQqMPtpxgz9dPRM/RtGJPpUezT494gu/RtGJPpUezT494gu/RtGJPpUezT494gu/GwCEPlapkD4CJgy/GwCEPlapkD4CJgy/GwCEPlapkD4CJgy/2dWBPlU2Rj8yrRw/2dWBPlU2Rj8yrRw/2dWBPlU2Rj8yrRw/AAWHPiTSWD+vqhs/AAWHPiTSWD+vqhs/AAWHPiTSWD+vqhs/q1CYPu/tn7501BM/q1CYPu/tn7501BM/q1CYPu/tn7501BM/thmcPm/0yb5L0yq+thmcPm/0yb5L0yq+thmcPm/0yb5L0yq+hDGPPjTBnL7bMNe+hDGPPjTBnL7bMNe+i+qJPnOTgT9MPBU/i+qJPnOTgT9MPBU/i+qJPnOTgT9MPBU/gJxEP0Naczo2KPs9gJxEP0Naczo2KPs9gJxEP0Naczo2KPs9JcBNP0Wcoz5PmB8+JcBNP0Wcoz5PmB8+JcBNP0Wcoz5PmB8+9RBIP2Jk4T6R3iM+9RBIP2Jk4T6R3iM+MJxFP2KZ6j7v/SI+MJxFP2KZ6j7v/SI+8bwoP3BbFD8Ovgo+8bwoP3BbFD8Ovgo+V6s2P/ZmmL5XU14+V6s2P/ZmmL5XU14+V6s2P/ZmmL5XU14+kyo+P0cAir6xcmA+kyo+P0cAir6xcmA+kyo+P0cAir6xcmA+SgETPzBqTT+ocgU+SgETPzBqTT+ocgU+SgETPzBqTT+ocgU+wz8TP38tSz8PFQU+wz8TP38tSz8PFQU+Wi7gPmhLjz+rA7g+Wi7gPmhLjz+rA7g+Wi7gPmhLjz+rA7g+KuvgPj0Jjz+VbLU+KuvgPj0Jjz+VbLU+KuvgPj0Jjz+VbLU+WS7gPmhLjz+sA7g+WS7gPmhLjz+sA7g+xivjPis/jj+fg60+xivjPis/jj+fg60+T5bhPkPNjj+OE7M+T5bhPkPNjj+OE7M+T5bhPkPNjj+OE7M+HwLoPnu1jT+7VpM+HwLoPnu1jT+7VpM+KdoLPykvZD+QxAQ+KdoLPykvZD+QxAQ+KdoLPykvZD+QxAQ+hAQOP4BKXT9F+QQ+hAQOP4BKXT9F+QQ+hAQOP4BKXT9F+QQ+KdoLPykvZD+RxAQ+KdoLPykvZD+RxAQ+2CzyPtK1iT//L2Y+2CzyPtK1iT//L2Y+2CzyPtK1iT//L2Y+HkHtPmqljD/lg3U+HkHtPmqljD/lg3U+HkHtPmqljD/lg3U+YojqPgMUjT8adYg+YojqPgMUjT8adYg+YojqPgMUjT8adYg+TlAHPzfObz8dxRo+TlAHPzfObz8dxRo+TlAHPzfObz8dxRo+D2ICP1ZufD9arDI+D2ICP1ZufD9arDI+D2ICP1ZufD9arDI++auPPtYbhj+bTBE/+auPPtYbhj+bTBE/+auPPtYbhj+bTBE/uMGUPgHXiT/blA4/uMGUPgHXiT/blA4/uMGUPgHXiT/blA4/kkedPpHQij+88Ag/kkedPpHQij+88Ag/kkedPpHQij+88Ag/ewjVPhwxkT+cE8g+ewjVPhwxkT+cE8g+ewjVPhwxkT+cE8g+QMDaPv03kD+R1r8+QMDaPv03kD+R1r8+QMDaPv03kD+R1r8+Oz3ZPtt5kD8yBMI+Oz3ZPtt5kD8yBMI+Oz3ZPtt5kD8yBMI+yQG8Pk9Ujj+DNOk+yQG8Pk9Ujj+DNOk+yQG8Pk9Ujj+DNOk+K3KdPfLBFb9Otee+K3KdPfLBFb9Otee+lTCFPmgQrj60bgy/lTCFPmgQrj60bgy/lTCFPmgQrj60bgy/MmWGPrbdyz5juAy/MmWGPrbdyz5juAy/MmWGPrbdyz5juAy/MmWGPrfdyz5juAy/MmWGPrfdyz5juAy/MmWGPrfdyz5juAy/YUOJPp3qzD7sBAy/YUOJPp3qzD7sBAy/YUOJPp3qzD7sBAy/ZleHPsiycj5R2Aq/ZleHPsiycj5R2Aq/ZleHPsiycj5R2Aq/2HiGPpHUfj4lLwu/2HiGPpHUfj4lLwu/LceHPlxfzD7cYQy/LceHPlxfzD7cYQy/LceHPlxfzD7cYQy/MmWGPrbdyz5juAy/MmWGPrbdyz5juAy/MmWGPrbdyz5juAy/I0mAPmbuAr+kyQM/I0mAPmbuAr+kyQM/GK3DPl355L4kBAk/GK3DPl355L4kBAk/GK3DPl355L4kBAk/sa7DPn7/5L7H/wg/sa7DPn7/5L7H/wg/sa7DPn7/5L7H/wg/nZ/FPk9z7L5PsQM/nZ/FPk9z7L5PsQM/nZ/FPk9z7L5PsQM/aLlpvsUSg73IhD8/aLlpvsUSg73IhD8/q6iJPjBvkT6XPRk/q6iJPjBvkT6XPRk/AAWHPibSWD+vqhs/AAWHPibSWD+vqhs/AAWHPibSWD+vqhs/AAWHPiXSWD+vqhs/AAWHPiXSWD+vqhs/AAWHPiXSWD+vqhs/9PqmPvVHt74uLBA/9PqmPvVHt74uLBA/9PqmPvVHt74uLBA/uKiJPi9vkT6UPRk/uKiJPi9vkT6UPRk/uKiJPi9vkT6UPRk/oayVPvTQUb4HzhQ/oayVPvTQUb4HzhQ/oayVPvTQUb4HzhQ/Da3DPlT55L4nBAk/Da3DPlT55L4nBAk/dpqEPufPGT/9dRs/dpqEPufPGT/9dRs/dpqEPufPGT/9dRs/TECiPjTAr74aWhE/TECiPjTAr74aWhE/TECiPjTAr74aWhE/efGIPthlqD4Pjhk/efGIPthlqD4Pjhk/9K7avpWLP77iQL8+9K7avpWLP77iQL8+6i+9PnWoo74tvD0+6i+9PnWoo74tvD0+6i+9PnWoo74tvD0+kDXQPgdvRL18iCU+kDXQPgdvRL18iCU+kDXQPuVuRL10iCU+kDXQPuVuRL10iCU+YGO2PhOHq76FSec9YGO2PhOHq76FSec97wK9Puptqb4v1EY+7wK9Puptqb4v1EY+7wK9Puptqb4v1EY+6i+9PnKoo74svD0+6i+9PnKoo74svD0+RdKNPhkpz75VaK6+RdKNPhkpz75VaK6+RdKNPhkpz75VaK6+hF6NPghFzb4CQrO+hF6NPghFzb4CQrO+hF6NPghFzb4CQrO+8keOPvEEtb4VOMW+8keOPvEEtb4VOMW+8keOPvEEtb4VOMW+aETDPtGy4j4A8Pq+aETDPtGy4j4A8Pq+ZkTDPsyy4j4F8Pq+ZkTDPsyy4j4F8Pq+ZkTDPsyy4j4F8Pq+9AicPqEDRb1bkgK/9AicPqEDRb1bkgK/9AicPqEDRb1bkgK/9AicPqkDRb1bkgK/9AicPqkDRb1bkgK/9yeVPtHOPr4mh+y+9yeVPtHOPr4mh+y+9yeVPtHOPr4mh+y+9AicPqcDRb1bkgK/9AicPqcDRb1bkgK/9AicPqcDRb1bkgK/Z0TDPs6y4j4D8Pq+Z0TDPs6y4j4D8Pq+Z0TDPs6y4j4D8Pq+aETDPtOy4j7+7/q+aETDPtOy4j7+7/q+aETDPtOy4j7+7/q+dgbYPtKyBz1qVh0+dgbYPtKyBz1qVh0+dgbYPtKyBz1qVh0+2fzXPhoCsD2tkNE92fzXPhoCsD2tkNE92fzXPhoCsD2tkNE9CbADP+rcIT/GiIA6CbADP+rcIT/GiIA62fzXPhgCsD2tkNE92fzXPhgCsD2tkNE9TRcIPz+5Gj8aU9s9TRcIPz+5Gj8aU9s9TRcIPz+5Gj8aU9s9hj76PkctIj+TOfK9hj76PkctIj+TOfK9hj76PkctIj+TOfK9vYwHP5GSHD8nHLk9vYwHP5GSHD8nHLk9vYwHP5GSHD8nHLk92fzXPhkCsD2tkNE92fzXPhkCsD2tkNE92fzXPhkCsD2tkNE9st3WPmPgrDyXjR4+st3WPmPgrDyXjR4+st3WPmPgrDyXjR4+lljYPq9BtD0RENQ9lljYPq9BtD0RENQ9lljYPq9BtD0RENQ9n6sEPxPrIT/MGpc8n6sEPxPrIT/MGpc8n6sEPxPrIT/MGpc8ZFQRP/3TQT+NyAA+ZFQRP/3TQT+NyAA+ZFQRP/3TQT+NyAA+9AicPocDRb1bkgK/9AicPocDRb1bkgK/9AicPoYDRb1bkgK/9AicPoYDRb1bkgK/9AicPoYDRb1bkgK/ui6VPmKxPT2yTwW/ui6VPmKxPT2yTwW/ui6VPmKxPT2yTwW/zm+iPuhd1j7YtAW/zm+iPuhd1j7YtAW/zm+iPuhd1j7YtAW/e3anPjNB2D7/cQS/e3anPjNB2D7/cQS/e3anPjNB2D7/cQS/9+WHPrmpZT83txk/9+WHPrmpZT83txk/9+WHPrmpZT83txk/vFrGPjlB774WsgE/vFrGPjlB774WsgE/vFrGPjlB774WsgE/xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+xZ6wPpeY+76jZaY+JWK0Po91+b6if7Y+JWK0Po91+b6if7Y+JWK0Po91+b6if7Y+q1CYPu/tn7501BM/q1CYPu/tn7501BM/q1CYPu/tn7501BM/2dWBPlQ2Rj8yrRw/2dWBPlQ2Rj8yrRw/2dWBPlQ2Rj8yrRw/2dWBPlU2Rj8yrRw/2dWBPlU2Rj8yrRw/2dWBPlU2Rj8yrRw/q1CYPu/tn7501BM/q1CYPu/tn7501BM/MplEP7SdCjt2Uvs9MplEP7SdCjt2Uvs9y5pEP10FyjoJPvs9y5pEP10FyjoJPvs9y5pEP10FyjoJPvs9KFRPP3zdxz54uiY+KFRPP3zdxz54uiY+KFRPP3zdxz54uiY+TXtNP4Zbzj5SACY+TXtNP4Zbzj5SACY+TXtNP4Zbzj5SACY+u35NP3lPzj6sASY+u35NP3lPzj6sASY+u35NP3lPzj6sASY+vJlHP/mU2T3Iygg+vJlHP/mU2T3Iygg+vJlHP/mU2T3Iygg+LFcTP+tWSj/+8QQ+LFcTP+tWSj/+8QQ+LFcTP+tWSj/+8QQ+8bwoP3FbFD8Ovgo+8bwoP3FbFD8Ovgo+B2IfP3cuFj/OaAI+B2IfP3cuFj/OaAI+B2IfP3cuFj/OaAI+23UkPycmHz9elQk+23UkPycmHz9elQk+2kYpP+s9FD/vUQs+2kYpP+s9FD/vUQs+2kYpP+s9FD/vUQs+3fA6P1fgCD8jNxw+3fA6P1fgCD8jNxw+3fA6P1fgCD8jNxw+D4o3PygeDz8MDho+D4o3PygeDz8MDho+D4o3PygeDz8MDho+bpk2P2YpED82Rhk+bpk2P2YpED82Rhk+bpk2P2YpED82Rhk+sik3Py2JDz8Fvhk+sik3Py2JDz8Fvhk+uWc0PyHcET+5QBc+uWc0PyHcET+5QBc+uWc0PyHcET+5QBc+fEMuP6ksEz/YqhA+fEMuP6ksEz/YqhA+fEMuP6ksEz/YqhA+Q3bZPiZwkD8GssE+Q3bZPiZwkD8GssE+Q3bZPiZwkD8GssE+3SvjPis/jj+ng60+3SvjPis/jj+ng60+5pK8PvTNt77Fel0+5pK8PvTNt77Fel0+5pK8PvTNt77Fel0+t5vBPngGsL5wCk8+t5vBPngGsL5wCk8+IIyzPv7v9L4iiKA+IIyzPv7v9L4iiKA+IIyzPv7v9L4iiKA+dDPwPi/yZb4+GSE+dDPwPi/yZb4+GSE+dDPwPi/yZb4+GSE+zUUBP28nur57wVE+zUUBP28nur57wVE+DLIBP97xwr4tkVc+DLIBP97xwr4tkVc+DLIBP97xwr4tkVc+UzEnP+UCr75uGlU+UzEnP+UCr75uGlU+hucOP9vLwb7PgFo+hucOP9vLwb7PgFo+Cu4bP+G4t752m1c+Cu4bP+G4t752m1c+Cu4bP+G4t752m1c+h0HyPs3kdb6ejCY+h0HyPs3kdb6ejCY+h0HyPs3kdb6ejCY+8KtGP7vCor1hxCM+8KtGP7vCor1hxCM+8KtGP7vCor1hxCM+qexHP7cxKr6i/Es+qexHP7cxKr6i/Es+jBxHP7Hqxb2p6ys+jBxHP7Hqxb2p6ys+RYZHP44lB77gNTw+RYZHP44lB77gNTw+RYZHP44lB77gNTw+ZUszPw9Vnb6HUFw+ZUszPw9Vnb6HUFw+ZUszPw9Vnb6HUFw+yTwvP1JCo76i5Vk+yTwvP1JCo76i5Vk+yTwvP1JCo76i5Vk+BxFIP4OFPL5RcVI+BxFIP4OFPL5RcVI+BxFIP4OFPL5RcVI+1A5GPx1FTr68SFU+1A5GPx1FTr68SFU+1A5GPx1FTr68SFU+BoXMPpMJBr5u9Ss+8mjvPrSwTb4oGiA+8mjvPrSwTb4oGiA+8mjvPrSwTb4oGiA+UuG5PggWjj9CBew+UuG5PggWjj9CBew+UuG5PggWjj9CBew+F+ZOP5nwtz7Z5CM+F+ZOP5nwtz7Z5CM+F+ZOP5nwtz7Z5CM+X/tOP2FpuT6HNCQ+X/tOP2FpuT6HNCQ+X/tOP2FpuT6HNCQ+ubhPP96Bxj53+SY+ubhPP96Bxj53+SY+ubhPP96Bxj53+SY+8YL7Ps4jhD8fG0k+8YL7Ps4jhD8fG0k+J0L3Pmqthj+TWlY+J0L3Pmqthj+TWlY+J0L3Pmqthj+TWlY+KdoLPyovZD+SxAQ+KdoLPyovZD+SxAQ+LQpkPye4Lb7R95s+LQpkPye4Lb7R95s+pndEPwZTXL6/iFc+pndEPwZTXL6/iFc+pndEPwZTXL6/iFc+D+eFPopjgz4GaAu/D+eFPopjgz4GaAu/D+eFPopjgz4GaAu/9AicPqsDRb1bkgK/9AicPqsDRb1bkgK/hDGPPjPBnL7bMNe+hDGPPjPBnL7bMNe+CRaOPn1E0L5qkau+CRaOPn1E0L5qkau+CRaOPn1E0L5qkau+NheSPrR2zr4B85K+NheSPrR2zr4B85K+NheSPrR2zr4B85K+YggCP9L0yb7EM1w+YggCP9L0yb7EM1w+YggCP9L0yb7EM1w+hecOP9vLwb7PgFo+hecOP9vLwb7PgFo+hecOP9vLwb7PgFo+8CzkPnPHID/TdJ++8CzkPnPHID/TdJ++8CzkPnPHID/TdJ++8CzkPnPHID/TdJ++8CzkPnPHID/TdJ++EfnYPhCCED9D0Lu+EfnYPhCCED9D0Lu+EfnYPhCCED9D0Lu+hecOP9vLwb7PgFo+hecOP9vLwb7PgFo+hecOP9vLwb7PgFo+hecOP9vLwb7PgFo+yR/vPlZxIj8Eh2C+yR/vPlZxIj8Eh2C+yR/vPlZxIj8Eh2C+p6agPiBNtr7/rRW+p6agPiBNtr7/rRW+p6agPiBNtr7/rRW+MplEPzijCjtNUvs9MplEPzijCjtNUvs9VARKPwKdQj5hwBE+VARKPwKdQj5hwBE+VARKPwKdQj5hwBE+ubhPP9yBxj5t+SY+ubhPP9yBxj5t+SY+VlJHP5RT7b1VZTQ+VlJHP5RT7b1VZTQ+4ZpEP9QBxjrxPPs94ZpEP9QBxjrxPPs94ZpEP9QBxjrxPPs90pbjPvnFHD5JNhE+0pbjPvnFHD5JNhE+0pbjPvnFHD5JNhE+P5DuPuq7M74vCR8+P5DuPuq7M74vCR8+P5DuPuq7M74vCR8+19bbPgG3FT0ve+M919bbPgG3FT0ve+M9qPYFP7T9IT+rrSk9qPYFP7T9IT+rrSk9qPYFP7T9IT+rrSk9AmsHP8kFHT8JyLA9AmsHP8kFHT8JyLA9AmsHP8kFHT8JyLA9YAGOPhbuz74Lb6y+YAGOPhbuz74Lb6y+YAGOPhbuz74Lb6y+ELADP+fcIT8EfYA6ELADP+fcIT8EfYA6lsvUPrdwCj9vY8a+lsvUPrdwCj9vY8a+eTVbO4JjXsLOPUlQYoIKzUwBb2PDZTHDpwUCjVF4Or+1BeCF33+OwBOvoUlM+tbnockTL7IFJ5iBuCp74v6j3bf9X1BzBSWW2vYtfU6x3f3pwo4vAACDkozNfC/AAiuZIeLYMvEQ0efo8ZZA6AFpmyzWh1mWG1+Eof1JbSYI34fhyTkd+QHPprT8wimuAQeqs/x+KoU31+hb1cZJXwG/98DwVmLpARD4QfFYYqIELfirjn5ZU+EVonCTflee2ULUvFqgMaei9b6cVpE10J/UvsMzB30ho+TRZjC3fUmgC9OWL3V76Kcexv9//38AAACA/3///////7/ShhCFnfgcuW97KX/R0s6q4nnDgNHmELbIZ5R9eOZ2v7RHIItzoq/lW0GlijGr8NVeLUh8WoVr8/iot8MD9oGYeK/dlzNY2/fsyBiRdGCJ+TXUOZI43sWN09Zfm9TVnosE9TqlOgYL8oT64XsgmCL+4nnDgNHmELZbd/S1fer1vVtBpYoxq/DVCfTf/IAH+8Tw/UohsAAs0ZfBUN8hAaDftPzCKR4BNaoT0SzKXTJf5Lv/yL+/JETpJwaV++IKE8P/////AAAAgP9///////+/pvFP4TnaHz68SQ//uflySIYYXC5nRrnUdg45OLJGN7pWBF2PrnZ0yIqGc/kNCyXDE9Esyl0yX+QnBpX74goTw+nCji8AAIOSjM18L8ACK5m8WqAxYKFwvzhElyRZTv+/ioZz+QAAAIBXnKnrVAhw4JfBUN8hAaDfeK/dl6RYyfkT0SzKXTJf5OzIGJF0YIn5MKUwJQGA/z8Tr6FJTvrX56HJEy+yBSeYl8FQ3yEBoN+7/8i/vibD6ezIGJF0YIn5hPrheyCYIv6m8U/hOdofPtL0ds/Pyv0/IeLYMvEQ0efo8ZZA6AFpm4YYXC4zSr/aNIqLkL/xY81YqyuACPhW2O9+n54iHU8sd31nksUFNzvFbeEXnKmgvoBsRlJC4Qe/8UGWUjue/cDwQZdSPZ79wIzNfC/AAiuZIeLYMvEQ0efsKEke8VYYrThElyRZTv+/hhhcLpRAarv/f///////vzSKi5DZ8VXN0ZaNkffBwer///Lg////v1irK4Bf8jXa7catemjkk5RtytqEbeRnlDXUOZK95g6O/3///////7//f///////v8Vt4RczlBjBxTF+DrYX/7/xQZZSO57+wPBBlVI5nv3AcJN+V57ZQtShoehYBtuS2+nCji8AAIOSLNaHWZYbX4S8WqAxTaO3vjClMCUBgP8/ockTL7IFJ5jFbeEXHIErw8Uxfg62F/+/ZYOF5pzvm/DRlo2R98HB6viot8M97zmbNdQ5kidn3xpA4mUGeNyDK8Uxfg62F/+/kgWrFrQX/79IVLYr//8AAHk1WztiY33CWEEfTFubVbvOPUlQYoIKzabxT+E52h8+0vR2z8/K/T+j2fzL4rPoPl7g7cpKuApFvEkP/wznYjqJPlP6jPehOsY23e6+5Jpjgano3XsCooij2fzLvrXuQN7Z5rnneX0neZF6Ef/////dpdod8ACr8+HJOR0JAtCmSFS2K///AAB5NVs7YmN9wsbeDBOKBB2yZ/gP6UkKUa8M+Tvl+koy6UP8ukkyIpWT3aXaHfAAq/PhyTkd9QHOplvVxklfAb/3eZF6Ef////8QliJE/v+51N2l2h3wAKvzW9XGSV8Bv/fG3gwTtsUoTsbhyxbOukhS5uUsGJbItdj05kYdPrZ6U6HJEy+yBSeYQ/y6Sb8KAJi3/V9Q7QUQloupVt5mmo5Agano3ZCa9kCj2fzLIKmQOMY23e4z4odluWaG6Ot8usB5kXoR/////xCWIkT+/7nUSFS2K///AABYQR9MI5qKvEDiZQbj3jwt5uUsGK3d8EGhyRMvsgUnmMUxfg62F/+/1p5dazHd3p0Tr6FJTPrW54G4KnuN+3neEJYiRP7/udRYqyuApPwwqfSs/3////8/km0TWQM1mijShhCFnfgcuZ2HBGnP/7TEyGeUfXjmdr9YqyuAh/LapXd9Z5JQ7LG4km0TWZvg/sHS9HbPz8r9P17g7cpKuApF6PGWQOgBaZvv/LpoAgdL9qH9SW0nB+2HyvsBkXMFkfl/+nuRUQPS+YSs//8AAACAo9n8y9G1iEVe4O3KSrgKRUzZE7qnAKyN3tnmueoCJI3v/Lpo1gMA9v9///////+/nYcEafnhRs/IZ5R9eOZ2v4BsRlJC4Qe/8EGXUjue/cBeLUh8WoVr8/0ifHo8nv3AWEEfTPKcwrnOPUlQYoIKzQMiAH8yoN295R1wgIeczb2nBQKNUXg6v52HBGn02tzR0JYbbKLwBKvWnl1rMd3enTClMCUBgP8/E6+hSU361+fFbeEXapX2wIBsRlJC4Qe/qFZdXy8tRXBYQR9Mc5s8u+UdcICQBD4OEJYiRP7/udSSbRNZPzWLKKhWXV8XutqfWEEfTCOairwW3f//////v3L51ehE1vc1ifnZ5nTZ3zhV97TjHsh+Uj3K5MourzhMh+gLyNK1yUscLJb8FtZJMYyIJdSd/bjPi6lW3uaVeD+BqejdewKiiHWgO7b43rqmh7S9szVZhUDe2ea5cnBhIxMeVTGWYsaqeTVbO55jQ8KTAZFgwGIuwkwBb2PDZTHDjJXb9cWRkcThmrT06YiFx7mgcvMgjIg2h+gLyNK1yUtK4uPGwY+9JRoyUP8tK93MHCyW/IsdMci5oHLzIIyINgGvaJstVOf8SuLjxsGPvSWt1xCosEBD8Qn03/yAB/vE8P1KIbAALNGEDSv89QoTw/AkgwQmLXXe5SU2B2YNJ8MTHlUxlmLGqpMBkWDAYi7CPcrkyi6vOEyH6AvI0rXJS1LROMdTsM9RSuLjxsGPvSW3/V9QhSxY8a3XEKiwQEPx2vYtfU6x3f3w/UohsAAs0bT8wikeATWq5SU2B2YNJ8PhyTkd/AHPprT8wimBARWq8CSDBCYtdd7lJTYHZg0nw+GatPRz2oxCuaBy8yCMiDYwrPvwb1xLzpaj9aOH3WqjAa9omy1U5/wwuE2l797amFt39LWc6v+9KG8P3GWzT72UgEN/0u4bt5aj9aOH3Wqjb3spf9HSzqriecOA0eYQtlt39LWY6v694ck5HQAAAIDwJIMEJi113hMeVTGWYsaqeTVbO2hjd8IBr2ibLVTn/IG4KnuT42OaMLhNpe/e2pit1xCosEBD8dr2LX1Osd39736fngAaWi53fWeSxQU3OzZIW6B6CrYWbUB9piuna8fvfp+evhZ6MB1+4O82A/IrPGuXxMMdxA42SFugSgLOGShGr6m9GaUKPGuXxKkkiggoRq+pvRmlCgNEqarNbYKjZCX9w4ZSCbG1BeCFJX+TuDZIW6AiDlUVKEavqb0ZpQoDIgB/MqDdvacFAo1ReDq/tQXghcOBLtRbd/S1hur4vShvD9xls0+9tEcgi0ahE+dbQaWKMavw1ag48aBdfwxb+4W8928F2c0bm0Ht/AwT1gNEqaoJbVCjZCX9w91Roazs9dvkdrYyYFX3tOMeyH5SPcrkyi6vOExS0TjHU7DPUQn03/yAB/vEioZz+Q0LJcMbm0Ht/AwT1lecqetUCHDghA0r/PUKE8MnBpX74goTw2Ql/cOtUg6yDPk75fpKMuns9dvkdrYyYFLROMdTsM9RQ/y6SdYZKJW3/V9QzCdz8Gf4D+lKPICZfvnY52dAv5eJ+dnmVT3NmBv50OZWP82Xm/k15RNAPJcM+Tvl+koy6ez12+R2tjJgVfe04x7IflKEDSv89QoTw2Ql/cP+W8/EkwGRYMBiLsJkJf3Dw1NLuZMBkWDAYi7CTAFvY8NlMcO1BeCFoX3Tp9CWG2yi8ASrF54Oey7+TNDWnl1rMd3enYG4KnsM+zOhd31nkmuia5htQH2mK6drxz81MoWXBAsYlIBDf9LuG7fShhCFnfgcuZ2HBGm346jO0JYbbKLwBKsXng57Lv5M0G97KX/R0s6qNkhboKkU3hJtQH2mK6drxz81MoWXBAsYAyIAf40EEBDlHXCAkAQ+DpSAQ3/S7hu3F54Oey7+TNCWo/Wjh91qo4G4Knvh3gaZMLhNpe/e2ph3fWeSxQU3O5JtE1mXKVMrqFZdXxe62p8/NTKFlwQLGOUdcICLnNa9K4L77jn+uc5lg4Xmhuwn+DSKi5Cv8PLN0ZaNkffBwerOhUylZhliRviot8Oj7nebeK/dl1ZYdvj7hbz3bwXZzc6FTKWugD1sG5tB7fwME9ZXnKnrVAhw4Hiv3ZfNWH/6+4W8928F2c3OhUyl0FFSWwNEqaqqbDijv4Igqmy/I/HOhUyltB37R4RzzaB2EmgsPGuXxBUt8AADRKmqnm12ox1+4O82A/IrhHPNoHYSaCw8a5fE3iEPC0VoFdMzGXFQK4L77jn+uc6/giCqbL8j8WWDheaZ9oPfhHPNoHYSaCxFaBXTMxlxUCuC++45/rnONIqLkIXwCc7vfp+eMhuTLR1+4O82A/IrRWgV0zMZcVC/giCqbL8j8WWDheam+Q7YzoVMpWERaEP4qLfDQOSjn7T8wCkmATSqtPzCKR4BNaqz/H4qhTfX6Lv/yL/FN/rts/x+KoU31+i7/8i/YDqf7lb2sk////+/BPU6pToGC/JG7vNaLxkC+YT64XsgmCL+W9XGSV8Bv/fA8FZiSwH798Uxfg62F/+//3///////79b1cZJXwG/9/BBlVI5nv3AMKz78P///7/T1l+b////P+3GrXpo5JOUbcrahG3kZ5SoOPGgVpmHRbT8wCkmATSqs/x+KoU31+i8SQ//6eePOrT8wikdATWqdg45OB9C1b1WBF2PrnZ0yP9///////+/WKsrgHH4M9i0RyCLzKW74f//8uD///+/WKsrgJ73edi0RyCLzKW74f9///////+/WKsrgOb+D9b9Inx6PJ79wMDwVmJ0B8r4nFaRNdCf1L6WL3V76KcexkHxWGLxBDf47ChJHvFWGK1tytqEbeRnlLRHIIsQoVPnqDjxoO6CUljG3gwTigQdsmf4D+kqBY2xyvsBkccEi/ln+A/pZwvUrgz5O+X4SjHp7/y6aLIBO4ob+dDmMT22mN7Z5rm1SknqG/nQ5sE+DJje2ea590Tf6oyIJdSf/bbPfvnY5////79wk35XntlC1PTmRh1dtHVUoaHoWAbbktv05kYdsbY+U6Gh6FgG25LbLNaHWZYbX4SJ+dnm4tzmOtPWX5u22GyLBPU6pToGC/KJ+dnmxXO+9wT1OqU4BgvyMKz78MJnAc811DmSodV8jdPWX5tA1aeLMKz78LtnAM811DmSbdaCjdPWX5tA1aeLMKz78E1YCc411DmSwt7KjeGatPRz2oxCNdQ5krfWhY3hmrT0PWYSyDCs+/C4ZwDPNdQ5kmvWgo011DmSF9aAjdPWX5tA1aeLFt3//////79y+dXoRNb3NdPWX5sY2HaLcvnV6ETW9zWJ+dnm49XENtPWX5ud2G6LFt3//////7/T1l+b////PzXUOZI81XiN09Zfm6HUsosaMlD/LSvdzIyV2/XFkZHENdQ5kiDYkY0aMlD/LSvczIyV2/XFkZHE4Zq09OmIhcc11DmSgtmdjRbd//////+/09ZfmxPYd4scLJb8dRonx9PWX5tw14KL09ZfmzbXhoscLJb8yWV7H+3GrXpo5JOUNdQ5kqPdwI2oOPGgz2U0mjXUOZJm+7+OKG8P3AAAAICoOPGgFoC1WjXUOZID/cyOKG8P3ODqYxVzTgihAAAAgDCs+/AtVMfNNdQ5kkroG44obw/cZbNPvf9//3+izq1YMKz78P5W9M011DmSANRujf9//38AAACAMKz78P5W9M011DmS/94ycjXUOZIV95qOKG8P3GWzT71zTgihAAAAgOHJOR2oAcqm4ck5HfUBzqa0/MIpHQE1qrT8wikcATWqVgRdj652dMj/f///////v7T8win///+/VgRdj652dMj//////38AALT8wikcATWqvEkP/5H7Ska0/MApJgE0qrT8wikfATSqvEkP//znkzq0/MIpHgE1qrP8firchf8Adg45OOhDbLy0/MIpHwE0qnYOOTgNQuO9tPzCKRsBNqq8SQ//DuYuOrxJD//855M6//////9/AAD/f///////v7T8win///+/EJYiRP7/udQQliJE/v+51BCWIkT+/7nU9Kz/f6nTI5vwQZdSP577wBCWIkS9b2Up8UGWUjye/cDwQZdSQ574wBCWIkT+/7nUEJYiRP7/udTxQZZSO579wJJtE1noK8UqqFZdXxe62p+dpuN+h/k9qlirK4C86r3c/3///////79tytqEbeRnlLRHIIsSm2fu/3///////7////Lg////v7RHIIv///8/9Kz/f2O+PJTwQZdSPZ78wPBBl1I9nv3Anabjfof5PapeLUh8WoVr8/0ifHpRntjAnabjfgAAAIBYqyuAV/zo1v0ifHrwij2NWKsrgP3/S6r0rP9/qdMjm52m434AAACAWKsrgMWzKJFeLUh8tId2flirK4D9/0uq9Kz/fwAAAIDwQZdSvV8V3p2m4357fWr9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")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_j2fuo")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fchwj"]
+data = PackedVector3Array(0.434719, 1.36865, -0.115363, 0.575192, 0.793663, 0.129963, 0.574238, 0.802402, 0.13032, 0.554756, 0.864418, 0.129857, 0.434719, 1.36865, -0.115363, 0.574238, 0.802402, 0.13032, 0.434719, 1.36865, -0.115363, 0.528569, 0.93674, 0.151143, 0.509309, 0.986059, 0.174486, 0.528569, 0.93674, 0.151143, 0.546298, 0.891345, 0.129656, 0.546298, 0.891345, 0.129656, 0.546298, 0.891345, 0.129656, 0.434719, 1.36865, -0.115363, 0.554756, 0.864418, 0.129857, 0.434719, 1.36865, -0.115363, 0.546298, 0.891345, 0.129656, 0.528569, 0.93674, 0.151143, 0.463387, 1.0988, 0.239761, 0.434719, 1.36865, -0.115363, 0.472998, 1.07586, 0.224792, 0.434719, 1.36865, -0.115363, 0.241853, 1.05148, 0.621088, 0.329913, 1.37405, 0.53355, 0.241853, 1.05148, 0.621088, 0.29054, 1.07687, 0.556959, 0.280609, 1.04772, 0.567575, 0.434719, 1.36865, -0.115363, 0.29054, 1.07687, 0.556959, 0.241853, 1.05148, 0.621088, 0.458072, 1.10217, 0.266518, 0.434719, 1.36865, -0.115363, 0.463387, 1.0988, 0.239761, 0.4406, 1.11564, 0.349759, 0.458072, 1.10217, 0.266518, 0.443693, 1.1113, 0.338895, 0.453141, 1.1071, 0.287771, 0.4406, 1.11564, 0.349759, 0.439294, 1.11747, 0.354344, 0.427248, 1.12671, 0.374684, 0.437854, 1.11949, 0.359403, 0.437854, 1.11949, 0.359403, 0.453141, 1.1071, 0.287771, 0.458072, 1.10217, 0.266518, 0.4406, 1.11564, 0.349759, 0.427248, 1.12671, 0.374684, 0.453141, 1.1071, 0.287771, 0.437854, 1.11949, 0.359403, 0.41608, 1.13431, 0.390775, 0.427248, 1.12671, 0.374684, 0.424295, 1.12872, 0.378938, 0.41608, 1.13431, 0.390775, 0.453141, 1.1071, 0.287771, 0.427248, 1.12671, 0.374684, 0.453141, 1.1071, 0.287771, 0.434719, 1.36865, -0.115363, 0.458072, 1.10217, 0.266518, 0.434719, 1.36865, -0.115363, 0.307187, 1.08449, 0.534923, 0.29054, 1.07687, 0.556959, 0.434719, 1.36865, -0.115363, 0.367201, 1.11195, 0.455479, 0.307187, 1.08449, 0.534923, 0.41608, 1.13431, 0.390775, 0.434719, 1.36865, -0.115363, 0.453141, 1.1071, 0.287771, 0.434719, 1.36865, -0.115363, 0.41608, 1.13431, 0.390775, 0.367201, 1.11195, 0.455479, 0.0768779, -0.584991, -0.452555, -0.11923, -0.761534, -0.366958, 0.136884, -0.683177, -0.294322, 0.0768779, -0.584991, -0.452555, -0.119243, -0.761508, -0.366998, -0.11923, -0.761534, -0.366958, 0.244502, -0.434089, -0.52572, 0.264339, 0.23701, -0.542363, 0.262641, 0.248858, -0.543688, 0.277791, 0.692111, -0.55365, 0.265191, 0.399165, -0.548368, 0.268092, 0.400227, -0.54695, 0.277791, 0.692111, -0.55365, 0.262491, 0.398176, -0.549689, 0.265191, 0.399165, -0.548368, 0.0682991, -0.184977, -0.624309, 0.262491, 0.398176, -0.549689, 0.277791, 0.692111, -0.55365, 0.260136, 0.339969, -0.548564, 0.262491, 0.398176, -0.549689, 0.0682991, -0.184977, -0.624309, 0.262491, 0.398176, -0.549689, 0.262491, 0.398176, -0.549689, 0.262491, 0.398176, -0.549689, 0.262491, 0.398176, -0.549689, 0.260136, 0.339969, -0.548564, 0.262491, 0.398176, -0.549689, 0.0682991, -0.184977, -0.624309, 0.277791, 0.692111, -0.55365, 0.311079, 1.81831, -0.581579, 0.244759, 1.56546, 0.0429778, 0.329913, 1.37405, 0.53355, 0.0918774, 1.51034, 0.115252, 0.244759, 1.56546, 0.0429778, 0.434719, 1.36865, -0.115363, 0.329913, 1.37405, 0.53355, -0.191618, 1.26001, 0.620932, -0.302982, 0.0388829, 0.783594, -0.305451, 1.03778, 0.671732, -0.302982, 0.0388829, 0.783594, 0.157301, 1.04118, 0.633113, -0.175899, 0.0338097, 0.847258, -0.302982, 0.0388829, 0.783594, -0.191618, 1.26001, 0.620932, 0.157301, 1.04118, 0.633113, -0.50848, -0.409025, -0.0864826, -0.420336, 1.47657, -0.0560223, -0.457657, 1.16304, 0.327321, -0.50848, -0.409025, -0.0864826, -0.448228, 1.34348, -0.389528, -0.420336, 1.47657, -0.0560223, -0.312091, 0.205367, -0.769662, 0.0682991, -0.184977, -0.624309, 0.311079, 1.81831, -0.581579, -0.373743, 1.33212, -0.629845, -0.312091, 0.205367, -0.769662, 0.157839, 2.00295, -0.566258, 0.157889, 2.00295, -0.56626, 0.157839, 2.00295, -0.566258, 0.311079, 1.81831, -0.581579, 0.157839, 2.00295, -0.566258, -0.312091, 0.205367, -0.769662, 0.311079, 1.81831, -0.581579, -0.0814791, 2.06536, -0.349748, -0.192887, 1.67698, 0.0401964, -0.420336, 1.47657, -0.0560223, -0.0814791, 2.06536, -0.349748, -0.0384151, 2.05907, -0.132541, -0.192887, 1.67698, 0.0401964, -0.191618, 1.26001, 0.620932, -0.305451, 1.03778, 0.671732, -0.341178, 1.01454, 0.618667, -0.11923, -0.761534, -0.366958, -0.50848, -0.409025, -0.0864826, -0.305639, -0.664852, 2.99443e-09, -0.50848, -0.409025, -0.0864826, -0.119243, -0.761508, -0.366998, -0.471152, -0.418124, -0.222218, -0.50848, -0.409025, -0.0864826, -0.11923, -0.761534, -0.366958, -0.119243, -0.761508, -0.366998, 0.157889, 2.00295, -0.56626, 0.311079, 1.81831, -0.581579, 0.342234, 1.99324, -0.218936, 0.45388, 1.85462, -0.370933, 0.414863, 0.657257, -0.481403, 0.434719, 1.36865, -0.115363, -0.0700206, 1.47203, 0.140017, 0.103317, 1.41028, 0.576405, -0.104749, 1.46248, 0.138565, 0.385983, -0.461817, 0.514424, 0.38218, -0.447215, 0.535219, 0.382192, -0.447262, 0.535153, 0.38218, -0.447215, 0.535219, 0.250558, -0.51145, 0.514796, 0.166823, -0.447215, 0.638365, 0.250558, -0.51145, 0.514796, 0.385983, -0.461817, 0.514424, 0.211466, -0.709226, 0.276537, 0.38218, -0.447215, 0.535219, 0.385983, -0.461817, 0.514424, 0.250558, -0.51145, 0.514796, -0.11923, -0.761534, 0.366958, -0.14721, -0.705572, 0.453074, 0.211466, -0.709226, 0.276537, -0.305639, -0.664852, 2.99443e-09, -0.11923, -0.761534, 0.366958, -0.11923, -0.761534, -0.366958, 0.136884, -0.683177, -0.294322, -0.11923, -0.761534, -0.366958, 0.211466, -0.709226, 0.276537, -0.11923, -0.761534, -0.366958, -0.11923, -0.761534, 0.366958, 0.211466, -0.709226, 0.276537, -0.0700206, 1.47203, 0.140017, 0.147773, 1.40975, 0.573829, 0.103317, 1.41028, 0.576405, 0.166823, -0.447215, 0.638365, -0.302982, 0.0388829, 0.783594, -0.175899, 0.0338097, 0.847258, -0.228246, -0.0640006, 0.74812, 0.166823, -0.447215, 0.638365, -0.14721, -0.705572, 0.453074, -0.302982, 0.0388829, 0.783594, 0.166823, -0.447215, 0.638365, -0.228246, -0.0640006, 0.74812, 0.26371, 0.846957, 0.608073, 0.241853, 1.05148, 0.621088, 0.26371, 0.846957, 0.608073, 0.38218, -0.447215, 0.53522, 0.38218, -0.447215, 0.535219, 0.166823, -0.447215, 0.638365, 0.38218, -0.447215, 0.53522, 0.326133, -0.357971, 0.563174, 0.38218, -0.447215, 0.535219, 0.326133, -0.357971, 0.563174, 0.38218, -0.447215, 0.53522, 0.316897, -0.343263, 0.567781, 0.268865, 0.284051, 0.598596, 0.268865, 0.284051, 0.598596, 0.292333, -0.204899, 0.581269, 0.267467, 0.328902, 0.599824, 0.268865, 0.284051, 0.598596, 0.258991, 0.600829, 0.607269, 0.268865, 0.284051, 0.598596, 0.267467, 0.328902, 0.599824, 0.268865, 0.284051, 0.598596, -0.471152, -0.418124, -0.222218, -0.119243, -0.761508, -0.366998, -0.312091, 0.205367, -0.769662, 0.0682991, -0.184977, -0.624309, -0.312091, 0.205367, -0.769662, 0.24446, -0.43409, -0.525746, -0.312091, 0.205367, -0.769662, -0.119243, -0.761508, -0.366998, 0.24446, -0.43409, -0.525746, -0.186653, 1.41374, 0.51083, -0.457657, 1.16304, 0.327321, -0.420336, 1.47657, -0.0560223, -0.0814791, 2.06536, -0.349748, 0.0931792, 2.05221, -0.117212, -0.0384151, 2.05907, -0.132541, 0.157889, 2.00295, -0.56626, 0.342234, 1.99324, -0.218936, 0.157839, 2.00295, -0.566258, 0.157839, 2.00295, -0.566258, 0.342234, 1.99324, -0.218936, 0.0931792, 2.05221, -0.117212, -0.0814791, 2.06536, -0.349748, 0.157839, 2.00295, -0.566258, 0.0931792, 2.05221, -0.117212, -0.420336, 1.47657, -0.0560223, 0.157839, 2.00295, -0.566258, -0.0814791, 2.06536, -0.349748, 0.157839, 2.00295, -0.566258, -0.448228, 1.34348, -0.389528, -0.373743, 1.33212, -0.629845, 0.157839, 2.00295, -0.566258, -0.420336, 1.47657, -0.0560223, -0.448228, 1.34348, -0.389528, -0.50848, -0.409025, -0.0864826, -0.471152, -0.418124, -0.222218, -0.448228, 1.34348, -0.389528, -0.427116, -0.187056, 0.373542, -0.457657, 1.16304, 0.327321, -0.341178, 1.01454, 0.618667, -0.427116, -0.187056, 0.373542, -0.516164, -0.349358, 0.0793963, -0.457657, 1.16304, 0.327321, -0.305451, 1.03778, 0.671732, -0.302982, 0.0388829, 0.783594, -0.341178, 1.01454, 0.618667, -0.191618, 1.26001, 0.620932, -0.457657, 1.16304, 0.327321, -0.186653, 1.41374, 0.51083, -0.191618, 1.26001, 0.620932, -0.341178, 1.01454, 0.618667, -0.457657, 1.16304, 0.327321, -0.312091, 0.205367, -0.769662, -0.448228, 1.34348, -0.389528, -0.471152, -0.418124, -0.222218, -0.312091, 0.205367, -0.769662, -0.373743, 1.33212, -0.629845, -0.448228, 1.34348, -0.389528, -0.420336, 1.47657, -0.0560223, -0.104749, 1.46248, 0.138565, -0.186653, 1.41374, 0.51083, -0.420336, 1.47657, -0.0560223, -0.192887, 1.67698, 0.0401964, -0.104749, 1.46248, 0.138565, -0.457657, 1.16304, 0.327321, -0.516164, -0.349358, 0.0793963, -0.50848, -0.409025, -0.0864826, -0.516164, -0.349358, 0.0793963, -0.305639, -0.664852, 2.99443e-09, -0.50848, -0.409025, -0.0864826, -0.192887, 1.67698, 0.0401964, 0.0918774, 1.51034, 0.115252, -0.0700206, 1.47203, 0.140017, 0.329913, 1.37405, 0.53355, -0.0700206, 1.47203, 0.140017, 0.0918774, 1.51034, 0.115252, 0.329913, 1.37405, 0.53355, 0.147773, 1.40975, 0.573829, -0.0700206, 1.47203, 0.140017, -0.192887, 1.67698, 0.0401964, -0.0700206, 1.47203, 0.140017, -0.104749, 1.46248, 0.138565, 0.342234, 1.99324, -0.218936, 0.45388, 1.85462, -0.370933, 0.434719, 1.36865, -0.115363, 0.244759, 1.56546, 0.0429778, -0.0384151, 2.05907, -0.132541, 0.0931792, 2.05221, -0.117212, -0.0384151, 2.05907, -0.132541, 0.0918774, 1.51034, 0.115252, -0.192887, 1.67698, 0.0401964, -0.0384151, 2.05907, -0.132541, 0.244759, 1.56546, 0.0429778, 0.0918774, 1.51034, 0.115252, 0.157301, 1.04118, 0.633113, 0.147773, 1.40975, 0.573829, 0.241853, 1.05148, 0.621088, 0.157301, 1.04118, 0.633113, 0.103317, 1.41028, 0.576405, 0.147773, 1.40975, 0.573829, -0.191618, 1.26001, 0.620932, 0.103317, 1.41028, 0.576405, 0.157301, 1.04118, 0.633113, -0.191618, 1.26001, 0.620932, -0.186653, 1.41374, 0.51083, 0.103317, 1.41028, 0.576405, 0.147773, 1.40975, 0.573829, 0.329913, 1.37405, 0.53355, 0.241853, 1.05148, 0.621088, 0.381381, 0.442771, -0.490112, 0.381381, 0.44277, -0.490112, 0.381381, 0.442771, -0.490112, 0.381381, 0.44277, -0.490112, 0.414863, 0.657257, -0.481403, 0.381381, 0.44277, -0.490112, 0.381381, 0.442771, -0.490112, 0.414863, 0.657257, -0.481403, 0.381381, 0.44277, -0.490112, 0.276112, -0.400917, -0.350113, 0.244502, -0.434089, -0.52572, 0.276995, -0.40461, -0.34064, 0.276112, -0.400917, -0.350113, 0.277893, -0.353553, -0.385193, 0.244502, -0.434089, -0.52572, 0.244502, -0.434089, -0.52572, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.244502, -0.434089, -0.52572, 0.291321, -0.186336, -0.461969, 0.244502, -0.434089, -0.52572, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.422551, 0.0880159, 0.103546, 0.41966, 0.0211031, 0.154837, 0.421924, 0.0331295, 0.15365, 0.369506, -0.319645, 0.185288, 0.356227, -0.335015, 0.112933, 0.369163, -0.330917, 0.194169, 0.369506, -0.319645, 0.185288, 0.369506, -0.319645, 0.185288, 0.356227, -0.335015, 0.112933, 0.422551, 0.0880159, 0.103546, 0.406659, -0.0479574, 0.161653, 0.41966, 0.0211031, 0.154837, 0.406659, -0.0479574, 0.161653, 0.369506, -0.319645, 0.185288, 0.369506, -0.319645, 0.185288, 0.406659, -0.0479574, 0.161653, 0.406659, -0.0479573, 0.161653, 0.369506, -0.319645, 0.185288, 0.422551, 0.0880159, 0.103546, 0.406659, -0.0479573, 0.161653, 0.406659, -0.0479574, 0.161653, 0.421851, 0.0859415, 0.102327, 0.421851, 0.0859415, 0.102327, 0.421851, 0.0859415, 0.102327, 0.406659, -0.0479573, 0.161653, 0.421851, 0.0859415, 0.102327, 0.421851, 0.0859415, 0.102327, 0.421851, 0.0859415, 0.102327, 0.406659, -0.0479573, 0.161653, 0.422551, 0.0880159, 0.103546, 0.514405, 0.632277, 0.000980639, 0.518244, 0.632493, 0.0184454, 0.488758, 0.633503, -0.118274, 0.529491, 0.611611, 0.0903857, 0.531606, 0.604389, 0.107092, 0.567694, 0.757141, 0.125765, 0.327076, 0.422372, -0.517364, 0.277791, 0.692111, -0.55365, 0.317259, 0.418685, -0.522291, 0.277791, 0.692111, -0.55365, 0.381381, 0.44277, -0.490112, 0.414863, 0.657257, -0.481403, 0.277791, 0.692111, -0.55365, 0.327076, 0.422372, -0.517364, 0.381381, 0.44277, -0.490112, 0.304756, -0.0480992, -0.510046, 0.264339, 0.23701, -0.542363, 0.244502, -0.434089, -0.52572, 0.264339, 0.23701, -0.542363, 0.304756, -0.0480991, -0.510046, 0.291372, 0.0463117, -0.520747, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480991, -0.510046, 0.264339, 0.23701, -0.542363, 0.304756, -0.0480991, -0.510046, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480991, -0.510046, 0.241853, 1.05148, 0.621088, 0.265426, 0.897121, 0.600452, 0.26371, 0.846957, 0.608073, 0.277791, 0.692111, -0.55365, 0.45388, 1.85462, -0.370933, 0.311079, 1.81831, -0.581579, 0.277791, 0.692111, -0.55365, 0.414863, 0.657257, -0.481403, 0.45388, 1.85462, -0.370933, 0.244759, 1.56546, 0.0429778, 0.342234, 1.99324, -0.218936, 0.434719, 1.36865, -0.115363, 0.244759, 1.56546, 0.0429778, 0.0931792, 2.05221, -0.117212, 0.342234, 1.99324, -0.218936, 0.311079, 1.81831, -0.581579, 0.45388, 1.85462, -0.370933, 0.342234, 1.99324, -0.218936, -0.104749, 1.46248, 0.138565, 0.103317, 1.41028, 0.576405, -0.186653, 1.41374, 0.51083, 0.344961, -0.491399, 0.324994, 0.344961, -0.491399, 0.324994, 0.346042, -0.492572, 0.325665, 0.352311, -0.487225, 0.356443, 0.408374, -0.475379, 0.552105, 0.346042, -0.492572, 0.325665, 0.408374, -0.475379, 0.552105, 0.385983, -0.461817, 0.514424, 0.382192, -0.447262, 0.535153, 0.387411, -0.467294, 0.506624, 0.408374, -0.475379, 0.552105, 0.352311, -0.487225, 0.356443, 0.408374, -0.475379, 0.552105, 0.387411, -0.467294, 0.506624, 0.385983, -0.461817, 0.514424, 0.408374, -0.475379, 0.552105, 0.29749, -0.312362, 0.577461, 0.318467, -0.310982, 0.643903, 0.29749, -0.312362, 0.577461, 0.326133, -0.357971, 0.563174, 0.316897, -0.343263, 0.567781, 0.29749, -0.312362, 0.577461, 0.408374, -0.475379, 0.552105, 0.326133, -0.357971, 0.563174, 0.253585, 0.774267, 0.612018, 0.281906, 0.664873, 0.658437, 0.253585, 0.774266, 0.612018, 0.337503, 0.987791, 0.659221, 0.281906, 0.664873, 0.658437, 0.302502, 1.06946, 0.603246, 0.29749, -0.312362, 0.577461, 0.318467, -0.310982, 0.643903, 0.29749, -0.312362, 0.577461, 0.318467, -0.310982, 0.643903, 0.622434, -0.527078, 0.580933, 0.408374, -0.475379, 0.552105, 0.281906, 0.664873, 0.658437, 0.465695, -0.146567, 0.682999, 0.318467, -0.310982, 0.643903, 0.998148, 0.75024, 0.44871, 0.974105, -0.293655, 0.435357, 0.994791, 0.757167, 0.514921, 0.809878, 0.390362, 0.162821, 0.844121, 0.783686, 0.201516, 0.802715, 0.40295, 0.162116, 0.802715, 0.40295, 0.162116, 0.844121, 0.783686, 0.201516, 0.802663, 0.403042, 0.162111, 0.767963, 0.00211511, 0.122716, 0.775996, 0.00117997, 0.124533, 0.77969, 0.106241, 0.133586, 0.767963, 0.00211511, 0.122716, 0.767987, 0.0015413, 0.122677, 0.775996, 0.00117997, 0.124533, 0.575549, 0.790389, 0.129829, 0.574238, 0.802402, 0.13032, 0.575192, 0.793663, 0.129963, 0.574238, 0.802402, 0.13032, 0.651818, 0.978983, 0.160357, 0.554756, 0.864418, 0.129857, 0.651818, 0.978983, 0.160357, 0.659133, 0.57952, 0.135491, 0.844121, 0.783686, 0.201516, 0.642423, 0.621676, 0.134359, 0.531606, 0.604389, 0.107092, 0.62259, 0.586646, 0.127353, 0.651818, 0.978983, 0.160357, 0.642423, 0.621676, 0.134359, 0.659133, 0.57952, 0.135491, 0.575549, 0.790389, 0.129829, 0.651818, 0.978983, 0.160357, 0.574238, 0.802402, 0.13032, 0.642423, 0.621676, 0.134359, 0.567694, 0.757141, 0.125765, 0.531606, 0.604389, 0.107092, 0.567694, 0.757141, 0.125765, 0.651818, 0.978983, 0.160357, 0.575549, 0.790389, 0.129829, 0.651818, 0.978983, 0.160357, 0.567694, 0.757141, 0.125765, 0.642423, 0.621676, 0.134359, 0.680717, 0.5749, 0.141277, 0.844121, 0.783686, 0.201516, 0.661237, 0.57907, 0.136055, 0.844121, 0.783686, 0.201516, 0.71695, 0.559054, 0.150444, 0.730238, 0.534673, 0.152554, 0.71695, 0.559054, 0.150444, 0.713279, 0.563132, 0.149682, 0.71548, 0.560687, 0.150139, 0.704708, 0.569765, 0.147708, 0.844121, 0.783686, 0.201516, 0.680717, 0.5749, 0.141277, 0.844121, 0.783686, 0.201516, 0.713279, 0.563132, 0.149682, 0.71695, 0.559054, 0.150444, 0.704708, 0.569765, 0.147708, 0.713279, 0.563132, 0.149682, 0.844121, 0.783686, 0.201516, 0.651818, 0.978983, 0.160357, 0.844121, 0.783686, 0.201516, 0.857683, 0.793827, 0.206695, 0.843669, 1.08813, 0.478182, 0.998148, 0.75024, 0.44871, 0.994791, 0.757167, 0.514921, 0.843669, 1.08813, 0.478182, 0.994791, 0.757167, 0.514921, 0.698606, 1.1478, 0.574914, 0.698606, 1.1478, 0.574914, 0.821099, 0.872625, 0.672971, 0.650662, 1.03855, 0.674722, 0.698606, 1.1478, 0.574914, 0.994791, 0.757167, 0.514921, 0.821099, 0.872625, 0.672971, 0.622423, -0.527095, 0.289798, 0.778216, -0.463285, 0.435357, 0.974105, -0.293655, 0.435357, 0.665947, 1.07785, 0.224393, 0.651818, 0.978983, 0.160357, 0.998148, 0.75024, 0.44871, 0.622434, -0.527078, 0.580933, 0.974105, -0.293655, 0.435357, 0.778216, -0.463285, 0.435357, 0.622434, -0.527078, 0.580933, 0.916545, -0.300445, 0.523503, 0.974105, -0.293655, 0.435357, 0.41608, 1.13431, 0.390775, 0.42473, 1.12842, 0.378311, 0.698606, 1.1478, 0.574914, 0.41608, 1.13431, 0.390775, 0.424295, 1.12872, 0.378938, 0.42473, 1.12842, 0.378311, 0.443694, 1.1113, 0.338895, 0.458072, 1.10217, 0.266518, 0.665947, 1.07785, 0.224393, 0.443693, 1.1113, 0.338895, 0.698606, 1.1478, 0.574914, 0.4406, 1.11564, 0.349759, 0.443694, 1.1113, 0.338895, 0.443693, 1.1113, 0.338895, 0.458072, 1.10217, 0.266518, 0.443694, 1.1113, 0.338895, 0.698606, 1.1478, 0.574914, 0.443693, 1.1113, 0.338895, 0.369163, -0.330917, 0.194169, 0.383353, -0.319645, 0.182141, 0.369506, -0.319645, 0.185288, 0.383353, -0.319645, 0.182141, 0.378141, -0.343799, 0.202188, 0.645808, -0.49016, 0.255639, 0.378141, -0.343799, 0.202188, 0.369163, -0.330917, 0.194169, 0.368308, -0.358993, 0.216289, 0.383353, -0.319645, 0.182141, 0.369163, -0.330917, 0.194169, 0.378141, -0.343799, 0.202188, 0.350678, -0.478393, 0.313539, 0.344961, -0.491399, 0.324994, 0.346042, -0.492572, 0.325665, 0.346042, -0.492572, 0.325665, 0.622423, -0.527095, 0.289798, 0.645808, -0.49016, 0.255639, 0.346042, -0.492572, 0.325665, 0.622434, -0.527078, 0.580933, 0.622423, -0.527095, 0.289798, 0.346042, -0.492572, 0.325665, 0.408374, -0.475379, 0.552105, 0.622434, -0.527078, 0.580933, 0.622423, -0.527095, 0.289798, 0.622434, -0.527078, 0.580933, 0.778216, -0.463285, 0.435357, 0.684521, -0.318865, 0.21279, 0.875233, -0.305317, 0.283948, 0.700369, -0.30729, 0.215151, 0.875233, -0.305317, 0.283948, 0.55822, -0.378508, 0.213382, 0.645808, -0.49016, 0.255639, 0.55822, -0.378508, 0.213382, 0.653096, -0.341819, 0.208109, 0.609101, -0.358832, 0.210554, 0.653096, -0.341819, 0.208109, 0.875233, -0.305317, 0.283948, 0.684521, -0.318865, 0.21279, 0.653096, -0.341819, 0.208109, 0.55822, -0.378508, 0.213382, 0.875233, -0.305317, 0.283948, 0.473156, -0.240131, 0.162646, 0.506623, -0.380752, 0.210515, 0.504971, -0.363582, 0.20484, 0.506623, -0.380752, 0.210515, 0.469143, -0.224557, 0.157323, 0.383353, -0.319645, 0.182141, 0.506623, -0.380752, 0.210515, 0.473156, -0.240131, 0.162646, 0.469143, -0.224557, 0.157323, 0.777779, -0.096639, 0.167891, 0.875233, -0.305317, 0.283948, 0.776061, -0.079473, 0.159929, 0.875233, -0.305317, 0.283948, 0.78151, -0.184103, 0.20551, 0.773664, -0.201436, 0.208285, 0.875233, -0.305317, 0.283948, 0.780955, -0.166205, 0.199206, 0.78151, -0.184103, 0.20551, 0.779393, -0.131979, 0.183799, 0.875233, -0.305317, 0.283948, 0.777779, -0.096639, 0.167891, 0.875233, -0.305317, 0.283948, 0.779393, -0.131979, 0.183799, 0.780955, -0.166205, 0.199206, 0.469143, -0.224557, 0.157323, 0.467598, -0.200869, 0.15635, 0.383353, -0.319645, 0.182141, 0.369506, -0.319645, 0.185288, 0.41966, 0.0211031, 0.154837, 0.406659, -0.0479574, 0.161653, 0.399452, -0.130896, 0.167928, 0.369506, -0.319645, 0.185288, 0.383353, -0.319645, 0.182141, 0.41966, 0.0211031, 0.154837, 0.369506, -0.319645, 0.185288, 0.399452, -0.130896, 0.167928, 0.281906, 0.664873, 0.658437, 0.678307, -0.0894945, 0.66802, 0.465695, -0.146567, 0.682999, 0.650662, 1.03855, 0.674722, 0.821099, 0.872625, 0.672971, 0.678307, -0.0894945, 0.66802, 0.337503, 0.987791, 0.659221, 0.650662, 1.03855, 0.674722, 0.281906, 0.664873, 0.658437, 0.650662, 1.03855, 0.674722, 0.678307, -0.0894945, 0.66802, 0.281906, 0.664873, 0.658437, 0.843669, 1.08813, 0.478182, 0.665947, 1.07785, 0.224393, 0.998148, 0.75024, 0.44871, 0.302502, 1.06946, 0.603246, 0.41608, 1.13431, 0.390775, 0.698606, 1.1478, 0.574914, 0.367201, 1.11195, 0.455479, 0.302502, 1.06946, 0.603246, 0.363047, 1.11005, 0.460978, 0.41608, 1.13431, 0.390775, 0.302502, 1.06946, 0.603246, 0.367201, 1.11195, 0.455479, 0.678307, -0.0894945, 0.66802, 0.318467, -0.310982, 0.643903, 0.465695, -0.146567, 0.682999, 0.678307, -0.0894945, 0.66802, 0.622434, -0.527078, 0.580933, 0.318467, -0.310982, 0.643903, 0.879284, 0.769526, 0.210456, 0.808523, 0.362132, 0.160357, 0.808198, 0.359257, 0.160053, 0.811412, 0.38771, 0.163061, 0.844121, 0.783686, 0.201516, 0.809878, 0.390362, 0.162821, 0.879284, 0.769526, 0.210456, 0.811412, 0.38771, 0.163061, 0.808523, 0.362132, 0.160357, 0.879284, 0.769526, 0.210456, 0.844121, 0.783686, 0.201516, 0.811412, 0.38771, 0.163061, 0.302502, 1.06946, 0.603246, 0.650662, 1.03855, 0.674722, 0.337503, 0.987791, 0.659221, 0.302502, 1.06946, 0.603246, 0.698606, 1.1478, 0.574914, 0.650662, 1.03855, 0.674722, 0.735173, -0.107268, 0.648663, 0.916545, -0.300445, 0.523503, 0.622434, -0.527078, 0.580933, 0.651818, 0.978983, 0.160357, 0.528569, 0.93674, 0.151143, 0.546298, 0.891345, 0.129656, 0.528569, 0.93674, 0.151143, 0.491233, 1.03234, 0.196393, 0.509309, 0.986059, 0.174486, 0.491233, 1.03234, 0.196393, 0.665947, 1.07785, 0.224393, 0.482927, 1.05217, 0.20933, 0.665947, 1.07785, 0.224393, 0.528569, 0.93674, 0.151143, 0.651818, 0.978983, 0.160357, 0.528569, 0.93674, 0.151143, 0.665947, 1.07785, 0.224393, 0.491233, 1.03234, 0.196393, 0.857683, 0.793827, 0.206695, 0.844121, 0.783686, 0.201516, 0.879284, 0.769526, 0.210456, 0.998148, 0.75024, 0.44871, 0.857683, 0.793827, 0.206695, 0.879284, 0.769526, 0.210456, 0.875233, -0.305317, 0.283948, 0.879284, 0.769526, 0.210456, 0.775996, 0.00117997, 0.124533, 0.875233, -0.305317, 0.283948, 0.89078, -0.169648, 0.304625, 0.879284, 0.769526, 0.210456, 0.678307, -0.0894945, 0.66802, 0.821099, 0.872625, 0.672971, 0.735173, -0.107268, 0.648663, 0.994791, 0.757167, 0.514921, 0.735173, -0.107268, 0.648663, 0.821099, 0.872625, 0.672971, 0.735173, -0.107268, 0.648663, 0.974105, -0.293655, 0.435357, 0.916545, -0.300445, 0.523503, 0.735173, -0.107268, 0.648663, 0.994791, 0.757167, 0.514921, 0.974105, -0.293655, 0.435357, 0.857683, 0.793827, 0.206695, 0.998148, 0.75024, 0.44871, 0.651818, 0.978983, 0.160357, 0.267467, 0.328902, 0.599824, 0.253585, 0.774266, 0.612018, 0.281906, 0.664873, 0.658437, 0.267467, 0.328902, 0.599824, 0.258991, 0.600829, 0.607269, 0.253585, 0.774266, 0.612018, 0.678307, -0.0894945, 0.66802, 0.735173, -0.107268, 0.648663, 0.622434, -0.527078, 0.580933, 0.767451, -0.21516, 0.210483, 0.72068, -0.353657, -0.176592, 0.640634, -0.507716, 0.112941, 0.72068, -0.353657, -0.176592, 0.773664, -0.201436, 0.208285, 0.78151, -0.184103, 0.20551, 0.72068, -0.353657, -0.176592, 0.767451, -0.21516, 0.210483, 0.773664, -0.201436, 0.208285, 0.706075, 0.204392, -0.355125, 0.433473, -0.159066, -0.60832, 0.72068, -0.353657, -0.176592, 0.262641, 0.248858, -0.543688, 0.264475, 0.377716, -0.578016, 0.261528, 0.256619, -0.544556, 0.264475, 0.377716, -0.578016, 0.264339, 0.23701, -0.542363, 0.291372, 0.0463117, -0.520747, 0.264339, 0.23701, -0.542363, 0.264475, 0.377716, -0.578016, 0.262641, 0.248858, -0.543688, 0.304756, -0.0480992, -0.510046, 0.264475, 0.377716, -0.578016, 0.304756, -0.0480991, -0.510046, 0.264475, 0.377716, -0.578016, 0.45143, -0.48335, -0.384216, 0.433473, -0.159066, -0.60832, 0.45143, -0.48335, -0.384216, 0.304756, -0.0480992, -0.510046, 0.279675, -0.306161, -0.420295, 0.45143, -0.48335, -0.384216, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.45143, -0.48335, -0.384216, 0.264475, 0.377716, -0.578016, 0.304756, -0.0480992, -0.510046, 0.45143, -0.48335, -0.384216, 0.304756, -0.0480992, -0.510046, 0.264475, 0.377716, -0.578016, 0.433473, -0.159066, -0.60832, 0.449811, 0.437069, -0.4992, 0.285333, -0.403249, -0.28701, 0.461194, -0.507727, -0.327897, 0.277512, -0.406773, -0.335094, 0.461194, -0.507727, -0.327897, 0.49939, -0.443975, 0.191231, 0.640634, -0.507716, 0.112941, 0.461194, -0.507727, -0.327897, 0.285333, -0.403249, -0.28701, 0.49939, -0.443975, 0.191231, 0.72068, -0.353657, -0.176592, 0.433473, -0.159066, -0.60832, 0.45143, -0.48335, -0.384216, 0.45143, -0.48335, -0.384216, 0.461194, -0.507727, -0.327897, 0.72068, -0.353657, -0.176592, 0.711806, 0.3735, -0.224607, 0.449811, 0.437069, -0.4992, 0.706075, 0.204392, -0.355125, 0.50794, -0.394446, 0.215041, 0.55822, -0.378508, 0.213382, 0.49939, -0.443975, 0.191231, 0.449811, 0.437069, -0.4992, 0.433473, -0.159066, -0.60832, 0.706075, 0.204392, -0.355125, 0.449811, 0.437069, -0.4992, 0.262491, 0.398176, -0.549689, 0.264475, 0.377716, -0.578016, 0.449811, 0.437069, -0.4992, 0.265191, 0.399165, -0.548368, 0.262491, 0.398176, -0.549689, 0.449811, 0.437069, -0.4992, 0.381381, 0.44277, -0.490112, 0.327076, 0.422372, -0.517364, 0.449811, 0.437069, -0.4992, 0.381381, 0.44277, -0.490112, 0.381381, 0.44277, -0.490112, 0.458354, 0.630925, -0.312502, 0.423775, 0.564485, -0.366823, 0.449811, 0.437069, -0.4992, 0.445655, 0.628043, -0.311438, 0.458354, 0.630925, -0.312502, 0.445655, 0.628043, -0.311438, 0.458354, 0.630925, -0.312502, 0.445655, 0.628043, -0.311438, 0.423775, 0.564485, -0.366823, 0.640634, -0.507716, 0.112941, 0.653096, -0.341819, 0.208109, 0.684521, -0.318865, 0.21279, 0.49939, -0.443975, 0.191231, 0.653096, -0.341819, 0.208109, 0.640634, -0.507716, 0.112941, 0.49939, -0.443975, 0.191231, 0.609101, -0.358832, 0.210554, 0.653096, -0.341819, 0.208109, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.49939, -0.443975, 0.191231, 0.55822, -0.378508, 0.213382, 0.49939, -0.443975, 0.191231, 0.55822, -0.378508, 0.213382, 0.609101, -0.358832, 0.210554, 0.467039, 0.634542, -0.219265, 0.445655, 0.628043, -0.311438, 0.458354, 0.630925, -0.312502, 0.313771, -0.356057, -0.146172, 0.421851, 0.0859415, 0.102327, 0.49939, -0.443975, 0.191231, 0.313771, -0.356057, -0.146172, 0.421851, 0.0859415, 0.102327, 0.421851, 0.0859415, 0.102327, 0.811412, 0.38771, 0.163061, 0.811412, 0.387709, 0.163061, 0.808523, 0.362132, 0.160357, 0.811412, 0.38771, 0.163061, 0.711806, 0.3735, -0.224607, 0.811412, 0.387709, 0.163061, 0.767987, 0.0015413, 0.122677, 0.706075, 0.204392, -0.355125, 0.767988, 0.00151067, 0.122675, 0.767963, 0.00211544, 0.122716, 0.77969, 0.106241, 0.133586, 0.789129, 0.190052, 0.142335, 0.767987, 0.0015413, 0.122677, 0.767963, 0.00211544, 0.122716, 0.706075, 0.204392, -0.355125, 0.767963, 0.00211544, 0.122716, 0.767963, 0.00211511, 0.122716, 0.77969, 0.106241, 0.133586, 0.767963, 0.00211511, 0.122716, 0.767963, 0.00211544, 0.122716, 0.767987, 0.0015413, 0.122677, 0.779393, -0.131979, 0.183799, 0.78151, -0.184103, 0.20551, 0.780955, -0.166205, 0.199206, 0.78151, -0.184103, 0.20551, 0.706075, 0.204392, -0.355125, 0.72068, -0.353657, -0.176592, 0.706075, 0.204392, -0.355125, 0.779393, -0.131979, 0.183799, 0.7786, -0.115882, 0.176168, 0.78151, -0.184103, 0.20551, 0.779393, -0.131979, 0.183799, 0.706075, 0.204392, -0.355125, 0.50794, -0.394446, 0.215041, 0.504971, -0.363582, 0.20484, 0.506623, -0.380752, 0.210515, 0.504971, -0.363582, 0.20484, 0.49939, -0.443975, 0.191231, 0.473156, -0.240131, 0.162646, 0.504971, -0.363582, 0.20484, 0.50794, -0.394446, 0.215041, 0.49939, -0.443975, 0.191231, 0.421851, 0.0859415, 0.102327, 0.429373, 0.0365515, 0.111075, 0.49939, -0.443975, 0.191231, 0.429373, 0.0365515, 0.111075, 0.44451, 0.153099, 0.141809, 0.465944, -0.175522, 0.155308, 0.44451, 0.153099, 0.141809, 0.421851, 0.0859415, 0.102327, 0.422551, 0.0880159, 0.103546, 0.421851, 0.0859415, 0.102327, 0.44451, 0.153099, 0.141809, 0.429373, 0.0365515, 0.111075, 0.704708, 0.569765, 0.147708, 0.680717, 0.5749, 0.141277, 0.708178, 0.571527, 0.142668, 0.523295, 0.632777, 0.0414254, 0.708178, 0.571527, 0.142668, 0.528977, 0.61337, 0.086319, 0.708178, 0.571527, 0.142668, 0.713279, 0.563132, 0.149682, 0.704708, 0.569765, 0.147708, 0.632816, 0.576596, -0.104054, 0.449811, 0.437069, -0.4992, 0.711806, 0.3735, -0.224607, 0.632816, 0.576596, -0.104054, 0.458354, 0.630925, -0.312502, 0.449811, 0.437069, -0.4992, 0.264475, 0.377716, -0.578016, 0.262491, 0.398176, -0.549689, 0.262491, 0.398176, -0.549689, 0.461194, -0.507727, -0.327897, 0.640634, -0.507716, 0.112941, 0.72068, -0.353657, -0.176592, 0.277354, -0.406113, -0.336785, 0.461194, -0.507727, -0.327897, 0.45143, -0.48335, -0.384216, 0.277354, -0.406113, -0.336785, 0.277512, -0.406773, -0.335094, 0.461194, -0.507727, -0.327897, 0.518244, 0.632493, 0.0184454, 0.708178, 0.571527, 0.142668, 0.523295, 0.632777, 0.0414254, 0.514405, 0.632277, 0.000980288, 0.467039, 0.634542, -0.219265, 0.458354, 0.630925, -0.312502, 0.518244, 0.632493, 0.0184454, 0.514405, 0.632277, 0.000980288, 0.708178, 0.571527, 0.142668, 0.514405, 0.632277, 0.000980639, 0.514405, 0.632277, 0.000980288, 0.518244, 0.632493, 0.0184454, 0.514405, 0.632277, 0.000980288, 0.488758, 0.633503, -0.118274, 0.467039, 0.634542, -0.219265, 0.488758, 0.633503, -0.118274, 0.514405, 0.632277, 0.000980288, 0.514405, 0.632277, 0.000980639, 0.711806, 0.3735, -0.224607, 0.809878, 0.390362, 0.162821, 0.802715, 0.40295, 0.162116, 0.711806, 0.3735, -0.224607, 0.811412, 0.38771, 0.163061, 0.809878, 0.390362, 0.162821, 0.708178, 0.571527, 0.142668, 0.71548, 0.560687, 0.150139, 0.713279, 0.563132, 0.149682, 0.352311, -0.487225, 0.356443, 0.211466, -0.709226, 0.276537, 0.387411, -0.467294, 0.506624, 0.211466, -0.709226, 0.276537, 0.244502, -0.434089, -0.52572, 0.136884, -0.683177, -0.294322, 0.244502, -0.434089, -0.52572, 0.350678, -0.478393, 0.313539, 0.365715, -0.44419, 0.28341, 0.211466, -0.709226, 0.276537, 0.350678, -0.478393, 0.313539, 0.244502, -0.434089, -0.52572, 0.344961, -0.491399, 0.324994, 0.344961, -0.491399, 0.324994, 0.344961, -0.491399, 0.324994, 0.344961, -0.491399, 0.324994, 0.352311, -0.487225, 0.356443, 0.344961, -0.491399, 0.324994, 0.211466, -0.709226, 0.276537, 0.344961, -0.491399, 0.324994, 0.350678, -0.478393, 0.313539, 0.352311, -0.487225, 0.356443, 0.344961, -0.491399, 0.324994, 0.211466, -0.709226, 0.276537, 0.575549, 0.790389, 0.129829, 0.434719, 1.36865, -0.115363, 0.414863, 0.657257, -0.481403, 0.575549, 0.790389, 0.129829, 0.575192, 0.793663, 0.129963, 0.434719, 1.36865, -0.115363, 0.437854, 1.11949, 0.359403, 0.437854, 1.11949, 0.359403, 0.439294, 1.11747, 0.354344, 0.439294, 1.11747, 0.354344, 0.437854, 1.11949, 0.359403, 0.453141, 1.1071, 0.287771, 0.42473, 1.12842, 0.378311, 0.424295, 1.12872, 0.378938, 0.427248, 1.12671, 0.374684, 0.241853, 1.05148, 0.621088, 0.280609, 1.04772, 0.567575, 0.273518, 1.02691, 0.575155, 0.491233, 1.03234, 0.196393, 0.434719, 1.36865, -0.115363, 0.509309, 0.986059, 0.174486, 0.434719, 1.36865, -0.115363, 0.482927, 1.05217, 0.20933, 0.472998, 1.07586, 0.224792, 0.434719, 1.36865, -0.115363, 0.491233, 1.03234, 0.196393, 0.482927, 1.05217, 0.20933, 0.307187, 1.08449, 0.534923, 0.367201, 1.11195, 0.455479, 0.363047, 1.11005, 0.460978, -0.119243, -0.761508, -0.366998, 0.244502, -0.434089, -0.52572, 0.24446, -0.43409, -0.525746, 0.244502, -0.434089, -0.52572, 0.0768779, -0.584991, -0.452555, 0.136884, -0.683177, -0.294322, 0.244502, -0.434089, -0.52572, -0.119243, -0.761508, -0.366998, 0.0768779, -0.584991, -0.452555, 0.269175, 0.400624, -0.546421, 0.277791, 0.692111, -0.55365, 0.268092, 0.400227, -0.54695, 0.257813, 0.282542, -0.547455, 0.262641, 0.248858, -0.543688, 0.261528, 0.256619, -0.544556, 0.262641, 0.248858, -0.543688, 0.24446, -0.43409, -0.525746, 0.244502, -0.434089, -0.52572, 0.0682991, -0.184977, -0.624309, 0.257813, 0.282542, -0.547455, 0.260136, 0.339969, -0.548564, 0.257813, 0.282542, -0.547455, 0.24446, -0.43409, -0.525746, 0.262641, 0.248858, -0.543688, 0.24446, -0.43409, -0.525746, 0.257813, 0.282542, -0.547455, 0.0682991, -0.184977, -0.624309, -0.421722, -0.425507, 0.381705, -0.305639, -0.664852, 2.99443e-09, -0.516164, -0.349358, 0.0793963, -0.305639, -0.664852, 2.99443e-09, -0.14721, -0.705572, 0.453074, -0.11923, -0.761534, 0.366958, -0.305639, -0.664852, 2.99443e-09, -0.421722, -0.425507, 0.381705, -0.14721, -0.705572, 0.453074, -0.14721, -0.705572, 0.453074, 0.250558, -0.51145, 0.514796, 0.211466, -0.709226, 0.276537, -0.14721, -0.705572, 0.453074, 0.166823, -0.447215, 0.638365, 0.250558, -0.51145, 0.514796, 0.211466, -0.709226, 0.276537, 0.385983, -0.461817, 0.514424, 0.387411, -0.467294, 0.506624, -0.302982, 0.0388829, 0.783594, -0.14721, -0.705572, 0.453074, -0.421722, -0.425507, 0.381705, -0.302982, 0.0388829, 0.783594, -0.228246, -0.0640006, 0.74812, -0.14721, -0.705572, 0.453074, 0.268865, 0.284051, 0.598596, 0.253585, 0.774266, 0.612018, 0.258991, 0.600829, 0.607269, 0.166823, -0.447215, 0.638365, 0.316897, -0.343263, 0.567781, 0.38218, -0.447215, 0.53522, 0.157301, 1.04118, 0.633113, 0.166823, -0.447215, 0.638365, -0.175899, 0.0338097, 0.847258, 0.26371, 0.846956, 0.608073, 0.157301, 1.04118, 0.633113, 0.241853, 1.05148, 0.621088, 0.253585, 0.774266, 0.612018, 0.253585, 0.774267, 0.612018, 0.253585, 0.774267, 0.612018, 0.253585, 0.774267, 0.612018, 0.157301, 1.04118, 0.633113, 0.26371, 0.846956, 0.608073, 0.253585, 0.774266, 0.612018, 0.157301, 1.04118, 0.633113, 0.253585, 0.774267, 0.612018, 0.268865, 0.284051, 0.598596, 0.157301, 1.04118, 0.633113, 0.253585, 0.774266, 0.612018, 0.292333, -0.204899, 0.581269, 0.157301, 1.04118, 0.633113, 0.268865, 0.284051, 0.598596, 0.292333, -0.204899, 0.581269, 0.166823, -0.447215, 0.638365, 0.157301, 1.04118, 0.633113, 0.29749, -0.312362, 0.577461, 0.29749, -0.312362, 0.577461, 0.29749, -0.312362, 0.577461, 0.316897, -0.343263, 0.567781, 0.29749, -0.312362, 0.577461, 0.29749, -0.312362, 0.577461, 0.29749, -0.312362, 0.577461, 0.166823, -0.447215, 0.638365, 0.292333, -0.204899, 0.581269, 0.29749, -0.312362, 0.577461, 0.316897, -0.343263, 0.567781, 0.166823, -0.447215, 0.638365, -0.427116, -0.187056, 0.373542, -0.421722, -0.425507, 0.381705, -0.516164, -0.349358, 0.0793963, -0.421722, -0.425507, 0.381705, -0.341178, 1.01454, 0.618667, -0.302982, 0.0388829, 0.783594, -0.421722, -0.425507, 0.381705, -0.427116, -0.187056, 0.373542, -0.341178, 1.01454, 0.618667, 0.44451, 0.153099, 0.141809, 0.422551, 0.0880159, 0.103546, 0.421924, 0.0331295, 0.15365, 0.244502, -0.434089, -0.52572, 0.279675, -0.306162, -0.420295, 0.291321, -0.186336, -0.461969, 0.244502, -0.434089, -0.52572, 0.277893, -0.353553, -0.385193, 0.279675, -0.306162, -0.420295, 0.368308, -0.358993, 0.216289, 0.244502, -0.434089, -0.52572, 0.365715, -0.44419, 0.28341, 0.244502, -0.434089, -0.52572, 0.277354, -0.406113, -0.336785, 0.276995, -0.40461, -0.34064, 0.277512, -0.406773, -0.335094, 0.304884, -0.394443, -0.166822, 0.285333, -0.403249, -0.28701, 0.244502, -0.434089, -0.52572, 0.277512, -0.406773, -0.335094, 0.277354, -0.406113, -0.336785, 0.356227, -0.335015, 0.112933, 0.368308, -0.358993, 0.216289, 0.369163, -0.330917, 0.194169, 0.406659, -0.0479573, 0.161653, 0.356227, -0.335015, 0.112933, 0.369506, -0.319645, 0.185288, 0.244502, -0.434089, -0.52572, 0.304884, -0.394443, -0.166822, 0.277512, -0.406773, -0.335094, 0.368308, -0.358993, 0.216289, 0.304884, -0.394443, -0.166822, 0.244502, -0.434089, -0.52572, 0.356227, -0.335015, 0.112933, 0.304884, -0.394443, -0.166822, 0.368308, -0.358993, 0.216289, 0.406659, -0.0479573, 0.161653, 0.304884, -0.394443, -0.166822, 0.356227, -0.335015, 0.112933, 0.406659, -0.0479573, 0.161653, 0.313771, -0.356057, -0.146172, 0.304884, -0.394443, -0.166822, 0.421851, 0.0859415, 0.102327, 0.406659, -0.0479573, 0.161653, 0.421851, 0.0859415, 0.102327, 0.313771, -0.356057, -0.146172, 0.406659, -0.0479573, 0.161653, 0.421851, 0.0859415, 0.102327, 0.381381, 0.442771, -0.490112, 0.414863, 0.657257, -0.481403, 0.381381, 0.442771, -0.490112, 0.414863, 0.657257, -0.481403, 0.567694, 0.757141, 0.125765, 0.575549, 0.790389, 0.129829, 0.567694, 0.757141, 0.125765, 0.528977, 0.61337, 0.086319, 0.529491, 0.611611, 0.0903857, 0.523295, 0.632777, 0.0414254, 0.488758, 0.633503, -0.118274, 0.518244, 0.632493, 0.0184454, 0.567694, 0.757141, 0.125765, 0.523295, 0.632777, 0.0414254, 0.528977, 0.61337, 0.086319, 0.415616, 0.540782, -0.387477, 0.414863, 0.657257, -0.481403, 0.381381, 0.442771, -0.490112, 0.523295, 0.632777, 0.0414254, 0.467039, 0.634542, -0.219265, 0.488758, 0.633503, -0.118274, 0.414863, 0.657257, -0.481403, 0.523295, 0.632777, 0.0414254, 0.567694, 0.757141, 0.125765, 0.423775, 0.564485, -0.366823, 0.414863, 0.657257, -0.481403, 0.415616, 0.540782, -0.387477, 0.414863, 0.657257, -0.481403, 0.467039, 0.634542, -0.219265, 0.523295, 0.632777, 0.0414254, 0.445655, 0.628043, -0.311438, 0.423775, 0.564485, -0.366823, 0.445655, 0.628043, -0.311438, 0.414863, 0.657257, -0.481403, 0.445655, 0.628043, -0.311438, 0.467039, 0.634542, -0.219265, 0.414863, 0.657257, -0.481403, 0.423775, 0.564485, -0.366823, 0.445655, 0.628043, -0.311438, 0.277791, 0.692111, -0.55365, 0.269175, 0.400624, -0.546421, 0.317259, 0.418685, -0.522291, 0.241853, 1.05148, 0.621088, 0.269368, 1.01231, 0.582951, 0.265426, 0.897121, 0.600452, 0.241853, 1.05148, 0.621088, 0.273518, 1.02691, 0.575155, 0.269368, 1.01231, 0.582951, 0.241853, 1.05148, 0.621088, 0.26371, 0.846957, 0.608073, 0.26371, 0.846956, 0.608073, 0.346042, -0.492572, 0.325665, 0.344961, -0.491399, 0.324994, 0.352311, -0.487225, 0.356443, 0.29749, -0.312362, 0.577461, 0.318467, -0.310982, 0.643903, 0.29749, -0.312362, 0.577461, 0.382192, -0.447262, 0.535153, 0.38218, -0.447215, 0.535219, 0.408374, -0.475379, 0.552105, 0.408374, -0.475379, 0.552105, 0.38218, -0.447215, 0.535219, 0.326133, -0.357971, 0.563174, 0.26371, 0.846956, 0.608073, 0.281906, 0.664873, 0.658437, 0.253585, 0.774267, 0.612018, 0.281906, 0.664873, 0.658437, 0.269368, 1.01231, 0.582951, 0.302502, 1.06946, 0.603246, 0.269368, 1.01231, 0.582951, 0.26371, 0.846957, 0.608073, 0.265426, 0.897121, 0.600452, 0.26371, 0.846957, 0.608073, 0.281906, 0.664873, 0.658437, 0.26371, 0.846956, 0.608073, 0.281906, 0.664873, 0.658437, 0.26371, 0.846957, 0.608073, 0.269368, 1.01231, 0.582951, 0.26371, 0.846957, 0.608073, 0.26371, 0.846957, 0.608073, 0.281906, 0.664873, 0.658437, 0.29749, -0.312362, 0.577461, 0.268865, 0.284051, 0.598596, 0.318467, -0.310982, 0.643903, 0.29749, -0.312362, 0.577461, 0.292333, -0.204899, 0.581269, 0.268865, 0.284051, 0.598596, 0.767988, 0.00151067, 0.122675, 0.775996, 0.00117997, 0.124533, 0.767987, 0.0015413, 0.122677, 0.767988, 0.00151067, 0.122675, 0.768013, 0.000928316, 0.122635, 0.775996, 0.00117997, 0.124533, 0.803713, 0.319552, 0.155854, 0.77969, 0.106241, 0.133586, 0.775996, 0.00117997, 0.124533, 0.803713, 0.319552, 0.155854, 0.789129, 0.190052, 0.142335, 0.77969, 0.106241, 0.133586, 0.651818, 0.978983, 0.160357, 0.546298, 0.891345, 0.129656, 0.554756, 0.864418, 0.129857, 0.771914, 0.458201, 0.159172, 0.844121, 0.783686, 0.201516, 0.730238, 0.534673, 0.152554, 0.844121, 0.783686, 0.201516, 0.781509, 0.440219, 0.160029, 0.802663, 0.403042, 0.162111, 0.771914, 0.458201, 0.159172, 0.781509, 0.440219, 0.160029, 0.844121, 0.783686, 0.201516, 0.659133, 0.57952, 0.135491, 0.661237, 0.57907, 0.136055, 0.844121, 0.783686, 0.201516, 0.659133, 0.57952, 0.135491, 0.642423, 0.621676, 0.134359, 0.62259, 0.586646, 0.127353, 0.659133, 0.57952, 0.135491, 0.659133, 0.57952, 0.135491, 0.661237, 0.57907, 0.136055, 0.659133, 0.57952, 0.135491, 0.642423, 0.621676, 0.134359, 0.659133, 0.57952, 0.135491, 0.875233, -0.305317, 0.283948, 0.622423, -0.527095, 0.289798, 0.974105, -0.293655, 0.435357, 0.875233, -0.305317, 0.283948, 0.645808, -0.49016, 0.255639, 0.622423, -0.527095, 0.289798, 0.437854, 1.11949, 0.359403, 0.42473, 1.12842, 0.378311, 0.427248, 1.12671, 0.374684, 0.698606, 1.1478, 0.574914, 0.439294, 1.11747, 0.354344, 0.4406, 1.11564, 0.349759, 0.437854, 1.11949, 0.359403, 0.698606, 1.1478, 0.574914, 0.42473, 1.12842, 0.378311, 0.439294, 1.11747, 0.354344, 0.437854, 1.11949, 0.359403, 0.437854, 1.11949, 0.359403, 0.437854, 1.11949, 0.359403, 0.698606, 1.1478, 0.574914, 0.437854, 1.11949, 0.359403, 0.698606, 1.1478, 0.574914, 0.437854, 1.11949, 0.359403, 0.439294, 1.11747, 0.354344, 0.665947, 1.07785, 0.224393, 0.698606, 1.1478, 0.574914, 0.443694, 1.1113, 0.338895, 0.665947, 1.07785, 0.224393, 0.843669, 1.08813, 0.478182, 0.698606, 1.1478, 0.574914, 0.665947, 1.07785, 0.224393, 0.458072, 1.10217, 0.266518, 0.463387, 1.0988, 0.239761, 0.344961, -0.491399, 0.324994, 0.344961, -0.491399, 0.324994, 0.346042, -0.492572, 0.325665, 0.645808, -0.49016, 0.255639, 0.350678, -0.478393, 0.313539, 0.346042, -0.492572, 0.325665, 0.365715, -0.44419, 0.28341, 0.378141, -0.343799, 0.202188, 0.368308, -0.358993, 0.216289, 0.645808, -0.49016, 0.255639, 0.365715, -0.44419, 0.28341, 0.350678, -0.478393, 0.313539, 0.645808, -0.49016, 0.255639, 0.378141, -0.343799, 0.202188, 0.365715, -0.44419, 0.28341, 0.775996, 0.00117997, 0.124533, 0.776061, -0.079473, 0.159929, 0.875233, -0.305317, 0.283948, 0.775996, 0.00117997, 0.124533, 0.768013, 0.000928316, 0.122635, 0.776061, -0.079473, 0.159929, 0.742837, -0.269533, 0.219188, 0.773664, -0.201436, 0.208285, 0.767451, -0.21516, 0.210483, 0.875233, -0.305317, 0.283948, 0.713552, -0.297661, 0.217115, 0.700369, -0.30729, 0.215151, 0.742837, -0.269533, 0.219188, 0.875233, -0.305317, 0.283948, 0.773664, -0.201436, 0.208285, 0.875233, -0.305317, 0.283948, 0.742837, -0.269533, 0.219188, 0.713552, -0.297661, 0.217115, 0.383353, -0.319645, 0.182141, 0.50794, -0.394446, 0.215041, 0.506623, -0.380752, 0.210515, 0.645808, -0.49016, 0.255639, 0.50794, -0.394446, 0.215041, 0.383353, -0.319645, 0.182141, 0.55822, -0.378508, 0.213382, 0.50794, -0.394446, 0.215041, 0.645808, -0.49016, 0.255639, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.609101, -0.358832, 0.210554, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.50794, -0.394446, 0.215041, 0.609101, -0.358832, 0.210554, 0.55822, -0.378508, 0.213382, 0.55822, -0.378508, 0.213382, 0.383353, -0.319645, 0.182141, 0.41966, 0.0211031, 0.154837, 0.399452, -0.130896, 0.167928, 0.421924, 0.0331295, 0.15365, 0.465944, -0.175522, 0.155308, 0.44451, 0.153099, 0.141809, 0.383353, -0.319645, 0.182141, 0.421924, 0.0331295, 0.15365, 0.41966, 0.0211031, 0.154837, 0.465944, -0.175522, 0.155308, 0.383353, -0.319645, 0.182141, 0.467598, -0.200869, 0.15635, 0.421924, 0.0331295, 0.15365, 0.383353, -0.319645, 0.182141, 0.465944, -0.175522, 0.155308, 0.269368, 1.01231, 0.582951, 0.29054, 1.07687, 0.556959, 0.302502, 1.06946, 0.603246, 0.29054, 1.07687, 0.556959, 0.273518, 1.02691, 0.575155, 0.280609, 1.04772, 0.567575, 0.29054, 1.07687, 0.556959, 0.269368, 1.01231, 0.582951, 0.273518, 1.02691, 0.575155, 0.29054, 1.07687, 0.556959, 0.363047, 1.11005, 0.460978, 0.302502, 1.06946, 0.603246, 0.29054, 1.07687, 0.556959, 0.307187, 1.08449, 0.534923, 0.363047, 1.11005, 0.460978, 0.808198, 0.359257, 0.160053, 0.775996, 0.00117997, 0.124533, 0.879284, 0.769526, 0.210456, 0.808198, 0.359257, 0.160053, 0.803713, 0.319552, 0.155854, 0.775996, 0.00117997, 0.124533, 0.463387, 1.0988, 0.239761, 0.472998, 1.07586, 0.224792, 0.665947, 1.07785, 0.224393, 0.665947, 1.07785, 0.224393, 0.472998, 1.07586, 0.224792, 0.482927, 1.05217, 0.20933, 0.651818, 0.978983, 0.160357, 0.546298, 0.891345, 0.129656, 0.546298, 0.891345, 0.129656, 0.546298, 0.891345, 0.129656, 0.546298, 0.891345, 0.129656, 0.528569, 0.93674, 0.151143, 0.651818, 0.978983, 0.160357, 0.546298, 0.891345, 0.129656, 0.546298, 0.891345, 0.129656, 0.879284, 0.769526, 0.210456, 0.974105, -0.293655, 0.435357, 0.998148, 0.75024, 0.44871, 0.974105, -0.293655, 0.435357, 0.89078, -0.169648, 0.304625, 0.875233, -0.305317, 0.283948, 0.974105, -0.293655, 0.435357, 0.879284, 0.769526, 0.210456, 0.89078, -0.169648, 0.304625, 0.253585, 0.774267, 0.612018, 0.281906, 0.664873, 0.658437, 0.253585, 0.774267, 0.612018, 0.281906, 0.664873, 0.658437, 0.268865, 0.284051, 0.598596, 0.267467, 0.328902, 0.599824, 0.281906, 0.664873, 0.658437, 0.318467, -0.310982, 0.643903, 0.268865, 0.284051, 0.598596, 0.767451, -0.21516, 0.210483, 0.640634, -0.507716, 0.112941, 0.742837, -0.269533, 0.219188, 0.257813, 0.282542, -0.547455, 0.261528, 0.256619, -0.544556, 0.264475, 0.377716, -0.578016, 0.304756, -0.0480991, -0.510046, 0.304756, -0.0480991, -0.510046, 0.291372, 0.0463117, -0.520747, 0.291372, 0.0463117, -0.520747, 0.304756, -0.0480991, -0.510046, 0.264475, 0.377716, -0.578016, 0.45143, -0.48335, -0.384216, 0.277893, -0.353553, -0.385193, 0.276112, -0.400917, -0.350113, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.291321, -0.186336, -0.461969, 0.304756, -0.0480992, -0.510046, 0.304756, -0.0480992, -0.510046, 0.45143, -0.48335, -0.384216, 0.279675, -0.306162, -0.420295, 0.277893, -0.353553, -0.385193, 0.291321, -0.186336, -0.461969, 0.279675, -0.306161, -0.420295, 0.304756, -0.0480992, -0.510046, 0.279675, -0.306161, -0.420295, 0.279675, -0.306162, -0.420295, 0.45143, -0.48335, -0.384216, 0.279675, -0.306161, -0.420295, 0.291321, -0.186336, -0.461969, 0.279675, -0.306162, -0.420295, 0.304884, -0.394443, -0.166822, 0.49939, -0.443975, 0.191231, 0.285333, -0.403249, -0.28701, 0.713552, -0.297661, 0.217115, 0.742837, -0.269533, 0.219188, 0.640634, -0.507716, 0.112941, 0.264475, 0.377716, -0.578016, 0.262491, 0.398176, -0.549689, 0.262491, 0.398176, -0.549689, 0.423775, 0.564485, -0.366823, 0.381381, 0.44277, -0.490112, 0.449811, 0.437069, -0.4992, 0.381381, 0.44277, -0.490112, 0.415616, 0.540782, -0.387477, 0.381381, 0.442771, -0.490112, 0.381381, 0.44277, -0.490112, 0.423775, 0.564485, -0.366823, 0.415616, 0.540782, -0.387477, 0.449811, 0.437069, -0.4992, 0.268092, 0.400227, -0.54695, 0.265191, 0.399165, -0.548368, 0.449811, 0.437069, -0.4992, 0.269175, 0.400624, -0.546421, 0.268092, 0.400227, -0.54695, 0.317259, 0.418685, -0.522291, 0.449811, 0.437069, -0.4992, 0.327076, 0.422372, -0.517364, 0.449811, 0.437069, -0.4992, 0.317259, 0.418685, -0.522291, 0.269175, 0.400624, -0.546421, 0.640634, -0.507716, 0.112941, 0.700369, -0.30729, 0.215151, 0.713552, -0.297661, 0.217115, 0.640634, -0.507716, 0.112941, 0.684521, -0.318865, 0.21279, 0.700369, -0.30729, 0.215151, 0.304884, -0.394443, -0.166822, 0.313771, -0.356057, -0.146172, 0.49939, -0.443975, 0.191231, 0.803713, 0.319552, 0.155854, 0.767963, 0.00211544, 0.122716, 0.789129, 0.190052, 0.142335, 0.767963, 0.00211544, 0.122716, 0.711806, 0.3735, -0.224607, 0.706075, 0.204392, -0.355125, 0.711806, 0.3735, -0.224607, 0.808523, 0.362132, 0.160357, 0.811412, 0.387709, 0.163061, 0.711806, 0.3735, -0.224607, 0.808198, 0.359257, 0.160053, 0.808523, 0.362132, 0.160357, 0.803713, 0.319552, 0.155854, 0.711806, 0.3735, -0.224607, 0.767963, 0.00211544, 0.122716, 0.808198, 0.359257, 0.160053, 0.711806, 0.3735, -0.224607, 0.803713, 0.319552, 0.155854, 0.706075, 0.204392, -0.355125, 0.768013, 0.000928316, 0.122635, 0.767988, 0.00151067, 0.122675, 0.776061, -0.079473, 0.159929, 0.779393, -0.131979, 0.183799, 0.777779, -0.096639, 0.167891, 0.706075, 0.204392, -0.355125, 0.776061, -0.079473, 0.159929, 0.768013, 0.000928316, 0.122635, 0.776061, -0.079473, 0.159929, 0.7786, -0.115882, 0.176168, 0.779393, -0.131979, 0.183799, 0.706075, 0.204392, -0.355125, 0.7786, -0.115882, 0.176168, 0.776061, -0.079473, 0.159929, 0.467598, -0.200869, 0.15635, 0.429373, 0.0365515, 0.111075, 0.465944, -0.175522, 0.155308, 0.49939, -0.443975, 0.191231, 0.469143, -0.224557, 0.157323, 0.473156, -0.240131, 0.162646, 0.469143, -0.224557, 0.157323, 0.429373, 0.0365515, 0.111075, 0.467598, -0.200869, 0.15635, 0.469143, -0.224557, 0.157323, 0.49939, -0.443975, 0.191231, 0.429373, 0.0365515, 0.111075, 0.680717, 0.5749, 0.141277, 0.528977, 0.61337, 0.086319, 0.708178, 0.571527, 0.142668, 0.528977, 0.61337, 0.086319, 0.531606, 0.604389, 0.107092, 0.529491, 0.611611, 0.0903857, 0.528977, 0.61337, 0.086319, 0.62259, 0.586646, 0.127353, 0.531606, 0.604389, 0.107092, 0.661237, 0.57907, 0.136055, 0.528977, 0.61337, 0.086319, 0.680717, 0.5749, 0.141277, 0.528977, 0.61337, 0.086319, 0.659133, 0.57952, 0.135491, 0.62259, 0.586646, 0.127353, 0.528977, 0.61337, 0.086319, 0.661237, 0.57907, 0.136055, 0.659133, 0.57952, 0.135491, 0.264475, 0.377716, -0.578016, 0.260136, 0.339969, -0.548564, 0.257813, 0.282542, -0.547455, 0.264475, 0.377716, -0.578016, 0.262491, 0.398176, -0.549689, 0.260136, 0.339969, -0.548564, 0.276112, -0.400917, -0.350113, 0.277354, -0.406113, -0.336785, 0.45143, -0.48335, -0.384216, 0.276112, -0.400917, -0.350113, 0.276995, -0.40461, -0.34064, 0.277354, -0.406113, -0.336785, 0.632816, 0.576596, -0.104054, 0.514405, 0.632277, 0.000980288, 0.458354, 0.630925, -0.312502, 0.632816, 0.576596, -0.104054, 0.708178, 0.571527, 0.142668, 0.514405, 0.632277, 0.000980288, 0.802715, 0.40295, 0.162116, 0.632816, 0.576596, -0.104054, 0.711806, 0.3735, -0.224607, 0.632816, 0.576596, -0.104054, 0.71695, 0.559054, 0.150444, 0.708178, 0.571527, 0.142668, 0.730238, 0.534673, 0.152554, 0.781509, 0.440219, 0.160029, 0.771914, 0.458201, 0.159172, 0.632816, 0.576596, -0.104054, 0.730238, 0.534673, 0.152554, 0.71695, 0.559054, 0.150444, 0.802663, 0.403042, 0.162111, 0.632816, 0.576596, -0.104054, 0.802715, 0.40295, 0.162116, 0.730238, 0.534673, 0.152554, 0.802663, 0.403042, 0.162111, 0.781509, 0.440219, 0.160029, 0.632816, 0.576596, -0.104054, 0.802663, 0.403042, 0.162111, 0.730238, 0.534673, 0.152554, 0.71695, 0.559054, 0.150444, 0.71548, 0.560687, 0.150139, 0.708178, 0.571527, 0.142668)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhct5"]
+render_priority = 0
+shader = ExtResource("16_uppkl")
+shader_parameter/outlineColor = Color(0, 0, 0, 0.78)
+shader_parameter/depth_threshold = 0.025
+shader_parameter/normal_threshold = 0.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 1.3
+shader_parameter/min_thickness = 0.5
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 2.0
+shader_parameter/grazing_fresnel_power = 5.0
+shader_parameter/grazing_angle_mask_power = 1.0
+shader_parameter/grazing_angle_modulation_factor = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_grk8i"]
+material = SubResource("ShaderMaterial_yhct5")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bl2wx"]
+render_priority = 0
+shader = ExtResource("17_nitd0")
+shader_parameter/zNear = 0.05
+shader_parameter/zFar = 100.0
+shader_parameter/outlineThickness = 1.5
+shader_parameter/outlineColor = Color(0, 0, 0, 1)
+shader_parameter/wiggleFrequency = 0.08
+shader_parameter/wiggleAmplitude = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_pi5me"]
+material = SubResource("ShaderMaterial_bl2wx")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="Main" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ojamv")]
+transform = Transform3D(4.37114e-08, 0, -1, 0, 1, 0, 1, 0, 4.37114e-08, -49.8227, 2.07113, -8.61027)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kgbl7")
+camera_attributes = SubResource("CameraAttributesPractical_qo5hu")
+
+[node name="Sun3" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, 1, 0, -1, -3.61999e-06, -4.86868, 48.1106, 2.18251)
+light_energy = 0.5
+light_volumetric_fog_energy = 2.0
+shadow_enabled = true
+directional_shadow_max_distance = 200.0
+
+[node name="Day_Night_Cycle" type="AnimationPlayer" parent="WorldEnvironment"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_hs8gh")
+}
+autoplay = "day_night_cycle"
+speed_scale = 32.0
+script = ExtResource("3_nu7pc")
+period_of_time = 2
+
+[node name="Death_Trigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -38.0768, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Death_Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2605, 0.952148, -260.954)
+shape = SubResource("BoxShape3D_lm116")
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="Island_1" type="Node3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.7054)
+
+[node name="Temple" type="Node3D" parent="Level/Island_1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -32.3529, 0, -43.3343)
+
+[node name="pillars" type="Node3D" parent="Level/Island_1/Temple"]
+
+[node name="temple_pillar" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, 23.4)
+
+[node name="temple_pillar2" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, 18.4)
+
+[node name="temple_pillar3" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, 13.4)
+
+[node name="temple_pillar4" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, 8.4)
+
+[node name="temple_pillar5" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, 3.4)
+
+[node name="temple_pillar6" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, -1.6)
+
+[node name="temple_pillar7" parent="Level/Island_1/Temple/pillars" instance=ExtResource("3_wc3m2")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 23, 12.5725, -6.6)
+
+[node name="square_pilar18" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(2.31822, 0, -0.621166, 0, 3.243, 0, 0.621166, 0, 2.31822, 24.3497, 14.3739, 29.692)
+
+[node name="square_pilar17" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, -15.2739, 2.77241, 20.8415)
+
+[node name="square_pilar16" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(2.39087, 0, -0.209174, 0, 3.243, 0, 0.209174, 0, 2.39087, -15.2431, 1.50569, -12.2564)
+
+[node name="square_pilar9" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, -7.44314, 1.50569, -11.9564)
+
+[node name="square_pilar10" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, 12.5569, 9.55619, -11.8764)
+
+[node name="square_pilar11" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, 22.4569, 9.55619, -11.8764)
+
+[node name="square_pilar8" parent="Level/Island_1/Temple" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.0287626, -2.0858, -0.346213, 0.0219128, 0.366327, -1.96974, 1.99967, -0.0340157, 0.016605, 2.56535, 15.1202, -11.9678)
+
+[node name="Wall1" type="Node3D" parent="Level/Island_1/Temple"]
+
+[node name="small_brick_wall" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -5.4, -5.09995)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -5.4, 2.90005)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 4.6, 4.90007)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -5.4, 18.9001)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 16.6, 12.8001)
+
+[node name="small_brick_wall6" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 6.6, 10.9001)
+
+[node name="small_brick_wall7" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 16.6, -3.09991)
+
+[node name="small_brick_wall8" parent="Level/Island_1/Temple/Wall1" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 6.6, -5.09995)
+
+[node name="Wall2" type="Node3D" parent="Level/Island_1/Temple"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 0.462583, -2, 39.1803)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 2.6, 2.90005)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 8.6, 4.90007)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -1.4, 18.9001)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 20.6, 12.8001)
+
+[node name="small_brick_wall6" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 10.6, 10.9001)
+
+[node name="small_brick_wall7" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 24.6, -3.09991)
+
+[node name="small_brick_wall8" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 18.6, -5.09995)
+
+[node name="small_brick_wall9" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 16.6, -11.0999)
+
+[node name="small_brick_wall10" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 32.6, -19.0999)
+
+[node name="small_brick_wall11" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 10.6, -13.0999)
+
+[node name="small_brick_wall12" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -1.4, -13.0999)
+
+[node name="small_brick_wall13" parent="Level/Island_1/Temple/Wall2" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 4.6, -11.0999)
+
+[node name="Wall3" type="Node3D" parent="Level/Island_1/Temple"]
+transform = Transform3D(-2.98023e-08, 0, -1, 0, 1, 0, 1, 0, -2.98023e-08, 4.65196, -4.1, 3.62627)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Temple/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -1.4, 18.9001)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Temple/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -4.9738e-14, -1.74846e-07, -2, 7.64274e-15, -4.9738e-14, -7.64274e-15, -2, -15.5, 20.6, 12.8001)
+
+[node name="small_brick_wall10" parent="Level/Island_1/Temple/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, -1.74846e-07, -5.68434e-14, -1.74846e-07, -2, 7.64274e-15, -5.68434e-14, -7.64274e-15, -2, -15.5, 28.6, -16.0999)
+
+[node name="small_brick_wall11" parent="Level/Island_1/Temple/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, 6.6, -10.0999)
+
+[node name="small_brick_wall12" parent="Level/Island_1/Temple/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -15.5, -5.4, -10.0999)
+
+[node name="Top" type="Node3D" parent="Level/Island_1/Temple"]
+
+[node name="Top_1_square_pilar" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(4, 0, 0, 0, 0.70468, -3.96007, 0, 4.95009, 0.563744, 23.6363, 29.6911, 8.35283)
+
+[node name="Top_2_square_pilar5" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.0151397, -3.99004, 0.822363, 0.0214173, -1.1374, -2.88503, 3.99991, -0.00901213, 0.0185604, 3.06871, 21.6579, -10.6374)
+
+[node name="Top_3_square_pilar6" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.675431, -3.90135, 1.16008, -0.043011, -1.71794, -2.75725, 2.92266, -0.926892, 0.227521, 4.48555, 24.9038, 24.0346)
+
+[node name="Top_4_square_pilar7" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(3, -1.74846e-07, -5.73206e-15, 0, -1.74846e-07, 3, -1.31134e-07, -4, -1.31134e-07, -15.201, 17.869, 4.0338)
+
+[node name="Rib_1_square_pilar3" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.256015, -4.01934, 0.674996, 0.14983, -1.50165, -1.86868, 1.97788, -0.406507, 0.228929, 3.7363, 21.9732, -1.01266)
+
+[node name="Rib_2_square_pilar2" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.426253, -4.05975, 0.762906, 0.0137159, -1.76832, -1.84006, 1.954, -0.873193, 0.179339, 3.29473, 23.033, 7.24271)
+
+[node name="Rib_3_square_pilar4" parent="Level/Island_1/Temple/Top" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.501415, -3.85512, 0.793509, -0.178153, -1.68984, -1.83548, 1.92791, -1.15879, 0.0367651, 2.656, 23.9357, 16.4851)
+
+[node name="Inside" type="Node3D" parent="Level/Island_1/Temple"]
+
+[node name="square_pilar12" parent="Level/Island_1/Temple/Inside" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.47886, 0.306918, -0.184257, -0.169892, 2.68549, 0.0139932, 0.184652, 0.0127458, 1.48857, -9.61476, 3.51252, -2.03058)
+
+[node name="square_pilar11" parent="Level/Island_1/Temple/Inside" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.30981, -1.23673, -0.251772, 0.673743, 2.40348, -0.130734, 0.283689, 0.00192917, 1.47293, 10.6524, 10.0932, 7.5271)
+
+[node name="square_pilar13" parent="Level/Island_1/Temple/Inside" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.36392, 0.276169, -0.605163, -0.196327, 2.67709, -0.0662523, 0.592592, 0.251286, 1.37091, -10.7571, 6.14539, 11.8308)
+
+[node name="square_pilar14" parent="Level/Island_1/Temple/Inside" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.349097, 0.232794, -1.36987, -0.48689, 0.634825, 0.376772, 1.37516, 0.165669, 0.481153, -5.02991, 2.19253, 7.55254)
+
+[node name="square_pilar15" parent="Level/Island_1/Temple/Inside" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.0630538, 0.0508786, -1.54702, -0.713867, 0.39368, 0.140413, 1.53133, 0.181429, 0.129157, 8.26466, 0.220638, 14.3303)
+
+[node name="Reflections" type="Node3D" parent="Level/Island_1/Temple"]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Level/Island_1/Temple/Reflections"]
+transform = Transform3D(0.968314, -0.249738, 1.38506e-09, 0.249738, 0.968314, -1.09164e-08, 1.38506e-09, 1.09164e-08, 1, 9.72504, 6.94635, 1.97352)
+update_mode = 1
+size = Vector3(36.014, 30.4092, 28.8863)
+box_projection = true
+interior = true
+enable_shadows = true
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="Level/Island_1/Temple/Reflections"]
+transform = Transform3D(0.924994, -0.238565, -0.295759, 0.249738, 0.968314, -2.20115e-08, 0.286387, -0.0738621, 0.955263, 8.74043, 6.42612, 16.6123)
+update_mode = 1
+size = Vector3(37.9709, 29.8393, 16.5943)
+box_projection = true
+interior = true
+enable_shadows = true
+
+[node name="ReflectionProbe3" type="ReflectionProbe" parent="Level/Island_1/Temple/Reflections"]
+transform = Transform3D(0.0372221, -0.00959993, 0.999261, -0.00920452, 0.999908, 0.00994901, -0.999265, -0.00956804, 0.0371303, 5.12835, 3.90415, 3.70845)
+update_mode = 1
+size = Vector3(33.3997, 24.7248, 44.0445)
+box_projection = true
+interior = true
+enable_shadows = true
+
+[node name="Stairs" type="Node3D" parent="Level/Island_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3956, 0, -92.1431)
+
+[node name="Stairs_Set1" type="Node3D" parent="Level/Island_1/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.9243, -2.89291, 14.5203)
+
+[node name="stairs" parent="Level/Island_1/Stairs/Stairs_Set1" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(-8.74228e-08, 0, 1.3, 0, 1, 0, -2, 0, -5.68248e-08, 6.21712, 5.83873, -1.88741)
+
+[node name="stairs2" parent="Level/Island_1/Stairs/Stairs_Set1" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(8.74228e-08, 0, 1.3, 0, 1, 0, 2, 0, -5.68248e-08, 2.31712, 8.83873, -1.88741)
+
+[node name="stairs3" parent="Level/Island_1/Stairs/Stairs_Set1" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(-8.74228e-08, 0, 1.3, 0, 1, 0, -2, 0, -5.68248e-08, -1.58288, 11.8387, -1.88741)
+
+[node name="stairs4" parent="Level/Island_1/Stairs/Stairs_Set1" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(8.74228e-08, 0, 1.3, 0, 1, 0, 2, 0, -5.68248e-08, -5.48288, 14.8387, -1.88741)
+
+[node name="Stairs_Set2" type="Node3D" parent="Level/Island_1/Stairs"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.7243, 8.10709, 0.920307)
+
+[node name="stairs" parent="Level/Island_1/Stairs/Stairs_Set2" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(-8.74228e-08, 0, 1.3, 0, 1, 0, -2, 0, -5.68248e-08, 6.21712, 5.83873, -1.88741)
+
+[node name="stairs2" parent="Level/Island_1/Stairs/Stairs_Set2" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(8.74228e-08, 0, 1.3, 0, 1, 0, 2, 0, -5.68248e-08, 2.31712, 8.83873, -1.88741)
+
+[node name="Stairs_Set3" type="Node3D" parent="Level/Island_1/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.7963, 0.0999985)
+
+[node name="stairs3" parent="Level/Island_1/Stairs/Stairs_Set3" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(-8.74228e-08, 0, -1.3, 0, 1, 0, 2, 0, -5.68248e-08, -1.14141, -0.850496, 2.70771)
+
+[node name="stairs4" parent="Level/Island_1/Stairs/Stairs_Set3" instance=ExtResource("7_6l3ki")]
+transform = Transform3D(8.74228e-08, 0, -1.3, 0, 1, 0, -2, 0, -5.68248e-08, 2.75859, 2.1495, 2.70771)
+
+[node name="Frame" type="Node3D" parent="Level/Island_1/Stairs"]
+
+[node name="Vertical" type="Node3D" parent="Level/Island_1/Stairs/Frame"]
+
+[node name="square_pilar" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -42.6, 4.636, 17.4)
+
+[node name="square_pilar2" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -42.6, 4.63621, 7.7)
+
+[node name="square_pilar4" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -52.3, 4.636, 17.4)
+
+[node name="square_pilar7" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -52.3, 4.636, -2)
+
+[node name="square_pilar6" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -42.6, 4.636, -2)
+
+[node name="square_pilar10" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, -32.9, -0.364, -2)
+
+[node name="square_pilar3" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, -32.9, -0.364, 7.7)
+
+[node name="square_pilar9" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, -3.9, -0.364, -2)
+
+[node name="square_pilar8" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, -3.9, -0.363793, 7.7)
+
+[node name="square_pilar12" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, 5.8, 5.474, -2)
+
+[node name="square_pilar11" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, 5.8, 5.47431, 7.7)
+
+[node name="square_pilar14" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, 15.5, 5.474, -2)
+
+[node name="square_pilar13" parent="Level/Island_1/Stairs/Frame/Vertical" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 1, 15.5, 5.47431, 7.7)
+
+[node name="Horizontal" type="Node3D" parent="Level/Island_1/Stairs/Frame"]
+
+[node name="square_pilar3" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -47.7, 13.5, 17.4)
+
+[node name="square_pilar4" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -47.7, 13.5, -2)
+
+[node name="square_pilar5" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.91069e-15, -8.74228e-08, -1, -1, -8.74228e-08, 0, -4.37114e-08, 2, -4.37114e-08, -52.3, 13.5, 7.5)
+
+[node name="square_pilar" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-4.37114e-08, 3, 0, -1, -1.31134e-07, 0, 0, 0, 1, -18.2, 18.5, 7.7)
+
+[node name="square_pilar2" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-4.37114e-08, 3, 0, -1, -1.31134e-07, 0, 0, 0, 1, -18.2, 18.5, -2)
+
+[node name="square_pilar6" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 10.7, 24.3, 7.7)
+
+[node name="square_pilar7" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 10.7, 24.3, -1.99999)
+
+[node name="square_pilar8" parent="Level/Island_1/Stairs/Frame/Horizontal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 15.5, 24.3, 3.50001)
+
+[node name="Diagonal" type="Node3D" parent="Level/Island_1/Stairs/Frame"]
+
+[node name="square_pilar6" parent="Level/Island_1/Stairs/Frame/Diagonal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.601815, -1.59727, -8.74228e-08, -0.798635, 1.20363, 0, 5.26123e-08, 1.39638e-07, -1, -34.2, 7.6, 17.4)
+
+[node name="square_pilar" parent="Level/Island_1/Stairs/Frame/Diagonal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.544639, 0.83867, 0, -0.83867, 0.544639, 0, 0, 0, 1, -37.4, 16, 7.7)
+
+[node name="square_pilar2" parent="Level/Island_1/Stairs/Frame/Diagonal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.544639, 1.0064, 0, -0.838671, 0.653567, 0, 0, 0, 1, -38.3058, 15.4118, -2)
+
+[node name="square_pilar3" parent="Level/Island_1/Stairs/Frame/Diagonal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.601815, 0.918431, 0, -0.798635, 0.692087, 0, 0, 0, 1, 0.932625, 21.0232, 7.7)
+
+[node name="square_pilar4" parent="Level/Island_1/Stairs/Frame/Diagonal" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.601815, 0.918431, 0, -0.798635, 0.692087, 0, 0, 0, 1, 0.932625, 21.0232, -2)
+
+[node name="Walls" type="Node3D" parent="Level/Island_1/Stairs"]
+
+[node name="Wall1" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.4, 11.5, 7)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall1" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -10, 0.5)
+
+[node name="brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall1" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
+
+[node name="triangle_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall1" instance=ExtResource("9_pg2sa")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0.5)
+
+[node name="Wall2" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -26.4, 6.1, 17.7)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall2" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(4.37114e-08, 8.74228e-08, -1, 8.74228e-08, 1, 8.74228e-08, 1, -8.74228e-08, 4.37114e-08, 9, -4.9, 0.5)
+
+[node name="triangle_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall2" instance=ExtResource("9_pg2sa")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0.5)
+
+[node name="triangle_brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall2" instance=ExtResource("9_pg2sa")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.999999, -4.9, 0.5)
+
+[node name="Wall3" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -44.8, 4.3, 17.6)
+
+[node name="small_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -3.1, 0.4)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -3.1, 0.4)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, 2.8, 0.400001)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, 2.8, 0.4)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall3" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, 2.8, 0.4)
+
+[node name="Wall4" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -52.4, 4.3, 13)
+
+[node name="small_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -3.1, 0.399998)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, 2.8, 0.400001)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.599998, 2.8, 0.400002)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-1.53486e-07, 0, -1, 0, 1, 0, 1, 0, -1.53486e-07, 0.599998, -3.1, 0.400002)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.5, 2.8, 0.400002)
+
+[node name="small_brick_wall6" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 8.3, 2.8, 0.400002)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 10.6, -3.1, 0.399998)
+
+[node name="small_brick_wall7" parent="Level/Island_1/Stairs/Walls/Wall4" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 11.9, 2.8, 0.400002)
+
+[node name="Wall5" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -44.8, 4.7, -1.49999)
+
+[node name="small_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall5" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.399998, -3.1, 0.400002)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall5" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -3.1, 0.4)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall5" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, 2.8, 0.400001)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall5" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, 2.8, 0.4)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall5" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, 2.8, 0.4)
+
+[node name="Wall6" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.2, 11.5, -2.4)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall6" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -10, 0.5)
+
+[node name="brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall6" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
+
+[node name="triangle_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall6" instance=ExtResource("9_pg2sa")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0.5)
+
+[node name="Wall7" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4, 11.5, 7)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -10, 0.5)
+
+[node name="brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(4.37114e-08, -8.74228e-08, -1, -3.82137e-15, -1, 8.74228e-08, -1, 0, -4.37114e-08, -5, -5, 0.5)
+
+[node name="brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, -10, 0.5)
+
+[node name="brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
+
+[node name="brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, -4, 0.5)
+
+[node name="brick_wall6" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(4.37114e-08, -8.74228e-08, -1, -3.82137e-15, -1, 8.74228e-08, -1, 0, -4.37114e-08, -15, 1, 0.5)
+
+[node name="brick_wall7" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 8.74228e-08, -1, -3.82137e-15, -1, -8.74228e-08, 4.37114e-08, 5, 7, 0.5)
+
+[node name="brick_wall8" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 2, 0.5)
+
+[node name="brick_wall9" parent="Level/Island_1/Stairs/Walls/Wall7" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, 2, 0.5)
+
+[node name="Wall8" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2, 11.5, -2.4)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -10, 0.5)
+
+[node name="brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(4.37114e-08, -8.74228e-08, -1, -3.82137e-15, -1, 8.74228e-08, -1, 0, -4.37114e-08, -5, -5, 0.5)
+
+[node name="brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, -10, 0.5)
+
+[node name="brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
+
+[node name="brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, -4, 0.5)
+
+[node name="brick_wall6" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(4.37114e-08, -8.74228e-08, -1, -3.82137e-15, -1, 8.74228e-08, -1, 0, -4.37114e-08, -15, 1, 0.5)
+
+[node name="brick_wall7" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, -1, 8.74228e-08, -1, -3.82137e-15, -1, -8.74228e-08, 4.37114e-08, 5, 7, 0.5)
+
+[node name="brick_wall8" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 2, 0.5)
+
+[node name="brick_wall9" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, 2, 0.5)
+
+[node name="Wall9" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.20001, 17.5, -2.4)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall9" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -10, 0.5)
+
+[node name="brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall9" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
+
+[node name="triangle_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall9" instance=ExtResource("9_pg2sa")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0.5)
+
+[node name="brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall9" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -16, 0.5)
+
+[node name="Wall10" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.8, 15.7, -1.49999)
+
+[node name="small_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -3.2, 0.400002)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -3.2, 0.399998)
+
+[node name="small_brick_wall6" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -3.2, 0.400002)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, 2.8, 0.400001)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, 2.8, 0.4)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, 2.8, 0.4)
+
+[node name="small_brick_wall7" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -9.2, 0.400002)
+
+[node name="small_brick_wall8" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -9.2, 0.399998)
+
+[node name="small_brick_wall9" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -9.2, 0.400002)
+
+[node name="small_brick_wall10" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -15.2, 0.400002)
+
+[node name="small_brick_wall11" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -15.2, 0.399998)
+
+[node name="small_brick_wall12" parent="Level/Island_1/Stairs/Walls/Wall10" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -15.2, 0.400002)
+
+[node name="Wall11" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.20001, 17.5, 7)
+
+[node name="brick_wall" parent="Level/Island_1/Stairs/Walls/Wall11" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -10, 0.5)
+
+[node name="brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall11" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
+
+[node name="triangle_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall11" instance=ExtResource("9_pg2sa")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0.5)
+
+[node name="brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall11" instance=ExtResource("8_ds4vj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -16, 0.5)
+
+[node name="Wall12" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.8, 15.7, 7.90001)
+
+[node name="small_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -3.2, 0.400002)
+
+[node name="small_brick_wall2" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -3.2, 0.399998)
+
+[node name="small_brick_wall6" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -3.2, 0.400002)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, 2.8, 0.400001)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, 2.8, 0.4)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, 2.8, 0.4)
+
+[node name="small_brick_wall7" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -9.2, 0.400002)
+
+[node name="small_brick_wall8" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -9.2, 0.399998)
+
+[node name="small_brick_wall9" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -9.2, 0.400002)
+
+[node name="small_brick_wall10" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.6, -15.2, 0.400002)
+
+[node name="small_brick_wall11" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.1, -15.2, 0.399998)
+
+[node name="small_brick_wall12" parent="Level/Island_1/Stairs/Walls/Wall12" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -3.4, -15.2, 0.400002)
+
+[node name="Wall13" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 15.7, 15.7, -0.0999908)
+
+[node name="small_brick_wall3" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1.8, 2.8, 0.400002)
+
+[node name="small_brick_wall4" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 2.2, 2.8, 0.400001)
+
+[node name="small_brick_wall5" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, 2.8, 0.4)
+
+[node name="small_brick_wall6" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1.8, -3.2, 0.400002)
+
+[node name="small_brick_wall7" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 2.2, -3.2, 0.400001)
+
+[node name="small_brick_wall8" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, -3.2, 0.399999)
+
+[node name="small_brick_wall9" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1.8, -9.2, 0.400002)
+
+[node name="small_brick_wall10" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 2.2, -9.2, 0.400001)
+
+[node name="small_brick_wall11" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, -9.2, 0.399998)
+
+[node name="Terrain" type="Node3D" parent="Level/Island_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.523, 1.03133, -58.763)
+
+[node name="HTerrain" type="Node3D" parent="Level/Island_1/Terrain"]
+script = ExtResource("7_yl6ky")
+map_scale = Vector3(0.2, 0.1, 0.17)
+centered = true
+_terrain_data = ExtResource("8_j2o12")
+chunk_size = 64
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "LowPoly"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_b5yv2")
+render_layers = 1
+cast_shadow = 1
+
+[node name="Island_base" type="Node3D" parent="Level/Island_1/Terrain"]
+
+[node name="rock" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-4.76837e-07, 5.17638, -19.3185, -1.54494e-06, -19.3185, -5.17638, -20, 1.54972e-06, 1.43051e-06, -40.8483, -8.55153, 44.6802)
+
+[node name="rock2" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-4.14072, -1.8633, 19.4777, -2.28631, -19.7267, -2.37315, 19.4326, -2.71793, 3.87113, -26.8483, -5.55153, 47.6802)
+
+[node name="rock3" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(24.9821, -0.574326, 0.749883, -0.784919, -23.6638, 8.0256, 0.525428, -8.04341, -23.6649, -5.84832, -3.55153, 52.6802)
+
+[node name="rock4" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-16.9192, 4.52107, -9.65926, -4.80243, -19.4033, -0.669872, -9.5225, 1.75271, 17.5, 24.1429, -4.27416, 42.9293)
+
+[node name="rock5" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(14.2953, -4.92559, 13.0914, -0.910415, -19.0069, -6.15714, 13.9577, 3.80497, -13.8096, 33.741, -4.12616, 31.8905)
+
+[node name="rock6" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(12.0476, -8.66389, -20.1195, -8.92494, -22.9107, 4.52159, -20.005, 5.00364, -14.1337, 48.5711, -6.25428, 16.2208)
+
+[node name="rock7" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-16.7063, 3.77843, 10.3258, -3.92208, -19.5943, 0.824362, 10.2721, -1.33633, 17.1084, 45.7107, -2.87207, -7.65394)
+
+[node name="rock8" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(19.2353, 0.832406, -5.4138, -1.3777, -18.3969, -7.72363, -5.30133, 7.80126, -17.6362, 36.9498, -3.93015, -21.4458)
+
+[node name="rock9" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(15.1231, 10.9746, 16.6087, 3.59177, 19.0113, -15.8326, -19.5804, 11.9637, 9.9236, 27.7946, -7.85238, -41.8597)
+
+[node name="rock10" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(20, -1.90735e-06, 9.53674e-07, -1.54494e-06, -19.3185, -5.17638, -9.53674e-07, 5.17638, -19.3185, -55.8483, -8.55153, 27.6802)
+
+[node name="rock11" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(20, -1.90735e-06, 9.53674e-07, -8.61124e-07, -19.3185, 5.17638, -1.59838e-06, -5.17638, -19.3185, -57.8483, -2.55153, 6.68018)
+
+[node name="rock12" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-11.3011, 0.00132787, -22.2999, -10.6721, -21.9515, 5.40706, -19.5804, 11.9637, 9.9236, -35.2054, -7.85238, -41.8597)
+
+[node name="rock13" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.126108, -0.449479, 19.9946, -2.11586, 19.8824, 0.460302, -19.8874, -2.11818, 0.077816, -14.8483, -3.55153, -43.1529)
+
+[node name="rock14" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.542746, -0.731917, -19.9792, -3.92208, -19.5943, 0.824362, -19.6042, 3.94038, 0.388212, 7.71066, -2.87207, -45.5539)
+
+[node name="rock15" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-14.3127, 1.49447, -4.23223, -3.51262, 5.0752, 13.6713, 2.79405, 14.036, -4.4927, -52.2054, -3.85238, -26.8597)
+
+[node name="rock16" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-50, -4.37114e-06, 0, 4.37114e-06, -50, 0, 0, 0, 50, 0, -34, 0)
+
+[node name="rock17" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(41.8258, -12.9409, -24.1481, -4.35484, -46.6506, 17.4572, -27.0488, -12.5, -40.1511, 0, -41, 0)
+
+[node name="rock18" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(30, -5.70229e-06, -4.37552e-06, -5.70229e-06, -30, 0, -4.37552e-06, 0, -30, -34.8483, -26.5515, -8.31982)
+
+[node name="rock19" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(7.76458, -1.47586e-06, 28.9778, -5.70229e-06, -30, 0, 28.9778, -5.50799e-06, -7.76458, -18.8483, -26.5515, -30.3198)
+
+[node name="rock20" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(15, -2.85115e-06, -25.9808, -5.70229e-06, -30, -1.82959e-19, -25.9808, 4.93833e-06, -15, -26.8483, -26.5515, 21.6802)
+
+[node name="rock21" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-30, 5.70229e-06, 7.62939e-06, -5.70229e-06, -30, -2.85587e-14, 6.67572e-06, -6.82121e-13, 30, 23.1517, -26.5515, 31.6802)
+
+[node name="rock22" parent="Level/Island_1/Terrain/Island_base" instance=ExtResource("13_bccd3")]
+transform = Transform3D(3.64896, -27.4379, -11.5692, 10.7408, 12.0839, -25.2708, 27.7727, -1.06836, 11.2933, -49.842, -11.8515, -4.01982)
+
+[node name="Rocks" type="Node3D" parent="Level/Island_1/Terrain"]
+
+[node name="rock" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(4.48143, 0, -2.21739, 0, 5, 0, 2.21739, 0, 4.48143, 13.7307, -1.48548, 25.0385)
+
+[node name="rock8" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(4.73678, 0, 1.60092, 0, 5, 0, -1.60092, 0, 4.73678, 8.86594, -2.48549, 34.0494)
+
+[node name="rock9" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.981955, 0, 4.90263, 0, 5, 0, -4.90263, 0, 0.981955, 20.1446, 3.51451, 28.0347)
+
+[node name="rock7" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0, 1.29409, 4.82963, -4.44089e-15, -4.82963, 1.29409, 5, 1.19209e-07, 2.38419e-07, 30.5781, 3.51451, -3.79785)
+
+[node name="rock6" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 22.9443, -2.48549, -5.47923)
+
+[node name="rock5" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(3.53553, 0, 3.53553, 0, 5, 0, -3.53553, 0, 3.53553, 24.9889, -3.48549, 6.4257)
+
+[node name="rock4" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-2.5, 1.12072, 4.18258, -4.44089e-15, -4.82963, 1.29409, 4.33013, 0.647047, 2.41482, -1.77916, 4.51451, -2.46451)
+
+[node name="rock3" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(4.33013, 0, -2.5, 0, 5, 0, 2.5, 0, 4.33013, -4.24326, -1.48549, -6.19657)
+
+[node name="rock2" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(4.82963, 0, 1.2941, 0, 5, 0, -1.2941, 0, 4.82963, -6.24326, -2.48549, -2.73247)
+
+[node name="rock10" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.25, -4.33013, -2.16506, 2.16506, 2.5, -3.75, 4.33013, -2.1111e-07, 2.5, 8.75674, 5.51451, -22.7325)
+
+[node name="rock11" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.02661, 6.75683, -4.15828, -3.625, 4.12917, 5.81458, 7.0573, 1.13806, 3.59157, 14.7567, 4.51451, -22.7325)
+
+[node name="rock12" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-4.82925, 3.70285, -7.93519, 2.5392, 9.26474, 2.77794, 8.38038, -0.673369, -5.4144, 36.7307, 2.51451, 21.0385)
+
+[node name="rock13" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-6.83624, 0.0450279, -7.29821, 1.9443, -9.6272, -1.88062, -7.0346, -2.70462, 6.57263, 20.1276, 11.958, 39.2475)
+
+[node name="rock14" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-4.28367, 2.58819, -8.65745, -1.14781, -9.65926, -2.31976, -8.96285, 3.23836e-07, 4.43478, 36.7307, 6.51451, 1.03851)
+
+[node name="rock15" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(4.73678, 0, 1.60092, 0, 5, 0, -1.60092, 0, 4.73678, 5.59814, -3.48549, 8.76459)
+
+[node name="rock16" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(3.72891, -2.26036, -2.44662, 1.55012, 4.42823, -1.72856, 2.94827, 0.530617, 4.00327, -20.9243, 5.79624, -11.936)
+
+[node name="rock17" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.42837, 7.88905, -1.25674, 3.94715, 1.3032, 6.83532, 6.94525, -0.25406, -3.96219, -40.8433, 0.314515, -15.8325)
+
+[node name="rock18" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-3.99636, -5.49447, -4.22373, -4.68797, 5.73413, -3.02368, 5.10412, 0.964622, -6.08419, -47.2433, 8.31451, 1.06753)
+
+[node name="rock19" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.44047, -0.422466, 7.8579, -0.0131808, 7.98832, 0.431895, -7.86924, -0.0907128, 1.43767, -51.6433, 9.31451, -16.1325)
+
+[node name="rock20" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.212774, 4.99538, -0.0307199, -0.788192, 0.0639342, 4.93707, 4.9329, -0.205253, 0.790185, -10.2869, 4.51451, -23.8645)
+
+[node name="rock21" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.52379, -2.26972, -1.23549, 0.948114, 1.82529, -2.18389, 2.40398, 0.718806, 1.64444, -25.7032, 11.9328, -10.9488)
+
+[node name="rock22" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-2.27332, 0.78056, -4.38438, 0.655818, 4.9276, 0.537227, 4.40476, -0.330813, -2.34278, -31.7243, 4.19624, -11.736)
+
+[node name="rock23" parent="Level/Island_1/Terrain/Rocks" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-4.02374, -2.69461, -1.24443, -0.301896, 2.45705, -4.34417, 2.95269, -3.42082, -2.14, -51.2243, 15.6962, -0.236038)
+
+[node name="Test_Cameras" type="Node3D" parent="Level/Island_1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -32.3529, 0, -76.0397)
+
+[node name="Test_Camera_Temple" type="Camera3D" parent="Level/Island_1/Test_Cameras"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5054, 2.59651, 19.9214)
+
+[node name="Test_Camera_Stairs" type="Camera3D" parent="Level/Island_1/Test_Cameras"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5054, 11.033, -27.181)
+
+[node name="Test_Camera_Next" type="Camera3D" parent="Level/Island_1/Test_Cameras"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.4946, 27.3, -38.181)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Level/Island_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.4624, -53.3304, -53.5077)
+update_mode = 1
+size = Vector3(217.446, 202.37, 164.827)
+enable_shadows = true
+
+[node name="Pathway_1" type="Node3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.30148, 22.2116, -134.528)
+
+[node name="Rock_1" type="Node3D" parent="Level/Pathway_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.699999, 62)
+
+[node name="rock" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.707107, -6.18172e-08, -0.707107, 8.74228e-08, -1, 0, -0.707107, -6.18172e-08, 0.707107, -0.25, -0.0500002, 1.25)
+
+[node name="rock2" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.408494, -0.482963, 0.774519, -0.353553, -0.866025, -0.353553, 0.841506, -0.129409, -0.524519, 0.55, 0, 0.549999)
+
+[node name="rock3" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.965926, 8.44439e-08, -0.258819, 8.74228e-08, -1, -3.55485e-15, -0.258819, -2.26267e-08, -0.965926, -0.9, 0, -1.93301)
+
+[node name="rock4" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.743476, 0.613092, -0.267135, -0.490102, -0.771281, -0.406111, -0.455019, -0.17101, 0.873907, -2.2, 0, -0.916985)
+
+[node name="rock5" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 0.75, 0, -1.53301)
+
+[node name="rock6" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.728168, -0.284015, 0.623784, 0.304391, -0.949433, -0.0769582, 0.614099, 0.133836, 0.777798, 1.35, 0, -0.283012)
+
+[node name="rock7" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.902667, -0.145559, 0.404975, 0.297588, -0.890916, 0.343089, 0.310859, 0.430211, 0.847517, 0.25, 0, -1.98301)
+
+[node name="rock8" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.933013, 0.353553, 0.0669875, -0.278575, -0.827508, 0.487469, 0.227779, 0.436154, 0.870567, -1.6, 0, -1.76699)
+
+[node name="rock9" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.612373, 0.5, -0.612372, -0.353553, -0.866026, -0.353553, -0.707107, 1.49012e-08, 0.707107, -1.95, 0, 0.233017)
+
+[node name="rock10" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.77199, 0.328773, 0.544004, -0.0935979, -0.787716, 0.608887, 0.628706, -0.520972, -0.577336, -1.45, 0, 0.883018)
+
+[node name="rock11" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-1.41421, -3.15852e-07, -1.41421, 3.01992e-07, -2, 1.44691e-07, -1.41421, -1.11229e-07, 1.41421, -0.35, -1.5, -0.266983)
+
+[node name="path" parent="Level/Pathway_1/Rock_1" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, -0.55, 0.365806, -0.900002)
+
+[node name="path2" parent="Level/Pathway_1/Rock_1" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, -0.5, 0.365806, 0.249996)
+
+[node name="rock12" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
+transform = Transform3D(2.82843, 2.82013e-07, 2.82843, -3.56714e-07, 4, -4.21125e-08, -2.82843, -2.22457e-07, 2.82843, -0.35, -8.5, 2.23302)
+
+[node name="HTerrain" type="Node3D" parent="Level/Pathway_1"]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -10)
+script = ExtResource("7_yl6ky")
+map_scale = Vector3(0.2, 1, 0.3)
+centered = true
+_terrain_data = ExtResource("15_8jfk5")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_62p3l")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = null
+shader_params/u_tile_reduction = null
+
+[node name="Island_2" type="Node3D" parent="Level"]
+
+[node name="rock " type="MeshInstance3D" parent="Level/Island_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 7.5, -4)
+mesh = SubResource("ArrayMesh_qvao6")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Level/Island_2/rock "]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Island_2/rock /StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fchwj")
+
+[node name="Protos" type="Node" parent="."]
+
+[node name="Island1_Proto" type="CSGCombiner3D" parent="Protos"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -32.3529, 0, -43.3343)
+visible = false
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.467, -7.06907, -20.5884)
+visible = false
+size = Vector3(92.2021, 15.1514, 111)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, 5.74034, -4.63343, -42.466)
+visible = false
+size = Vector3(53.0023, 19.7497, 62.2971)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.966212, -0.257742, -0.00164797, 0.257735, 0.96621, -0.00328308, 0.00243846, 0.00274742, 0.999993, -28.638, -2.78836, -42.5072)
+visible = false
+size = Vector3(19.5, 11.4164, 62.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7369, -1.09978, -88.9675)
+visible = false
+size = Vector3(8.10779, 1.47076, 9.52582)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.902859, -0.0789899, 0.422618, 0.0871557, 0.996195, 0, -0.42101, 0.0368336, 0.906308, 13.683, 4.00882, -86.5145)
+visible = false
+size = Vector3(2, 8, 2)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.878219, 0.266492, 0.397131, -0.262726, 0.962678, -0.065004, -0.399633, -0.0472491, 0.915457, 21.4209, 2.16484, -91.8615)
+visible = false
+size = Vector3(2, 8, 2)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 0.957853, 0.28726, 0, -0.28726, 0.957853, 17.7369, -0.884715, -86.7563)
+visible = false
+size = Vector3(8.10779, 3.60501, 9.52582)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3803, -2.28688, -105.992)
+visible = false
+size = Vector3(10.836, 6.5027, 8.78452)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 0.869728, -0.493532, 0, 0.493532, 0.869728, 13.3803, -1.9675, -101.292)
+visible = false
+size = Vector3(10.836, 4.8, 3.34941)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.2416, -0.970376, 0, 0.970376, 0.2416, 0, 0, 0, 1, 6.1883, 6.17305, -105.622)
+visible = false
+size = Vector3(13.4132, 2.95753, 9.52582)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.965167, -0.261633, 0, 0.261633, 0.965167, 0, 0, 0, 1, 10.5312, 13.2968, -105.622)
+visible = false
+size = Vector3(8.10779, 1.73183, 9.52582)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.966676, 0.256003, 0, -0.256003, 0.966676, 0, 0, 0, 1, 18.6235, 13.0802, -105.622)
+visible = false
+size = Vector3(9.8, 1.73183, 9.52582)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.287661, 0.957732, 0, -0.957732, 0.287661, 0, 0, 0, 1, 23.0858, 10.9824, -105.622)
+visible = false
+size = Vector3(2.9, 1.9, 9.52582)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.735293, 0.677749, 0, -0.677749, 0.735293, 0, 0, 0, 1, 7.97533, -0.999859, -105.622)
+visible = false
+size = Vector3(8.10779, 4.81351, 9.52582)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(-0.844963, 0.534824, 0, -0.534824, -0.844963, 0, 0, 0, 1, 18.9753, -0.999859, -105.622)
+visible = false
+size = Vector3(8.10779, 4.81351, 9.52582)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.996701, 0, 0.0811557, 0, 1, 0, -0.0811557, 0, 0.996701, 15.6483, 0.832404, -117.278)
+visible = false
+size = Vector3(8.10779, 1.47076, 4.37682)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island1_Proto"]
+transform = Transform3D(0.992178, -3.72529e-09, 0.124831, 0.046338, 0.928551, -0.368302, -0.115912, 0.371206, 0.921287, 13.5878, 3.06424, -131.063)
+visible = false
+size = Vector3(8.10779, 1.47076, 9.52582)
+
+[node name="Temple_Proto" type="CSGCombiner3D" parent="Protos/Island1_Proto"]
+visible = false
+calculate_tangents = false
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0008, 8.5, 2.5531)
+visible = false
+size = Vector3(3, 18, 32)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.258819, -0.219372, -0.940685, -9.92731e-09, 0.973869, -0.22711, 0.965926, -0.0587805, -0.252056, 3.76874, 9.48689, 23.5489)
+visible = false
+size = Vector3(3, 30.6567, 49)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 0.968904, 0.247439, 0, -0.247439, 0.968904, 22.7523, 26.302, 7.36944)
+visible = false
+size = Vector3(3, 8.31673, 44.5297)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-4.2222e-08, -0.258819, -0.965926, -1.13133e-08, 0.965926, -0.258819, 1, 0, -4.37114e-08, 5.65171, 6.78371, -12.3937)
+visible = false
+size = Vector3(3, 27.3419, 45.35)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.47415, 14.6478, -13.4807)
+visible = false
+operation = 2
+size = Vector3(8.85736, 18.8, 17)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-7.5904e-09, -0.984808, -0.173648, -4.30473e-08, 0.173648, -0.984808, 1, 0, -4.37114e-08, 11.3018, 17.4337, -10.5457)
+visible = false
+size = Vector3(2.98735, 4.38031, 8.30815)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(6.55671e-08, -1, 3.78552e-08, -0.939693, -4.86657e-08, 0.34202, -0.34202, -5.79975e-08, -0.939693, 2.4346, 0.569484, -2.39657)
+visible = false
+size = Vector3(3, 16.9, 19.3)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.25, 0.119863, -0.960798, 0.965926, -0.0377778, -0.256047, -0.0669873, -0.992072, -0.106334, 3.9992, 20.5, -3.4469)
+visible = false
+size = Vector3(3, 4, 44)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.25, 0.258819, -0.933013, 0.965926, 0, -0.258819, -0.0669873, -0.965926, -0.25, 3.9992, 20.5, 7.5531)
+visible = false
+size = Vector3(3, 4, 44)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.25, 0.402679, -0.880539, 0.965926, 0.040805, -0.255582, -0.0669873, -0.914431, -0.39916, 3.07177, 20.406, 19.6591)
+visible = false
+size = Vector3(3, 4, 44)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.594633, -0.764141, 0.25, -0.229193, -0.136937, -0.963701, 0.770637, -0.630347, -0.0937085, 10.9934, 10.6977, 7.13389)
+visible = false
+size = Vector3(3, 3, 24)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.887569, 0.402679, -0.223763, 0.261622, 0.040805, -0.964307, -0.379176, -0.914431, -0.141567, -10.31, 6.96915, -7.06442)
+visible = false
+size = Vector3(3, 3, 21.4302)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.887569, 0.402679, -0.223763, 0.261622, 0.040805, -0.964307, -0.379176, -0.914431, -0.141567, -10.1702, 5.38073, 12.6107)
+visible = false
+size = Vector3(3, 3, 24)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 23.3553)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 18.3553)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 13.3553)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 8.35535)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 3.35535)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, -1.64465)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, -6.64465)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.52249, 7.83027, -9.78252)
+visible = false
+size = Vector3(3, 3, 23.2441)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.5775, 10.2082, -9.78252)
+visible = false
+size = Vector3(3, 3, 28)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0, 0, 1, 2.52426, 14.6989, -10.3341)
+visible = false
+size = Vector3(20.6, 3, 5)
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 2.52426, 19.911, -11.4332)
+visible = false
+size = Vector3(20.6, 3, 7.19824)
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.910574, 0.402679, 0.0932979, -0.083968, 0.040805, -0.995633, -0.404728, -0.914431, -0.00334381, -4.33265, -0.430225, 9.15777)
+visible = false
+size = Vector3(3, 3, 12.0767)
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
+transform = Transform3D(0.989556, -0.0794077, -0.120304, -0.142147, -0.398958, -0.905884, 0.0239378, 0.913524, -0.406079, 7.40029, -1.97156, 11.0723)
+visible = false
+size = Vector3(3, 3, 8.92554)
+
+[node name="Island2_Proto" type="CSGCombiner3D" parent="Protos"]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.867004, -13.4374, -282.296)
+visible = false
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(1, 1.63123e-11, -2.73278e-10, -8.68567e-11, 0.957853, 0.28726, 6.07692e-11, -0.28726, 0.957853, -17.0459, -2.76888, 39.2593)
+visible = false
+size = Vector3(8.10779, 5.10947, 20.1558)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.4487, 9.38917, -20.5432)
+visible = false
+size = Vector3(92.2021, 48.068, 111)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -16.9582, 3.42489, -8.30017)
+visible = false
+operation = 2
+size = Vector3(9, 9, 87.3856)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -13.7339, 14.363, -20.0694)
+visible = false
+operation = 2
+size = Vector3(56, 31, 45)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.7247, 20.368, -21.0578)
+visible = false
+operation = 2
+size = Vector3(20, 43, 17)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(0.681635, -0.259934, -0.683965, 0.181483, 0.965623, -0.186109, 0.708828, 0.00273061, 0.705375, -35.1177, -1.45622, -64.7069)
+visible = false
+operation = 2
+size = Vector3(49, 9, 7)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island2_Proto"]
+transform = Transform3D(0.984641, 0.169906, -0.040183, -0.174593, 0.958208, -0.226617, -5.17564e-09, 0.230152, 0.973155, -47.6492, -7.88214, -83.3937)
+visible = false
+size = Vector3(11.304, 2.0938, 20.1558)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Protos/Island2_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.608, 11.5846, -20.1396)
+visible = false
+update_mode = 1
+size = Vector3(91.2517, 43.1692, 109.526)
+box_projection = true
+interior = true
+enable_shadows = true
+
+[node name="ReflectionProbe4" type="ReflectionProbe" parent="Protos/Island2_Proto"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.7535, 61.207, -21.0011)
+visible = false
+update_mode = 1
+size = Vector3(17.6129, 63.0275, 20.8599)
+enable_shadows = true
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="Protos/Island2_Proto"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -14.7792, 5.21374, -126.112)
+visible = false
+update_mode = 1
+size = Vector3(127.245, 85.2818, 131.836)
+enable_shadows = true
+
+[node name="ReflectionProbe3" type="ReflectionProbe" parent="Protos/Island2_Proto"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -39.8817, -2.8075, -69.3125)
+visible = false
+update_mode = 1
+size = Vector3(50.1118, 19.2964, 17)
+enable_shadows = true
+
+[node name="Island3_Proto" type="CSGCombiner3D" parent="Protos"]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.867004, 25.1385, -515.296)
+visible = false
+use_collision = true
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(1, 1.63123e-11, -2.73278e-10, -8.68567e-11, 0.957853, 0.28726, 6.07692e-11, -0.28726, 0.957853, -17.0459, 1.94854, -8.74069)
+visible = false
+size = Vector3(8.10779, 5.10947, 20.1558)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -27.7531, -6.06471, -81.5638)
+visible = false
+size = Vector3(67.3304, 16.7977, 129.157)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(0.70538, -0.00115484, -0.708828, -0.00112095, 0.999996, -0.00274469, 0.708828, 0.0027306, 0.705375, 32.1339, -6.14429, -180.101)
+visible = false
+size = Vector3(82.3197, 16.7977, 181.026)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(0.256463, -0.00236542, -0.966551, -0.00112095, 0.999996, -0.00274469, 0.966553, 0.00178735, 0.256459, 134.465, -6.22489, -249.484)
+visible = false
+size = Vector3(79.9997, 16.7977, 117.903)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(0.35369, 0.6103, -0.708828, -0.866582, 0.499027, -0.0027447, 0.352049, 0.615229, 0.705375, -2.81363, 14.9571, -215.138)
+visible = false
+size = Vector3(68.3571, 16.7977, 181.026)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(-0.35169, 0.611455, -0.708828, -0.865461, -0.500969, -0.00274473, -0.356779, 0.612498, 0.705375, -2.90314, 75.0064, -214.994)
+visible = false
+size = Vector3(82.3197, 16.7977, 181.026)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(-0.666729, -0.230292, -0.708828, 0.329084, -0.944297, -0.00274469, -0.668712, -0.235094, 0.705375, 34.5405, 93.7549, -177.294)
+visible = false
+size = Vector3(82.3197, 16.7977, 181.026)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(-0.367775, 0.601917, -0.708828, -0.851877, -0.523735, -0.0027447, -0.37289, 0.602826, 0.705375, 73.3163, 10.2009, -151.041)
+visible = false
+size = Vector3(54.2564, 16.7977, 181.026)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(-0.308607, -0.63429, -0.708828, 0.900416, -0.435022, -0.0027447, -0.306615, -0.639088, 0.705375, 68.1719, 56.4235, -143.644)
+visible = false
+size = Vector3(67.7447, 16.7977, 181.026)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Protos/Island3_Proto"]
+transform = Transform3D(-0.308607, -0.63429, -0.708828, 0.900416, -0.435022, -0.0027447, -0.306615, -0.639088, 0.705375, 40.602, 56.3168, -116.208)
+visible = false
+operation = 2
+size = Vector3(67.7447, 16.7977, 103.236)
+
+[node name="Shaders" type="Node" parent="."]
+
+[node name="hq_lined" type="MeshInstance3D" parent="Shaders"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_grk8i")
+skeleton = NodePath("../..")
+
+[node name="moebius" type="MeshInstance3D" parent="Shaders"]
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_pi5me")
+
+[connection signal="animation_finished" from="WorldEnvironment/Day_Night_Cycle" to="WorldEnvironment/Day_Night_Cycle" method="_on_animation_finished"]
