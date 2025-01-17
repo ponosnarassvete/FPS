@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://bim1f1eagd6ev"]
+[gd_scene load_steps=44 format=4 uid="uid://bim1f1eagd6ev"]
 
 [ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/simple_fpsplayer/Player.tscn" id="1_ojamv"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_oedvh"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bgi5ovi5y748w" path="res://models/rock.blend" id="13_bccd3"]
 [ext_resource type="PackedScene" uid="uid://b20cvg2k8doh0" path="res://models/path.blend" id="14_kdwn2"]
 [ext_resource type="Resource" path="res://scenes/TerrainData/pathway1/data.hterrain" id="15_8jfk5"]
-[ext_resource type="Shader" path="res://shaders/BoTW_shader.gdshader" id="16_hl783"]
 [ext_resource type="Shader" path="res://shaders/hq_post_process.gdshader" id="16_uppkl"]
 [ext_resource type="Shader" path="res://shaders/moebius_shader.gdshader" id="17_nitd0"]
 
@@ -521,40 +520,6 @@ script = ExtResource("9_tydcr")
 mode = 0
 textures = [[], []]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ufoh8"]
-noise_type = 3
-frequency = 0.006
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3pdg5"]
-in_3d_space = true
-seamless = true
-as_normal_map = true
-bump_strength = 3.7
-noise = SubResource("FastNoiseLite_ufoh8")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mojqb"]
-render_priority = 0
-shader = ExtResource("16_hl783")
-shader_parameter/tint = Color(1, 1, 1, 1)
-shader_parameter/metallic = 0.0
-shader_parameter/shadow_size = 0.045
-shader_parameter/shadow_blend = 0.001
-shader_parameter/shadow_extra_intensity = 0.0
-shader_parameter/shadow_color = null
-shader_parameter/light_tint = Color(1, 1, 1, 1)
-shader_parameter/rimlight_size = 0.921
-shader_parameter/rimlight_blend = 0.01
-shader_parameter/rimlight_color = null
-shader_parameter/use_normalmap = true
-shader_parameter/animated = true
-shader_parameter/time_scale = 0.02
-shader_parameter/normal_bias = Vector3(0, 0, 0)
-shader_parameter/light_bias = Vector3(0, 0, 0)
-shader_parameter/use_view = true
-shader_parameter/view_bias = Color(1, 0, 1, 1)
-shader_parameter/view_multiplier = -1.0
-shader_parameter/normal_map = SubResource("NoiseTexture2D_3pdg5")
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_j2fuo"]
 _surfaces = [{
 "aabb": AABB(-0.516164, -0.761534, -0.769662, 1.51431, 2.82689, 1.61692),
@@ -577,7 +542,6 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 1632,
 "index_data": PackedByteArray("KwDuAewBAwIqAOsBKgAQAhICEAIAAgUCAAIqAAMCKgAAAhACCgIpAAYCKQBrAH4AawAYAhYCKQAYAmsADgIpAAoC+wEOAvgB/AH7AfMBIwLwAfYB/AEOAvsBIwL8AfABHwIjAiYCHwL8ASMC/AEpAA4CKQAbAhgCKQAnAhsCHwIpAPwBKQAfAicCKwKSAJoAKwImAZIAEQA4AjsCrQE9AjYCrQEzAj0CEwEzAq0BLQIzAhMBMwIwAkICMwItAjACEwGtATMAiwF9AKsBiwEmAH0AMAGBAW4BgQFaAL8AgQEwAVoABAA8AUEBBABpATwBBQESATEAYwEGAVMBQABUATYATwEEATAASQGZAToBSQGUAZkBMgFvAXgBlAAAAIMAAAApAfYAAACUACkBPwA0AEkAUQC1ASwAogGnAZ0BSwJFAkgCRQJEArcARAJLAp0ARQJLAkQCrQDkAJ0AggCuAJMAmQCRAJ4AkACsAJwAngGGAaMBugCCAcAATgK6AOUAggG6AE4CVQJkAFICYgJGArkAYgJYAkYCWAJiAmcCUAJbAl4CaQJQAmMCUAJpAlsC9QAoAQkBFAEIARgBBwEnARcBNwE+ATkBRwGNAZIBPgBFAFABUgFGAJABSAFRAY8BOwFVAUoBVQFmAWQBVQE7AWYBAgD4AGgBawI/AXoBawLXAD8BcAGEAXkBMQE9ATYBMQF3AT0BCgFnAfcACgFlAWcBOAGcATUBOAGYAZwBQAHZAAMA1gCFAAEAlQGoAZ8BewCgAakBewCHAaABlwGhAZsBSgBQACgAigGTAY4BkwGqAZYBkwGKAaoBVwCIAWUAVwCkAYgBLwGlAVkALwEzAaUBiQF8AGYAhAKUApcClAKyAYcChAKyAZQCfgIVAHwCfgKBAhUAFQCRAooCjAIVAI4CFQCMApECtAKwApsCbQJ0AnYCbQJ5AnQCtAJwArACcAJ5Am0CcAJyAnkCtAJyAnACogKdAq0CcgKdAqICnQJyArQCoQK3AqgCqwKmAroCxwKuAcUCrgGGArABrgHHAoYCiQI5AhIAOQK8AsECiQK8AjkCvAKJAr4CagDLAlMCrwFPADUArwGxAU8AjAFIACcAjAGRAUgAMgBOAEcAmgGmATQB0wLRAm0A1wJdAHAAXQBNAkkCzwJdANcCXQDPAk0CXgDbAtIA2wJZAmgC2wJeAFkC3wIdANwCLwAkAEUB4gLOANkC0QDgAFwAIgC9ANAAEQEJAC4B6QJbAe8C7wJbAewC5AKWAPMC5ALnApYA9QLqAe0B6gHqAAIC6gD5Al0B/gKlAvwC6gD+AvkC9QLqAOoB/gK5AqUCuQLqAPUC6gC5Av4CEgNfAQEDXwEFAwMDBQMIAwsDDgNfARIDXwEIAwUDDgMIA18B6wBiAUwBAwEQAS0BAQEqAR0BHAF+ASIBHgEsAYABeABNAAYA/ADtAAwB3gAFAEwA3gC1AAUAHgIVAxsBHgIlAhUDFgMNAvoA9wEZAfkBFgP3AQ0CFgMZAfcBeAKAAG4CgAAbA7MAGwN4AhoDgAB4AhsDHgPVAm8AbwB6ALMAbgDfAHkAbgBbAN8AdwDdAEsAQQOiAD0DogArA7EAKwMpAy4DKQOiAEEDKQMrA6IALwMlAyMDJQMgA38AJQMvAyADNwOhADMDoQBCA0UDoQA1A0IDOQOhADcDoQA5AzUDIQNKA4EAbwKyAnECSANvAoEAsgJvAkgDHwByAbsAIQF8AXEBLQAkASEAIwF2ASAAAgH9AA4BQwEgAiABKAJDAU0DIAJDASgCcwHPALwAcwHaAM8AVgFTA1ADVgNgAeoCVgFWA1MDVgFgAVYDQgElAS4AQgEfASUBbAG0ANwA7gARAl4DEQJZAxQCWQP/AFwD/wARAu4AEQL/AFkDSwFhAVcBDQFOAVgBpQBZAZgApQBfA1kBdQF9AWsBKwFtAX8BbQEHALYAbQErAQcATQELAewAagLeAiUAagJlAt4CdAFqAdsAYgMOAHUADgBHA0MDDgBiA0cDwwBVAA0APAI8AGYDPAA6AsICOgI8ADwCiwI7AL8COwBjAFYAYwBoA2oDYwCTAmgDiwJjADsAkwJjAIsCOQBSAIYAbwNDAGwDQwAYAHYAQwBvAxgADABUAGAAXwBCAAsAygCJAMIAcgN1AxYAhwBTAMEAigA0AjoAigA+AjQCigCIAskCigCVAogCqgB+A4wAewOqAHgDqgB7A34DcgAoA0ADFwAoA3IAFwAtAygDggN2A4ADggMXAHYDFwCCAy0DhQN5A6sAiAOfAhwAiAOvAp8CVQOOA1IDVQPIAI4D6ALHAJQDigP0Ao0D6AKKA8cAigPlAvQC5QKKA+gCOgNEAzYDRAPFAA8AxQA6A5ADRAM6A8UAcwMkAycDJAMbADEDJANzAxsAngKbAxoAmwOXA5kDlwOeArUCngKXA5sDDQMQA+8AnQPvAKED8gAJAw8DjgCIAMkAjgCpAIgANwAyAkACQQB0AAoApQNEAGIApQNtA0QAtgLwAJ4DpgODA6cAtgKmA/AAoAKmA7YCpgOnAoMDpwKmA6ACywDrAvACywBXA+sC8wAMAwoD1gKfAM4CnwATAJsAEwAdA7YBnwAdAxMA1AK6AdIC1ALWAroBnwDUAh0D1gLUAp8A9gIrALMB9gLuASsAvQHxAfQB9AHxAf0BEwMkAiECaQAVAr4BWAMqABMCKgBaAwcCKgBYA1oDHQIpAk4DJgEQABUBEAAqApoAEAAmASoCwQGsATUCxAE7AmQDOwIWAREAEwHEASwCxAEWATsCFgHEARMB4gCEANUAhADnAK8AhADiAOcA5ABDAp0A5AC3AEMCnQBMAs0CgwHmAOEAgwFPAuYAUQLdAmQCuABmAmECWAC4AL4AywFYAGgA3QLIAeECyAFYAMsB3QJYAMgBUQJYAN0CXwJYAFECXwK4AFgA2gLOAeMCZgLOAdoCzgG4AF8CzgFmArgAbALjANgA4wB7AYUB4wBsAnsBlQOzApoCFQDTAY8CFQCCAtMBGAMUALcBFACjA3sCawPQAW4DFABrA6MDdQIYA3cCcwJ1AnoCFADQAWsDGAPQARQAdQLQARgDcwLQAXUCcwKGA9ABrgJzAqMChgNzAq4CmAK0AYUCtAG7AvcCuwKiA6wCnwOpArgCuwKfA6IDqAO0AZgCnwOEA6kCtAGfA7sCfAO0AagDtAGEA58DdwN8A3oDtAF3A4QDtAF8A3cDrgHCAcQCagDVAcoCagC/AdUBZwBWAsoBcQC7AdgCzQHOAOICSgJHAl4AXgBHAloCzAEjAMkBIwDWAUQB1gFUAswCVwIjAMwBIwBUAtYBVwJUAiMAzwFdAtQAzwFgAl0CkgOWAOYCkgPZAZYA2wHyApYA2wGLA/IC6QD/AQEC4AFeAQIDXgHeAe0C4AHeAV4B+AIAA1wB4wH9AvsC+ALjAQAD+AL9AuMBpAB4AAYApACyAHgA9QEUAyICGwHyAfoB9QEbARQD8gHvAbwB7wEbAfUBGwHvAfIB+wAaARcD+wAAARoB+QAMAgkC0AK5AWwAswAfA28AuAEcAxkDswC4AR8DswAcA7gBlQAyA6AAlQDYATID5wFGA2EDowDlAT4D5wGjAEYDowDnAeUBfwBxAyYDsABxA38AKgNxA7AAdAOBA38DdAMsA4EDKgN0A3EDLAN0AyoDgQCxAkgDnAKYA5YDgQCcArECmAOBAEkDnAKBAJgD1wEaAkYBGgLAARcCGgLXAcABGQJMA0MBGQIcAkwDTwOXAFYBTwPcAZcACwIIAv4A/gAIAlsD6AAEAv4BBAJdAw8C6ABdAwQCWgEIAA8BCABgA6YACABaAWADxwEeAOACJQBcAmoCJQDTAFwCYwN1AOkBxQFlAzwAvQLAAsMCwwLAAjwAYQCDAn8CjQJnA5ICkAJnA40CYQDUAYMCkAJpA2cDaQPUAWEAaQOQAtQB0QEZAHAD5gHoAXMAOABBAi8CfQOWAosAlgKpA5kClgJ9A6kDigA3Aj8CigDDATcCxgKKAMgCigDGAsMBcgA8A+QBcgA/AzwD0gGHAxwA3QGJA4wDiQPNAMQAzQBUA48DzQBRA1QD3QHNAIkDUQPNAN0BxgDaAZMDNAM7AzgDxgA0A9oBNAORAzsDxgCRAzQDSwOcA5oDGgAiAzADIgOcA0sDIgMaAJwDEQOgA+8AoAOkAqoCoAP6AqQC/wKgAxEDoAPiAfoCoAP/AuIBPQAuAsYBPQAxAi4CgAKkA2IAgAJ9AqQDjQCnA6gAjQDxAKcD8QKPAMwAjwAHA/QABAPfAeEBjwAEAwcD7gKPAPECBAPuAt8BjwDuAgQDBgMMA/MA"),
-"material": SubResource("ShaderMaterial_mojqb"),
 "name": "Rock",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
