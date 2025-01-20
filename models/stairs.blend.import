@@ -47,6 +47,8 @@ _subresources={
 },
 "PATH:Stairs": {
 "generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 0,
 "physics/shape_type": 1
 }
 }

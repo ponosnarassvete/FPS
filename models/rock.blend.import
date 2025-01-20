@@ -33,17 +33,16 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "nodes": {
-"PATH:Icosphere": {
-"generate/occluder": 1,
+"PATH:rock": {
 "generate/physics": true,
 "physics/layer": 4,
-"physics/mask": 0
+"physics/mask": 0,
+"physics/shape_type": 2
 },
-"PATH:Icosphere_001": {
-"import/skip_import": true,
-"physics/shape_type": 1
+"PATH:rock ": {
+"import/skip_import": true
 },
-"PATH:Icosphere_002": {
+"PATH:rock /CollisionShape3D": {
 "import/skip_import": true
 }
 }

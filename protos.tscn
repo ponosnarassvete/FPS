@@ -1,0 +1,357 @@
+[gd_scene format=3 uid="uid://2yitsn5onrx5"]
+
+[node name="Protos" type="Node"]
+
+[node name="Island1_Proto" type="CSGCombiner3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -32.3529, 0, -43.3343)
+visible = false
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.467, -7.06907, -20.5884)
+visible = false
+size = Vector3(92.2021, 15.1514, 111)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, 5.74034, -4.63343, -42.466)
+visible = false
+size = Vector3(53.0023, 19.7497, 62.2971)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.966212, -0.257742, -0.00164797, 0.257735, 0.96621, -0.00328308, 0.00243846, 0.00274742, 0.999993, -28.638, -2.78836, -42.5072)
+visible = false
+size = Vector3(19.5, 11.4164, 62.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7369, -1.09978, -88.9675)
+visible = false
+size = Vector3(8.10779, 1.47076, 9.52582)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.902859, -0.0789899, 0.422618, 0.0871557, 0.996195, 0, -0.42101, 0.0368336, 0.906308, 13.683, 4.00882, -86.5145)
+visible = false
+size = Vector3(2, 8, 2)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.878219, 0.266492, 0.397131, -0.262726, 0.962678, -0.065004, -0.399633, -0.0472491, 0.915457, 21.4209, 2.16484, -91.8615)
+visible = false
+size = Vector3(2, 8, 2)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 0.957853, 0.28726, 0, -0.28726, 0.957853, 17.7369, -0.884715, -86.7563)
+visible = false
+size = Vector3(8.10779, 3.60501, 9.52582)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3803, -2.28688, -105.992)
+visible = false
+size = Vector3(10.836, 6.5027, 8.78452)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(1, 0, 0, 0, 0.869728, -0.493532, 0, 0.493532, 0.869728, 13.3803, -1.9675, -101.292)
+visible = false
+size = Vector3(10.836, 4.8, 3.34941)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.2416, -0.970376, 0, 0.970376, 0.2416, 0, 0, 0, 1, 6.1883, 6.17305, -105.622)
+visible = false
+size = Vector3(13.4132, 2.95753, 9.52582)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.965167, -0.261633, 0, 0.261633, 0.965167, 0, 0, 0, 1, 10.5312, 13.2968, -105.622)
+visible = false
+size = Vector3(8.10779, 1.73183, 9.52582)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.966676, 0.256003, 0, -0.256003, 0.966676, 0, 0, 0, 1, 18.6235, 13.0802, -105.622)
+visible = false
+size = Vector3(9.8, 1.73183, 9.52582)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.287661, 0.957732, 0, -0.957732, 0.287661, 0, 0, 0, 1, 23.0858, 10.9824, -105.622)
+visible = false
+size = Vector3(2.9, 1.9, 9.52582)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.735293, 0.677749, 0, -0.677749, 0.735293, 0, 0, 0, 1, 7.97533, -0.999859, -105.622)
+visible = false
+size = Vector3(8.10779, 4.81351, 9.52582)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(-0.844963, 0.534824, 0, -0.534824, -0.844963, 0, 0, 0, 1, 18.9753, -0.999859, -105.622)
+visible = false
+size = Vector3(8.10779, 4.81351, 9.52582)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.996701, 0, 0.0811557, 0, 1, 0, -0.0811557, 0, 0.996701, 15.6483, 0.832404, -117.278)
+visible = false
+size = Vector3(8.10779, 1.47076, 4.37682)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Island1_Proto"]
+transform = Transform3D(0.992178, -3.72529e-09, 0.124831, 0.046338, 0.928551, -0.368302, -0.115912, 0.371206, 0.921287, 13.5878, 3.06424, -131.063)
+visible = false
+size = Vector3(8.10779, 1.47076, 9.52582)
+
+[node name="Temple_Proto" type="CSGCombiner3D" parent="Island1_Proto"]
+visible = false
+calculate_tangents = false
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0008, 8.5, 2.5531)
+visible = false
+size = Vector3(3, 18, 32)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.258819, -0.219372, -0.940685, -9.92731e-09, 0.973869, -0.22711, 0.965926, -0.0587805, -0.252056, 3.76874, 9.48689, 23.5489)
+visible = false
+size = Vector3(3, 30.6567, 49)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 0.968904, 0.247439, 0, -0.247439, 0.968904, 22.7523, 26.302, 7.36944)
+visible = false
+size = Vector3(3, 8.31673, 44.5297)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-4.2222e-08, -0.258819, -0.965926, -1.13133e-08, 0.965926, -0.258819, 1, 0, -4.37114e-08, 5.65171, 6.78371, -12.3937)
+visible = false
+size = Vector3(3, 27.3419, 45.35)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.47415, 14.6478, -13.4807)
+visible = false
+operation = 2
+size = Vector3(8.85736, 18.8, 17)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-7.5904e-09, -0.984808, -0.173648, -4.30473e-08, 0.173648, -0.984808, 1, 0, -4.37114e-08, 11.3018, 17.4337, -10.5457)
+visible = false
+size = Vector3(2.98735, 4.38031, 8.30815)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(6.55671e-08, -1, 3.78552e-08, -0.939693, -4.86657e-08, 0.34202, -0.34202, -5.79975e-08, -0.939693, 2.4346, 0.569484, -2.39657)
+visible = false
+size = Vector3(3, 16.9, 19.3)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.25, 0.119863, -0.960798, 0.965926, -0.0377778, -0.256047, -0.0669873, -0.992072, -0.106334, 3.9992, 20.5, -3.4469)
+visible = false
+size = Vector3(3, 4, 44)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.25, 0.258819, -0.933013, 0.965926, 0, -0.258819, -0.0669873, -0.965926, -0.25, 3.9992, 20.5, 7.5531)
+visible = false
+size = Vector3(3, 4, 44)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.25, 0.402679, -0.880539, 0.965926, 0.040805, -0.255582, -0.0669873, -0.914431, -0.39916, 3.07177, 20.406, 19.6591)
+visible = false
+size = Vector3(3, 4, 44)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.594633, -0.764141, 0.25, -0.229193, -0.136937, -0.963701, 0.770637, -0.630347, -0.0937085, 10.9934, 10.6977, 7.13389)
+visible = false
+size = Vector3(3, 3, 24)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.887569, 0.402679, -0.223763, 0.261622, 0.040805, -0.964307, -0.379176, -0.914431, -0.141567, -10.31, 6.96915, -7.06442)
+visible = false
+size = Vector3(3, 3, 21.4302)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.887569, 0.402679, -0.223763, 0.261622, 0.040805, -0.964307, -0.379176, -0.914431, -0.141567, -10.1702, 5.38073, 12.6107)
+visible = false
+size = Vector3(3, 3, 24)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 23.3553)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 18.3553)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 13.3553)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 8.35535)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 3.35535)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, -1.64465)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, -6.64465)
+visible = false
+size = Vector3(3, 14.1864, 3)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.52249, 7.83027, -9.78252)
+visible = false
+size = Vector3(3, 3, 23.2441)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.5775, 10.2082, -9.78252)
+visible = false
+size = Vector3(3, 3, 28)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0, 0, 1, 2.52426, 14.6989, -10.3341)
+visible = false
+size = Vector3(20.6, 3, 5)
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 2.52426, 19.911, -11.4332)
+visible = false
+size = Vector3(20.6, 3, 7.19824)
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(-0.910574, 0.402679, 0.0932979, -0.083968, 0.040805, -0.995633, -0.404728, -0.914431, -0.00334381, -4.33265, -0.430225, 9.15777)
+visible = false
+size = Vector3(3, 3, 12.0767)
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="Island1_Proto/Temple_Proto"]
+transform = Transform3D(0.989556, -0.0794077, -0.120304, -0.142147, -0.398958, -0.905884, 0.0239378, 0.913524, -0.406079, 7.40029, -1.97156, 11.0723)
+visible = false
+size = Vector3(3, 3, 8.92554)
+
+[node name="Island2_Proto" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.867004, -13.4374, -282.296)
+visible = false
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(1, 1.63123e-11, -2.73278e-10, -8.68567e-11, 0.957853, 0.28726, 6.07692e-11, -0.28726, 0.957853, -17.0459, -2.76888, 39.2593)
+visible = false
+size = Vector3(8.10779, 5.10947, 20.1558)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.4487, 9.38917, -20.5432)
+visible = false
+size = Vector3(92.2021, 48.068, 111)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -16.9582, 3.42489, -8.30017)
+visible = false
+operation = 2
+size = Vector3(9, 9, 87.3856)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -13.7339, 14.363, -20.0694)
+visible = false
+operation = 2
+size = Vector3(56, 31, 45)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.7247, 20.368, -21.0578)
+visible = false
+operation = 2
+size = Vector3(20, 43, 17)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(0.681635, -0.259934, -0.683965, 0.181483, 0.965623, -0.186109, 0.708828, 0.00273061, 0.705375, -35.1177, -1.45622, -64.7069)
+visible = false
+operation = 2
+size = Vector3(49, 9, 7)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Island2_Proto"]
+transform = Transform3D(0.984641, 0.169906, -0.040183, -0.174593, 0.958208, -0.226617, -5.17564e-09, 0.230152, 0.973155, -47.6492, -7.88214, -83.3937)
+visible = false
+size = Vector3(11.304, 2.0938, 20.1558)
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Island2_Proto"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.608, 11.5846, -20.1396)
+visible = false
+update_mode = 1
+size = Vector3(91.2517, 43.1692, 109.526)
+box_projection = true
+interior = true
+enable_shadows = true
+
+[node name="ReflectionProbe4" type="ReflectionProbe" parent="Island2_Proto"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.7535, 61.207, -21.0011)
+visible = false
+update_mode = 1
+size = Vector3(17.6129, 63.0275, 20.8599)
+enable_shadows = true
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="Island2_Proto"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -14.7792, 5.21374, -126.112)
+visible = false
+update_mode = 1
+size = Vector3(127.245, 85.2818, 131.836)
+enable_shadows = true
+
+[node name="ReflectionProbe3" type="ReflectionProbe" parent="Island2_Proto"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -39.8817, -2.8075, -69.3125)
+visible = false
+update_mode = 1
+size = Vector3(50.1118, 19.2964, 17)
+enable_shadows = true
+
+[node name="Island3_Proto" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.867004, 25.1385, -515.296)
+visible = false
+use_collision = true
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(1, 1.63123e-11, -2.73278e-10, -8.68567e-11, 0.957853, 0.28726, 6.07692e-11, -0.28726, 0.957853, -17.0459, 1.94854, -8.74069)
+visible = false
+size = Vector3(8.10779, 5.10947, 20.1558)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -27.7531, -6.06471, -81.5638)
+visible = false
+size = Vector3(67.3304, 16.7977, 129.157)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(0.70538, -0.00115484, -0.708828, -0.00112095, 0.999996, -0.00274469, 0.708828, 0.0027306, 0.705375, 32.1339, -6.14429, -180.101)
+visible = false
+size = Vector3(82.3197, 16.7977, 181.026)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(0.256463, -0.00236542, -0.966551, -0.00112095, 0.999996, -0.00274469, 0.966553, 0.00178735, 0.256459, 134.465, -6.22489, -249.484)
+visible = false
+size = Vector3(79.9997, 16.7977, 117.903)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(0.35369, 0.6103, -0.708828, -0.866582, 0.499027, -0.0027447, 0.352049, 0.615229, 0.705375, -2.81363, 14.9571, -215.138)
+visible = false
+size = Vector3(68.3571, 16.7977, 181.026)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(-0.35169, 0.611455, -0.708828, -0.865461, -0.500969, -0.00274473, -0.356779, 0.612498, 0.705375, -2.90314, 75.0064, -214.994)
+visible = false
+size = Vector3(82.3197, 16.7977, 181.026)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(-0.666729, -0.230292, -0.708828, 0.329084, -0.944297, -0.00274469, -0.668712, -0.235094, 0.705375, 34.5405, 93.7549, -177.294)
+visible = false
+size = Vector3(82.3197, 16.7977, 181.026)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(-0.367775, 0.601917, -0.708828, -0.851877, -0.523735, -0.0027447, -0.37289, 0.602826, 0.705375, 73.3163, 10.2009, -151.041)
+visible = false
+size = Vector3(54.2564, 16.7977, 181.026)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(-0.308607, -0.63429, -0.708828, 0.900416, -0.435022, -0.0027447, -0.306615, -0.639088, 0.705375, 68.1719, 56.4235, -143.644)
+visible = false
+size = Vector3(67.7447, 16.7977, 181.026)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Island3_Proto"]
+transform = Transform3D(-0.308607, -0.63429, -0.708828, 0.900416, -0.435022, -0.0027447, -0.306615, -0.639088, 0.705375, 40.602, 56.3168, -116.208)
+visible = false
+operation = 2
+size = Vector3(67.7447, 16.7977, 103.236)

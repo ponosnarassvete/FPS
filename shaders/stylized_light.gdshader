@@ -39,19 +39,19 @@ float linearizeDepth(float _depth, float _near, float _far) {
 
 void light(){
 	float depth = (linearizeDepth(FRAGCOORD.z,0.005,0.1) / 0.1);
-	
+
 	//So, normal smoothness is an interpolation from the current NORMAL position to the LIGHT position
 	//so the light will be 100% visible no matter what.
 	vec3 lightNormal = NORMAL;
 	lightNormal.rgb = mix(lightNormal.rgb,LIGHT,normal_smoothness);
-	
+
 	//LNDotL stands for LightNormal Dot Light, is just so we know how much light that part is facing.
 	float LNDotL = clamp(dot(lightNormal,LIGHT),0.0,1.0) * ATTENUATION;
-	
+
 	vec3 light_map = texture(light_ramp,vec2(LNDotL,1.0)).rgb;
 	vec3 light = light_tone * textureLod(light_texture,UV * light_uv_scale,0.0).rgb;
 	light = mix(light,shadow_tone * textureLod(shadow_texture,UV * light_uv_scale,0.0).rgb,dot(light_map,vec3(1.0,0.0,0.0)));
-	
+
 	#if defined(USE_OUTLINE)
 		//WE store the Raw Normal, we unpack it, and we smooth it out based on a our factor
 		vec3 outlineNormal = NORMAL;

@@ -1,22 +1,31 @@
-[gd_scene load_steps=41 format=3 uid="uid://bim1f1eagd6ev"]
+[gd_scene load_steps=42 format=3 uid="uid://bim1f1eagd6ev"]
 
-[ext_resource type="PackedScene" uid="uid://dgpjxoygnvyy4" path="res://assets/simple_fpsplayer/Player.tscn" id="1_ojamv"]
 [ext_resource type="Shader" path="res://shaders/sky.gdshader" id="2_oedvh"]
+[ext_resource type="Script" path="res://scenes/death_trigger.gd" id="2_wjblq"]
 [ext_resource type="Script" path="res://scenes/day_night_cycle.gd" id="3_nu7pc"]
 [ext_resource type="PackedScene" uid="uid://bu5t5vtg43t1p" path="res://models/temple_pillar.blend" id="3_wc3m2"]
 [ext_resource type="PackedScene" uid="uid://cbdr5w2xvu6o7" path="res://models/square_pilar.blend" id="4_gt5wo"]
 [ext_resource type="PackedScene" uid="uid://c17l7pq2kjpw5" path="res://models/small_brick_wall.blend" id="5_idnao"]
+[ext_resource type="Script" path="res://scenes/checkpoint.gd" id="6_3asdy"]
 [ext_resource type="PackedScene" uid="uid://2vxequ6ikdst" path="res://models/stairs.blend" id="7_6l3ki"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="7_yl6ky"]
 [ext_resource type="PackedScene" uid="uid://33ar0vo02uk6" path="res://models/brick_wall.blend" id="8_ds4vj"]
-[ext_resource type="Resource" path="res://scenes/TerrainData/data.hterrain" id="8_j2o12"]
+[ext_resource type="Resource" path="res://scenes/TerrainData/islands/island_1/data.hterrain" id="8_j2o12"]
 [ext_resource type="PackedScene" uid="uid://dcibcx64v3p0q" path="res://models/triangle_brick_wall.blend" id="9_pg2sa"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="9_tydcr"]
+[ext_resource type="Terrain3DMaterial" uid="uid://c4vp22pco84id" path="res://scenes/Terrain_Data/Terrain_Material.tres" id="12_a15y0"]
 [ext_resource type="PackedScene" uid="uid://bgi5ovi5y748w" path="res://models/rock.blend" id="13_bccd3"]
+[ext_resource type="Terrain3DAssets" uid="uid://cpy43ocvq745q" path="res://scenes/Terrain_Data/Terrain_Assets.tres" id="13_ld8jg"]
 [ext_resource type="PackedScene" uid="uid://b20cvg2k8doh0" path="res://models/path.blend" id="14_kdwn2"]
-[ext_resource type="Resource" path="res://scenes/TerrainData/pathway1/data.hterrain" id="15_8jfk5"]
 [ext_resource type="Shader" path="res://shaders/hq_post_process.gdshader" id="16_uppkl"]
-[ext_resource type="Shader" path="res://shaders/moebius_shader.gdshader" id="17_nitd0"]
+[ext_resource type="PackedScene" uid="uid://cggqb75a8w8r" path="res://addons/debug_menu/debug_menu.tscn" id="17_xfm4i"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://assets/fpc/character.tscn" id="21_toj7m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lm116"]
+size = Vector3(684, 2.9043, 785.516)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6yf81"]
+size = Vector3(4, 4, 5)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ydowq"]
 load_path = "res://.godot/imported/sun.png-bc9f620bd312b1a1b157dffc45401995.s3tc.ctex"
@@ -52,22 +61,22 @@ shader_parameter/clouds_samples = 32
 shader_parameter/shadow_sample = 4
 shader_parameter/clouds_density = 0.4
 shader_parameter/clouds_scale = 1.0
-shader_parameter/clouds_smoothness = 0.0484667
-shader_parameter/clouds_light_color = Color(0.227451, 0.447059, 1, 1)
-shader_parameter/clouds_shadow_intensity = 7.46333
+shader_parameter/clouds_smoothness = 0.03
+shader_parameter/clouds_light_color = Color(1, 1, 1, 1)
+shader_parameter/clouds_shadow_intensity = 1.0
 shader_parameter/cloud_shape_sampler = SubResource("NoiseTexture2D_ijcd5")
 shader_parameter/cloud_noise_sampler = SubResource("NoiseTexture2D_ddwvj")
 shader_parameter/cloud_curves = SubResource("CurveTexture_f3frb")
-shader_parameter/high_clouds_density = 0.0153333
+shader_parameter/high_clouds_density = 0.2
 shader_parameter/high_clouds_sampler = SubResource("NoiseTexture2D_gl00m")
-shader_parameter/top_color = Color(0.027451, 0.101961, 0.25098, 1)
-shader_parameter/bottom_color = Color(0.027451, 0.101961, 0.25098, 1)
-shader_parameter/sun_scatter = Color(0.12549, 0.0862745, 0.372549, 1)
-shader_parameter/astro_tint = Color(0.878431, 0.94902, 0.996078, 1)
-shader_parameter/astro_scale = 6.09583
-shader_parameter/astro_intensity = 1.06389
+shader_parameter/top_color = Color(0, 0.583333, 1, 1)
+shader_parameter/bottom_color = Color(0, 0.266667, 1, 1)
+shader_parameter/sun_scatter = Color(0.223103, 0.223103, 0.223103, 1)
+shader_parameter/astro_tint = Color(1, 0.8, 0.2, 1)
+shader_parameter/astro_scale = 9.0
+shader_parameter/astro_intensity = 3.0
 shader_parameter/astro_sampler = SubResource("CompressedTexture2D_ydowq")
-shader_parameter/stars_intensity = 4.61667
+shader_parameter/stars_intensity = 0.0
 shader_parameter/shooting_stars_intensity = 0.0
 shader_parameter/shooting_star_tint = null
 
@@ -507,19 +516,6 @@ _data = {
 "day_night_cycle": SubResource("Animation_btbf5")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lm116"]
-size = Vector3(313.26, 2.9043, 785.516)
-
-[sub_resource type="Resource" id="Resource_b5yv2"]
-script = ExtResource("9_tydcr")
-mode = 0
-textures = [[], []]
-
-[sub_resource type="Resource" id="Resource_62p3l"]
-script = ExtResource("9_tydcr")
-mode = 0
-textures = [[], []]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yhct5"]
 render_priority = 0
 shader = ExtResource("16_uppkl")
@@ -540,57 +536,24 @@ material = SubResource("ShaderMaterial_yhct5")
 flip_faces = true
 size = Vector2(2, 2)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bl2wx"]
-render_priority = 0
-shader = ExtResource("17_nitd0")
-shader_parameter/zNear = 0.05
-shader_parameter/zFar = 100.0
-shader_parameter/Light_Zones = 0.05
-shader_parameter/Grey_Zones = 0.15
-shader_parameter/Dark_Zones = 0.4
-shader_parameter/outlineThickness = 1.5
-shader_parameter/outlineColor = Color(0, 0, 0, 1)
-shader_parameter/wiggleFrequency = 0.08
-shader_parameter/wiggleAmplitude = 2.0
-
-[sub_resource type="QuadMesh" id="QuadMesh_pi5me"]
-material = SubResource("ShaderMaterial_bl2wx")
-flip_faces = true
-size = Vector2(2, 2)
+[sub_resource type="Resource" id="Resource_b5yv2"]
+script = ExtResource("9_tydcr")
+mode = 0
+textures = [[], []]
 
 [node name="Main" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("1_ojamv")]
-transform = Transform3D(4.37114e-08, 0, -1, 0, 1, 0, 1, 0, 4.37114e-08, -49.8227, 2.07113, -8.61027)
+[node name="Character" parent="." instance=ExtResource("21_toj7m")]
+transform = Transform3D(1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, 1, 6.1773, 27.2762, -56.6103)
+collision_mask = 6
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_kgbl7")
-camera_attributes = SubResource("CameraAttributesPractical_qo5hu")
+[node name="Main_Death_Trigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18.0768, 0)
+collision_layer = 0
+script = ExtResource("2_wjblq")
 
-[node name="Sun3" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 0.307304, 0.951611, 0, -0.951612, 0.307304, -4.86868, 48.1106, 2.18251)
-light_color = Color(0.878431, 0.94902, 0.996078, 1)
-light_energy = 0.00890476
-light_indirect_energy = 0.269167
-light_volumetric_fog_energy = 0.615
-shadow_enabled = true
-directional_shadow_max_distance = 200.0
-
-[node name="Day_Night_Cycle" type="AnimationPlayer" parent="WorldEnvironment"]
-reset_on_save = false
-libraries = {
-"": SubResource("AnimationLibrary_hs8gh")
-}
-autoplay = "day_night_cycle"
-speed_scale = 32.0
-script = ExtResource("3_nu7pc")
-period_of_time = 2
-
-[node name="Death_Trigger" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -38.0768, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Death_Trigger"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2605, 0.952148, -260.954)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Main_Death_Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8905, 0.952148, -260.954)
 shape = SubResource("BoxShape3D_lm116")
 
 [node name="Level" type="Node3D" parent="."]
@@ -639,11 +602,11 @@ transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, -7.44314, 1.50569, -1
 [node name="square_pilar10" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
 transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, 12.5569, 9.55619, -11.8764)
 
+[node name="square_pilar8" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.0287626, -2.0858, -0.346213, 0.0219128, 0.366327, -1.96974, 1.99967, -0.0340157, 0.016605, 2.56535, 15.1202, -11.9678)
+
 [node name="square_pilar11" parent="Level/Island_1/Temple/pillars" instance=ExtResource("4_gt5wo")]
 transform = Transform3D(2.4, 0, 0, 0, 3.243, 0, 0, 0, 2.4, 22.4569, 9.55619, -11.8764)
-
-[node name="square_pilar8" parent="Level/Island_1/Temple" instance=ExtResource("4_gt5wo")]
-transform = Transform3D(-0.0287626, -2.0858, -0.346213, 0.0219128, 0.366327, -1.96974, 1.99967, -0.0340157, 0.016605, 2.56535, 15.1202, -11.9678)
 
 [node name="Wall1" type="Node3D" parent="Level/Island_1/Temple"]
 
@@ -771,9 +734,9 @@ transform = Transform3D(0.0630538, 0.0508786, -1.54702, -0.713867, 0.39368, 0.14
 [node name="Reflections" type="Node3D" parent="Level/Island_1/Temple"]
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="Level/Island_1/Temple/Reflections"]
-transform = Transform3D(0.968314, -0.249738, 1.38506e-09, 0.249738, 0.968314, -1.09164e-08, 1.38506e-09, 1.09164e-08, 1, 9.72504, 6.94635, 1.97352)
+transform = Transform3D(0.968314, -0.249738, 1.38506e-09, 0.249738, 0.968314, -1.09164e-08, 1.38506e-09, 1.09164e-08, 1, 9.72504, 6.94635, 1.41667)
 update_mode = 1
-size = Vector3(36.014, 30.4092, 28.8863)
+size = Vector3(36.014, 30.4092, 30)
 box_projection = true
 interior = true
 enable_shadows = true
@@ -793,6 +756,15 @@ size = Vector3(33.3997, 24.7248, 44.0445)
 box_projection = true
 interior = true
 enable_shadows = true
+
+[node name="Checkpoint" type="Area3D" parent="Level/Island_1/Temple"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Island_1/Temple/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.5, 0)
+shape = SubResource("BoxShape3D_6yf81")
 
 [node name="Stairs" type="Node3D" parent="Level/Island_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3956, 0, -92.1431)
@@ -1015,7 +987,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -1
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -4, 0.5)
 
 [node name="triangle_brick_wall" parent="Level/Island_1/Stairs/Walls/Wall6" instance=ExtResource("9_pg2sa")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0.9, 0.5)
 
 [node name="Wall7" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4, 11.5, 7)
@@ -1075,7 +1047,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 8.74228e-08, -1, -3.82137e-15, -1, 
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 2, 0.5)
 
 [node name="brick_wall9" parent="Level/Island_1/Stairs/Walls/Wall8" instance=ExtResource("8_ds4vj")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, 2, 0.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -6, 0, 0.5)
 
 [node name="Wall9" type="Node3D" parent="Level/Island_1/Stairs/Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.20001, 17.5, -2.4)
@@ -1215,24 +1187,17 @@ transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 2.2, -9.
 [node name="small_brick_wall11" parent="Level/Island_1/Stairs/Walls/Wall13" instance=ExtResource("5_idnao")]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 4.2, -9.2, 0.399998)
 
+[node name="Checkpoint" type="Area3D" parent="Level/Island_1/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 27.3316, 3)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Island_1/Stairs/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.500004, 1.5, 0)
+shape = SubResource("BoxShape3D_6yf81")
+
 [node name="Terrain" type="Node3D" parent="Level/Island_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.523, 1.03133, -58.763)
-
-[node name="HTerrain" type="Node3D" parent="Level/Island_1/Terrain"]
-script = ExtResource("7_yl6ky")
-map_scale = Vector3(0.2, 0.1, 0.17)
-centered = true
-_terrain_data = ExtResource("8_j2o12")
-chunk_size = 64
-collision_enabled = true
-collision_layer = 1
-collision_mask = 1
-shader_type = "LowPoly"
-custom_shader = null
-custom_globalmap_shader = null
-texture_set = SubResource("Resource_b5yv2")
-render_layers = 1
-cast_shadow = 1
 
 [node name="Island_base" type="Node3D" parent="Level/Island_1/Terrain"]
 
@@ -1377,7 +1342,7 @@ transform = Transform3D(-4.02374, -2.69461, -1.24443, -0.301896, 2.45705, -4.344
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -32.3529, 0, -76.0397)
 
 [node name="Test_Camera_Temple" type="Camera3D" parent="Level/Island_1/Test_Cameras"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5054, 2.59651, 19.9214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5054, 4.19651, 19.9214)
 
 [node name="Test_Camera_Stairs" type="Camera3D" parent="Level/Island_1/Test_Cameras"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5054, 11.033, -27.181)
@@ -1386,9 +1351,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5054
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.4946, 27.3, -38.181)
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="Level/Island_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.4624, -53.3304, -53.5077)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.7394, -50.1454, -55.8344)
 update_mode = 1
-size = Vector3(217.446, 202.37, 164.827)
+size = Vector3(182, 196, 146)
 enable_shadows = true
 
 [node name="Pathway_1" type="Node3D" parent="Level"]
@@ -1398,436 +1363,472 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.30148, 22.2116, -134.528)
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.699999, 62)
 
 [node name="rock" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-0.707107, -6.18172e-08, -0.707107, 8.74228e-08, -1, 0, -0.707107, -6.18172e-08, 0.707107, -0.25, -0.0500002, 1.25)
+transform = Transform3D(-0.707107, -6.18172e-08, -0.707107, 8.74228e-08, -1, 0, -0.707107, -6.18172e-08, 0.707107, 0.25, -0.400001, 1.7)
 
 [node name="rock2" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(0.408494, -0.482963, 0.774519, -0.353553, -0.866025, -0.353553, 0.841506, -0.129409, -0.524519, 0.55, 0, 0.549999)
+transform = Transform3D(0.408494, -0.482963, 0.774519, -0.353553, -0.866025, -0.353553, 0.841506, -0.129409, -0.524519, 1.05, -0.35, 0.999996)
 
 [node name="rock3" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(0.965926, 8.44439e-08, -0.258819, 8.74228e-08, -1, -3.55485e-15, -0.258819, -2.26267e-08, -0.965926, -0.9, 0, -1.93301)
+transform = Transform3D(0.965926, 8.44439e-08, -0.258819, 8.74228e-08, -1, -3.55485e-15, -0.258819, -2.26267e-08, -0.965926, -0.4, -0.35, -1.48301)
 
 [node name="rock4" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-0.743476, 0.613092, -0.267135, -0.490102, -0.771281, -0.406111, -0.455019, -0.17101, 0.873907, -2.2, 0, -0.916985)
+transform = Transform3D(-0.62017, 0.594369, -0.511971, -0.708698, -0.704331, 0.040785, -0.336355, 0.388127, 0.858034, -1.7, 0.25, -0.466988)
 
 [node name="rock5" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 0.75, 0, -1.53301)
+transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 1.25, -0.35, -1.08301)
 
 [node name="rock6" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-0.728168, -0.284015, 0.623784, 0.304391, -0.949433, -0.0769582, 0.614099, 0.133836, 0.777798, 1.35, 0, -0.283012)
+transform = Transform3D(-0.728168, -0.284015, 0.623784, 0.304391, -0.949433, -0.0769582, 0.614099, 0.133836, 0.777798, 1.85, -0.35, 0.166985)
 
 [node name="rock7" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-0.902667, -0.145559, 0.404975, 0.297588, -0.890916, 0.343089, 0.310859, 0.430211, 0.847517, 0.25, 0, -1.98301)
+transform = Transform3D(-0.902667, -0.145559, 0.404975, 0.297588, -0.890916, 0.343089, 0.310859, 0.430211, 0.847517, 0.75, -0.35, -1.53301)
 
 [node name="rock8" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-0.933013, 0.353553, 0.0669875, -0.278575, -0.827508, 0.487469, 0.227779, 0.436154, 0.870567, -1.6, 0, -1.76699)
+transform = Transform3D(-0.933013, 0.353553, 0.0669875, -0.278575, -0.827508, 0.487469, 0.227779, 0.436154, 0.870567, -1.1, -0.35, -1.31699)
 
 [node name="rock9" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-0.612373, 0.5, -0.612372, -0.353553, -0.866026, -0.353553, -0.707107, 1.49012e-08, 0.707107, -1.95, 0, 0.233017)
+transform = Transform3D(-0.612373, 0.5, -0.612372, -0.353553, -0.866026, -0.353553, -0.707107, 1.49012e-08, 0.707107, -1.45, -0.35, 0.683014)
 
 [node name="rock10" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(0.77199, 0.328773, 0.544004, -0.0935979, -0.787716, 0.608887, 0.628706, -0.520972, -0.577336, -1.45, 0, 0.883018)
+transform = Transform3D(0.77199, 0.328773, 0.544004, -0.0935979, -0.787716, 0.608887, 0.628706, -0.520972, -0.577336, -0.95, -0.35, 1.33302)
 
 [node name="rock11" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(-1.41421, -3.15852e-07, -1.41421, 3.01992e-07, -2, 1.44691e-07, -1.41421, -1.11229e-07, 1.41421, -0.35, -1.5, -0.266983)
-
-[node name="path" parent="Level/Pathway_1/Rock_1" instance=ExtResource("14_kdwn2")]
-transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, -0.55, 0.365806, -0.900002)
-
-[node name="path2" parent="Level/Pathway_1/Rock_1" instance=ExtResource("14_kdwn2")]
-transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, -0.5, 0.365806, 0.249996)
+transform = Transform3D(-1.41421, -3.15852e-07, -1.41421, -0.483688, -1.87939, 0.483688, -1.32892, 0.68404, 1.32892, 0.15, -1.85, 0.183014)
 
 [node name="rock12" parent="Level/Pathway_1/Rock_1" instance=ExtResource("13_bccd3")]
-transform = Transform3D(2.82843, 2.82013e-07, 2.82843, -3.56714e-07, 4, -4.21125e-08, -2.82843, -2.22457e-07, 2.82843, -0.35, -8.5, 2.23302)
+transform = Transform3D(2.82843, 2.82013e-07, 2.82843, -3.56714e-07, 4, -4.21125e-08, -2.82843, -2.22457e-07, 2.82843, 0.15, -8.85, 2.68302)
 
-[node name="HTerrain" type="Node3D" parent="Level/Pathway_1"]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, -10)
-script = ExtResource("7_yl6ky")
-map_scale = Vector3(0.2, 1, 0.3)
-centered = true
-_terrain_data = ExtResource("15_8jfk5")
-chunk_size = 32
-collision_enabled = true
-collision_layer = 1
-collision_mask = 1
-shader_type = "Classic4Lite"
-custom_shader = null
-custom_globalmap_shader = null
-texture_set = SubResource("Resource_62p3l")
-render_layers = 1
-cast_shadow = 1
-shader_params/u_ground_uv_scale = 20
-shader_params/u_depth_blending = true
-shader_params/u_triplanar = null
-shader_params/u_tile_reduction = null
+[node name="path" parent="Level/Pathway_1/Rock_1" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.353553, 0, 0.353553, 0, 0.5, 0, -0.353553, 0, 0.353553, -0.499467, 0.0158052, -0.386929)
+
+[node name="path2" parent="Level/Pathway_1/Rock_1" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, 0.0435778, 0, 0.5, 0, -0.0435778, 0, 0.498097, -0.200532, 0.0158052, 0.786915)
+
+[node name="Checkpoint" type="Area3D" parent="Level/Pathway_1/Rock_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Pathway_1/Rock_1/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05312e-06, -0.5, 0)
+shape = SubResource("BoxShape3D_6yf81")
+
+[node name="Rock_2" type="Node3D" parent="Level/Pathway_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -6, 1.3, 49)
+
+[node name="rock" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.707107, -6.18172e-08, -0.707107, 8.74228e-08, -1, 0, -0.707107, -6.18172e-08, 0.707107, 0.05, -0.1, 1.5)
+
+[node name="rock2" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.408494, -0.482963, 0.774519, -0.353553, -0.866025, -0.353553, 0.841506, -0.129409, -0.524519, 0.95, 0, 0.849998)
+
+[node name="rock3" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.965926, 8.44439e-08, -0.258819, 8.74228e-08, -1, -3.55485e-15, -0.258819, -2.26267e-08, -0.965926, -0.55, 0.25, -1.88301)
+
+[node name="rock4" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.160024, 0.0270267, 0.986743, 0.473531, 0.874995, -0.10076, -0.866117, 0.483378, 0.127222, -1.95, 0, -0.666985)
+
+[node name="rock5" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 1.3, 0.2, -1.58301)
+
+[node name="rock6" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.728168, -0.284015, 0.623784, 0.304391, -0.949433, -0.0769582, 0.614099, 0.133836, 0.777798, 1.7, 0.0500002, -0.283012)
+
+[node name="rock7" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.827006, 0.503389, 0.250319, 0.0552697, 0.515897, -0.854866, -0.559469, -0.693144, -0.454472, 0.55, -0.1, -1.93301)
+
+[node name="rock8" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.600746, 0.245872, 0.760691, -0.278575, -0.827508, 0.487469, 0.749333, -0.504754, -0.428629, -1.6, 0.5, -1.76699)
+
+[node name="rock9" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.707107, -7.45058e-08, 0.707107, -0.353553, -0.866026, -0.353553, 0.612373, -0.5, 0.612372, -2.1, 0, 0.133018)
+
+[node name="rock10" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.77199, 0.328773, 0.544004, -0.0935979, -0.787716, 0.608887, 0.628706, -0.520972, -0.577336, -1.8, 0, 1.08302)
+
+[node name="rock11" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.342018, -0.0603072, 1.96961, -0.347294, -1.96962, 1.42493e-07, 1.93968, -0.34202, -0.347295, -0.35, -1.18058, -0.266983)
+
+[node name="path" parent="Level/Pathway_1/Rock_2" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, 0.150209, 0.365806, -0.699997)
+
+[node name="path2" parent="Level/Pathway_1/Rock_2" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, 0.0435779, 0, 0.5, 0, -0.0435779, 0, 0.498097, 0.14979, 0.365806, 0.399986)
+
+[node name="rock12" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.772449, -0.149634, 0.617196, 0.05637, 0.984165, 0.168054, -0.632569, -0.0950212, 0.768653, -2.25, 0.1, -0.116985)
+
+[node name="rock13" parent="Level/Pathway_1/Rock_2" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.102699, -0.369217, 1.24223, -0.13229, -1.23663, -0.378489, 1.28917, -0.156311, 0.0601202, 1.53562, -1.32269, -0.798375)
+
+[node name="Checkpoint" type="Area3D" parent="Level/Pathway_1/Rock_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Pathway_1/Rock_2/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499996, -0.5, -0.5)
+shape = SubResource("BoxShape3D_6yf81")
+
+[node name="Rock_3" type="Node3D" parent="Level/Pathway_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 3, 4.3, 35)
+
+[node name="rock" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.707107, -6.18172e-08, -0.707107, 8.74228e-08, -1, 0, -0.707107, -6.18172e-08, 0.707107, -0.25, -0.0500002, 1.25)
+
+[node name="rock2" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.408494, -0.482963, 0.774519, -0.353553, -0.866025, -0.353553, 0.841506, -0.129409, -0.524519, 0.55, 0.8, 0.549999)
+
+[node name="rock3" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.965926, 8.44439e-08, -0.258819, 8.74228e-08, -1, -3.55485e-15, -0.258819, -2.26267e-08, -0.965926, -0.9, 0, -1.93301)
+
+[node name="rock4" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.743476, 0.613092, -0.267135, -0.490102, -0.771281, -0.406111, -0.455019, -0.17101, 0.873907, -2.2, 0.3, -0.916985)
+
+[node name="rock5" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 0.75, 0.2, -1.53301)
+
+[node name="rock6" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.728168, -0.284015, 0.623784, 0.304391, -0.949433, -0.0769582, 0.614099, 0.133836, 0.777798, 1.35, 0.25, -0.283012)
+
+[node name="rock7" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.902667, -0.145559, 0.404975, 0.297588, -0.890916, 0.343089, 0.310859, 0.430211, 0.847517, 0.25, 0.45, -1.98301)
+
+[node name="rock8" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.933013, 0.353553, 0.0669875, -0.278575, -0.827508, 0.487469, 0.227779, 0.436154, 0.870567, -1.6, 0, -1.76699)
+
+[node name="rock9" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.612373, 0.5, -0.612372, -0.353553, -0.866026, -0.353553, -0.707107, 1.49012e-08, 0.707107, -1.95, -0.1, 0.233017)
+
+[node name="rock10" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.77199, 0.328773, 0.544004, -0.0935979, -0.787716, 0.608887, 0.628706, -0.520972, -0.577336, -1.45, 0, 0.883018)
+
+[node name="rock11" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.439992, -1.85233e-07, -1.64207, 2.56693e-07, -1.7, 1.22987e-07, -1.64207, -2.16115e-07, 0.439992, -0.35, -1, -0.266983)
+
+[node name="path" parent="Level/Pathway_1/Rock_3" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.482963, 0, 0.129409, 0, 0.5, 0, -0.129409, 0, 0.482963, -1.15, 0.365806, -0.899998)
+
+[node name="path2" parent="Level/Pathway_1/Rock_3" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.086824, 0, -0.492404, 0, 0.5, 0, 0.492404, 0, 0.086824, -1.3, 0.365806, 0.299995)
+
+[node name="rock12" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.411997, 0.25694, -0.874208, -0.814973, -0.533008, 0.227424, -0.407525, 0.806155, 0.428997, -1.83347, 1.04714, -3.22934)
+
+[node name="Checkpoint" type="Area3D" parent="Level/Pathway_1/Rock_3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Pathway_1/Rock_3/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499996, -0.5, -1)
+shape = SubResource("BoxShape3D_6yf81")
+
+[node name="rock13" parent="Level/Pathway_1/Rock_3" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.513871, 0.136668, 0.846911, 0.448061, -0.884631, -0.12911, 0.731558, 0.445814, -0.515822, -1.74993, -0.0894535, -2.48244)
+
+[node name="Rock_4" type="Node3D" parent="Level/Pathway_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -5, 8.3, 15)
+
+[node name="Tower" type="Node3D" parent="Level/Pathway_1/Rock_4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.75, -0.599998)
+
+[node name="square_pilar" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, 1, 4, -1)
+
+[node name="square_pilar2" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, -1, 4, -1)
+
+[node name="square_pilar3" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, 1, 2.45, 1)
+
+[node name="square_pilar4" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 1, 0, 0, 0, 0.25, -1, 2.45, 1)
+
+[node name="square_pilar5" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.125, 0.216506, 0, -0.216506, 0.125, 1, 2, 0)
+
+[node name="square_pilar6" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.09278e-08, -0.216506, -0.125, 9.55343e-16, 0.125, -0.216506, 0.25, 9.46378e-09, 5.46392e-09, 0, 3.45, -1)
+
+[node name="square_pilar7" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.25, 1.89276e-08, -1.09278e-08, 0, 0.125, 0.216506, 2.18557e-08, 0.216506, -0.125, -1, 4.9, 0)
+
+[node name="square_pilar8" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-1.09278e-08, -0.216506, -0.125, 0, -0.125, 0.216506, -0.25, 9.46378e-09, 5.46392e-09, 0, 6.35, 1)
+
+[node name="square_pilar9" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.125, 0.216506, 0, -0.216506, 0.125, 1, 7.85, 0)
+
+[node name="square_pilar10" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.125, 0.216506, 0, -0.216506, 0.125, -1, 2, 0)
+
+[node name="square_pilar11" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.09278e-08, -0.216506, -0.125, 9.55343e-16, 0.125, -0.216506, 0.25, 9.46378e-09, 5.46392e-09, 0, 3.45, 1)
+
+[node name="square_pilar12" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.25, 1.89276e-08, -1.09278e-08, 0, 0.125, 0.216506, 2.18557e-08, 0.216506, -0.125, 1, 4.9, 0)
+
+[node name="square_pilar13" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-1.09278e-08, -0.216506, -0.125, 0, -0.125, 0.216506, -0.25, 9.46378e-09, 5.46392e-09, 0, 6.35, -1)
+
+[node name="square_pilar14" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.125, 0.216506, 0, -0.216506, 0.125, -1, 7.85, 0)
+
+[node name="square_pilar15" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-1.09278e-08, 0.25, -1.71363e-07, 0, 1.71363e-07, 0.25, 0.25, 1.09278e-08, -7.49053e-15, 0, 8.85, -1)
+
+[node name="square_pilar16" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.25, -2.18557e-08, 1.49811e-14, 6.21176e-22, 1.71363e-07, 0.25, -2.18557e-08, 0.25, -1.71363e-07, 1, 8.85, -2)
+
+[node name="square_pilar17" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.25, -2.18557e-08, 1.49811e-14, 6.21176e-22, 1.71363e-07, 0.25, -2.18557e-08, 0.25, -1.71363e-07, -1, 8.85, -2)
+
+[node name="square_pilar18" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-1.09278e-08, 0.25, -1.71363e-07, 1.86353e-21, 1.71363e-07, 0.25, 0.25, 1.09278e-08, -7.49053e-15, 0, 8.85, -3)
+
+[node name="square_pilar19" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.25, -2.18557e-08, 1.49811e-14, 1.54543e-08, -0.176776, 0.176777, -1.54543e-08, 0.176777, 0.176776, 1, 7.95, -1.9)
+
+[node name="square_pilar20" parent="Level/Pathway_1/Rock_4/Tower" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-0.25, -2.18557e-08, 1.49811e-14, 1.54543e-08, -0.176776, 0.176777, -1.54543e-08, 0.176777, 0.176776, -1, 7.95, -1.9)
+
+[node name="rock" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.258819, -6.18172e-08, -0.965926, 7.57104e-08, -1, 4.37114e-08, -0.965926, -6.18172e-08, 0.258819, -0.970977, -0.0500002, 1.65024)
+
+[node name="rock2" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.671671, -0.655627, 0.344981, -0.353553, -0.692875, -0.628429, 0.651044, 0.300129, -0.697183, 0.8, 0, 1)
+
+[node name="rock3" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.965926, 8.44439e-08, -0.258819, 8.74228e-08, -1, -3.55485e-15, -0.258819, -2.26267e-08, -0.965926, -1.35, 0.65, -2.53301)
+
+[node name="rock4" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.743476, 0.613092, -0.267135, -0.490102, -0.771281, -0.406111, -0.455019, -0.17101, 0.873907, -3.05, 0, -0.916985)
+
+[node name="rock5" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 1.25, 0.5, -1.68301)
+
+[node name="rock6" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.977665, 0.00579932, 0.210085, 0.056366, 0.970232, 0.235526, -0.202466, 0.242107, -0.948888, 1.7, -0.0500002, -0.0830116)
+
+[node name="rock7" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.14939, 0.398399, 0.904965, 0.297588, -0.890916, 0.343089, 0.942934, 0.218053, -0.251653, 0.05, 0, -2.68301)
+
+[node name="rock8" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.933013, 0.353553, 0.0669875, -0.278575, -0.827508, 0.487469, 0.227779, 0.436154, 0.870567, -2.45, 0.799999, -2.21699)
+
+[node name="rock9" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.841507, -0.12941, -0.524519, -0.353553, -0.866026, -0.353553, -0.408494, 0.482963, -0.774519, -3.05, 0, 0.383018)
+
+[node name="rock10" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.467861, 0.0254789, 0.883434, -0.0786336, -0.99682, -0.0128946, 0.880297, -0.0755007, 0.468378, -2.25, 0.25, 1.08302)
+
+[node name="rock11" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-1.41421, -3.15852e-07, -1.41421, 3.01992e-07, -2, 1.44691e-07, -1.41421, -1.11229e-07, 1.41421, -0.35, -1.5, -0.266983)
+
+[node name="rock12" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.24011, 0.482173, -0.842531, -0.967422, -0.190617, 0.166614, -0.080264, 0.855087, 0.512234, -0.25, -0.0500002, 1.25)
+
+[node name="path" type="Node3D" parent="Level/Pathway_1/Rock_4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+
+[node name="path3" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.0435779, 0, 0.498097, 0, 0.5, 0, -0.498097, 0, 0.0435779, -1.5, 0.365806, 0.199997)
+
+[node name="path4" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(-0.492403, 0, 0.0868241, 0, 0.5, 0, -0.0868241, 0, -0.492403, -1.35, 0.365806, -0.950005)
+
+[node name="path5" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -2.5, 0.365806, 0.249996)
+
+[node name="path6" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.0868241, 0, 0.492404, 0, 0.5, 0, -0.492404, 0, 0.0868241, -2.5, 0.365806, -0.900005)
+
+[node name="path7" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(-1.49012e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -1.49012e-08, 0.75, 0.365806, 0.249996)
+
+[node name="path8" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.492404, 0, -0.086824, 0, 0.5, 0, 0.086824, 0, 0.492404, 0.85, 0.365806, -0.800007)
+
+[node name="path9" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(-0.086824, 0, -0.492404, 0, 0.5, 0, 0.492404, 0, -0.086824, -0.4, 0.365806, 0.199997)
+
+[node name="path10" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(-1.49012e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -1.49012e-08, -0.25, 0.365806, -0.900005)
+
+[node name="path11" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.492404, 0, -0.086824, 0, 0.5, 0, 0.086824, 0, 0.492404, -1.35, 0.365806, -2)
+
+[node name="path12" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.0868241, 0, 0.492404, 0, 0.5, 0, -0.492404, 0, 0.0868241, -2.35, 0.365806, -1.95)
+
+[node name="path13" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.0435778, 0, 0.498097, 0, 0.5, 0, -0.498097, 0, 0.0435778, 0.9, 0.365806, -1.9)
+
+[node name="path14" parent="Level/Pathway_1/Rock_4/path" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.0435779, 0, 0.498097, 0, 0.5, 0, -0.498097, 0, 0.0435779, -0.2, 0.365806, -2)
+
+[node name="Checkpoint" type="Area3D" parent="Level/Pathway_1/Rock_4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Pathway_1/Rock_4/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.999996, -0.5, 0)
+shape = SubResource("BoxShape3D_6yf81")
+
+[node name="rock13" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.5, 2.26494e-07, 6.55671e-08, 2.26494e-07, -1.5, 1.08518e-07, 6.55671e-08, -1.08518e-07, -1.5, 1.15, -0.5, -0.266983)
+
+[node name="rock14" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.29904, 1.4189e-07, -0.75, 2.26494e-07, -1.5, 1.08518e-07, -0.75, -2.07226e-07, -1.29904, -1.85, -0.5, 0.233017)
+
+[node name="rock15" parent="Level/Pathway_1/Rock_4" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.75, -2.07226e-07, -1.29904, 2.26494e-07, -1.5, 1.08518e-07, -1.29904, -1.4189e-07, 0.75, -0.35, -0.5, -1.76698)
+
+[node name="Rock_5" type="Node3D" parent="Level/Pathway_1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 1, 8.3, -20)
+
+[node name="Catcher" type="Node3D" parent="Level/Pathway_1/Rock_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="square_pilar" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.12941, -0.241481, 0, 0.482963, 0.0647048, 1, 0, 2)
+
+[node name="square_pilar2" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.12941, -0.241481, 0, 0.482963, 0.0647048, -1, 0, 2)
+
+[node name="square_pilar3" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-3.55065e-09, -0.25, -6.00879e-09, 0.0647047, 4.88507e-09, -0.241481, 0.241481, -4.98485e-09, 0.0647047, -1.19209e-07, 0.582343, 4.17333)
+
+[node name="square_pilar4" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(4.31871e-10, 9.83445e-09, -0.25, 0.143394, 0.102394, 1.63595e-08, 0.204788, -0.071697, -1.09278e-08, -1, 0.22012, 4.52039)
+
+[node name="square_pilar5" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(4.31871e-10, 9.83445e-09, -0.25, 0.143394, 0.102394, 1.63595e-08, 0.204788, -0.071697, -1.09278e-08, 1, 0.22012, 4.52039)
+
+[node name="square_pilar6" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.375, -0.216506, 0, 0.649519, 0.125, 1, -2.19316, 1.80644)
+
+[node name="square_pilar7" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.25, 0, 0, 0, 0.375, -0.216506, 0, 0.649519, 0.125, -1, -2.19316, 1.80644)
+
+[node name="square_pilar8" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(-3.55065e-09, -0.25, -6.00879e-09, 0.0647047, 4.88507e-09, -0.241481, 0.241481, -4.98485e-09, 0.0647047, -2.38419e-07, -0.427397, 4.90893)
+
+[node name="rock" parent="Level/Pathway_1/Rock_5/Catcher" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.0212795, -0.0878829, 1.49727, -1.44111, -0.416169, -0.00394598, 0.415643, -1.43843, -0.0903363, -0.0705501, -0.276013, 3.64788)
+
+[node name="rock2" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.741025, -0.482963, 0.466506, -0.482963, -0.866025, -0.129409, 0.466506, -0.129409, -0.875, 0.456699, 0.0258818, 1.225)
+
+[node name="rock3" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(1.93185, 3.12775e-07, -0.517638, -0.448287, -1, -1.67303, -0.258819, 1.73205, -0.965926, -0.9, -0.5, -2.93301)
+
+[node name="rock4" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-1.68998, 0.785158, -0.726284, -0.561953, -1.80736, -0.646266, -0.910038, -0.34202, 1.74781, -2.7, 0, -0.916985)
+
+[node name="rock5" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.146844, 0.0584889, 0.987429, 0.173321, -0.984328, 0.03253, 0.973857, 0.166366, -0.15468, 0.75, 0, -2.03301)
+
+[node name="rock6" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-1.45634, -0.56803, 1.24757, 0.608782, -1.89887, -0.153917, 1.2282, 0.267672, 1.5556, 1.85, 0, -0.783012)
+
+[node name="rock7" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.902667, -0.145559, 0.404975, 0.297588, -0.890916, 0.343089, 0.310859, 0.430211, 0.847517, 0.25, 0, -1.98301)
+
+[node name="rock8" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.033934, -0.214535, -0.976127, 0.200283, -0.958336, 0.203662, -0.97915, -0.188591, 0.0754881, -1.6, 0, -2.26699)
+
+[node name="rock9" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-0.612373, 0.5, -0.612372, -0.353553, -0.866026, -0.353553, -0.707107, 1.49012e-08, 0.707107, -1.95, 0, 0.233017)
+
+[node name="rock10" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(0.161211, 0.328773, 0.930548, -0.496732, -0.787716, 0.364364, 0.852801, -0.520972, 0.0363244, -2.10138, -0.255055, 0.857591)
+
+[node name="rock11" parent="Level/Pathway_1/Rock_5" instance=ExtResource("13_bccd3")]
+transform = Transform3D(-2.82843, -6.31704e-07, -2.82843, 6.03983e-07, -4, 2.89381e-07, -2.82843, -2.22458e-07, 2.82843, -0.35, -3, -0.266983)
+
+[node name="path" parent="Level/Pathway_1/Rock_5" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, -0.55, 0.365806, -0.900002)
+
+[node name="path2" parent="Level/Pathway_1/Rock_5" instance=ExtResource("14_kdwn2")]
+transform = Transform3D(0.498097, 0, -0.0435779, 0, 0.5, 0, 0.0435779, 0, 0.498097, -0.5, 0.365806, 0.249996)
+
+[node name="Checkpoint" type="Area3D" parent="Level/Pathway_1/Rock_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+script = ExtResource("6_3asdy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Pathway_1/Rock_5/Checkpoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.499996, -0.5, 0.5)
+shape = SubResource("BoxShape3D_6yf81")
 
 [node name="Island_2" type="Node3D" parent="Level"]
 
-[node name="Protos" type="Node" parent="."]
-
-[node name="Island1_Proto" type="CSGCombiner3D" parent="Protos"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -32.3529, 0, -43.3343)
-visible = false
-use_collision = true
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.467, -7.06907, -20.5884)
-visible = false
-size = Vector3(92.2021, 15.1514, 111)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, 5.74034, -4.63343, -42.466)
-visible = false
-size = Vector3(53.0023, 19.7497, 62.2971)
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.966212, -0.257742, -0.00164797, 0.257735, 0.96621, -0.00328308, 0.00243846, 0.00274742, 0.999993, -28.638, -2.78836, -42.5072)
-visible = false
-size = Vector3(19.5, 11.4164, 62.2)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7369, -1.09978, -88.9675)
-visible = false
-size = Vector3(8.10779, 1.47076, 9.52582)
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.902859, -0.0789899, 0.422618, 0.0871557, 0.996195, 0, -0.42101, 0.0368336, 0.906308, 13.683, 4.00882, -86.5145)
-visible = false
-size = Vector3(2, 8, 2)
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.878219, 0.266492, 0.397131, -0.262726, 0.962678, -0.065004, -0.399633, -0.0472491, 0.915457, 21.4209, 2.16484, -91.8615)
-visible = false
-size = Vector3(2, 8, 2)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(1, 0, 0, 0, 0.957853, 0.28726, 0, -0.28726, 0.957853, 17.7369, -0.884715, -86.7563)
-visible = false
-size = Vector3(8.10779, 3.60501, 9.52582)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3803, -2.28688, -105.992)
-visible = false
-size = Vector3(10.836, 6.5027, 8.78452)
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(1, 0, 0, 0, 0.869728, -0.493532, 0, 0.493532, 0.869728, 13.3803, -1.9675, -101.292)
-visible = false
-size = Vector3(10.836, 4.8, 3.34941)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.2416, -0.970376, 0, 0.970376, 0.2416, 0, 0, 0, 1, 6.1883, 6.17305, -105.622)
-visible = false
-size = Vector3(13.4132, 2.95753, 9.52582)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.965167, -0.261633, 0, 0.261633, 0.965167, 0, 0, 0, 1, 10.5312, 13.2968, -105.622)
-visible = false
-size = Vector3(8.10779, 1.73183, 9.52582)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.966676, 0.256003, 0, -0.256003, 0.966676, 0, 0, 0, 1, 18.6235, 13.0802, -105.622)
-visible = false
-size = Vector3(9.8, 1.73183, 9.52582)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.287661, 0.957732, 0, -0.957732, 0.287661, 0, 0, 0, 1, 23.0858, 10.9824, -105.622)
-visible = false
-size = Vector3(2.9, 1.9, 9.52582)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.735293, 0.677749, 0, -0.677749, 0.735293, 0, 0, 0, 1, 7.97533, -0.999859, -105.622)
-visible = false
-size = Vector3(8.10779, 4.81351, 9.52582)
-
-[node name="CSGBox3D17" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(-0.844963, 0.534824, 0, -0.534824, -0.844963, 0, 0, 0, 1, 18.9753, -0.999859, -105.622)
-visible = false
-size = Vector3(8.10779, 4.81351, 9.52582)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.996701, 0, 0.0811557, 0, 1, 0, -0.0811557, 0, 0.996701, 15.6483, 0.832404, -117.278)
-visible = false
-size = Vector3(8.10779, 1.47076, 4.37682)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island1_Proto"]
-transform = Transform3D(0.992178, -3.72529e-09, 0.124831, 0.046338, 0.928551, -0.368302, -0.115912, 0.371206, 0.921287, 13.5878, 3.06424, -131.063)
-visible = false
-size = Vector3(8.10779, 1.47076, 9.52582)
-
-[node name="Temple_Proto" type="CSGCombiner3D" parent="Protos/Island1_Proto"]
-visible = false
-calculate_tangents = false
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0008, 8.5, 2.5531)
-visible = false
-size = Vector3(3, 18, 32)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.258819, -0.219372, -0.940685, -9.92731e-09, 0.973869, -0.22711, 0.965926, -0.0587805, -0.252056, 3.76874, 9.48689, 23.5489)
-visible = false
-size = Vector3(3, 30.6567, 49)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 0.968904, 0.247439, 0, -0.247439, 0.968904, 22.7523, 26.302, 7.36944)
-visible = false
-size = Vector3(3, 8.31673, 44.5297)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-4.2222e-08, -0.258819, -0.965926, -1.13133e-08, 0.965926, -0.258819, 1, 0, -4.37114e-08, 5.65171, 6.78371, -12.3937)
-visible = false
-size = Vector3(3, 27.3419, 45.35)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.47415, 14.6478, -13.4807)
-visible = false
-operation = 2
-size = Vector3(8.85736, 18.8, 17)
-
-[node name="CSGBox3D24" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-7.5904e-09, -0.984808, -0.173648, -4.30473e-08, 0.173648, -0.984808, 1, 0, -4.37114e-08, 11.3018, 17.4337, -10.5457)
-visible = false
-size = Vector3(2.98735, 4.38031, 8.30815)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(6.55671e-08, -1, 3.78552e-08, -0.939693, -4.86657e-08, 0.34202, -0.34202, -5.79975e-08, -0.939693, 2.4346, 0.569484, -2.39657)
-visible = false
-size = Vector3(3, 16.9, 19.3)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.25, 0.119863, -0.960798, 0.965926, -0.0377778, -0.256047, -0.0669873, -0.992072, -0.106334, 3.9992, 20.5, -3.4469)
-visible = false
-size = Vector3(3, 4, 44)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.25, 0.258819, -0.933013, 0.965926, 0, -0.258819, -0.0669873, -0.965926, -0.25, 3.9992, 20.5, 7.5531)
-visible = false
-size = Vector3(3, 4, 44)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.25, 0.402679, -0.880539, 0.965926, 0.040805, -0.255582, -0.0669873, -0.914431, -0.39916, 3.07177, 20.406, 19.6591)
-visible = false
-size = Vector3(3, 4, 44)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.594633, -0.764141, 0.25, -0.229193, -0.136937, -0.963701, 0.770637, -0.630347, -0.0937085, 10.9934, 10.6977, 7.13389)
-visible = false
-size = Vector3(3, 3, 24)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.887569, 0.402679, -0.223763, 0.261622, 0.040805, -0.964307, -0.379176, -0.914431, -0.141567, -10.31, 6.96915, -7.06442)
-visible = false
-size = Vector3(3, 3, 21.4302)
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.887569, 0.402679, -0.223763, 0.261622, 0.040805, -0.964307, -0.379176, -0.914431, -0.141567, -10.1702, 5.38073, 12.6107)
-visible = false
-size = Vector3(3, 3, 24)
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 23.3553)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 18.3553)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 13.3553)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D17" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 8.35535)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D18" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, 3.35535)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D19" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, -1.64465)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D20" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, 2.69848, 0, 0, 0, 1, 22.7523, 7.4068, -6.64465)
-visible = false
-size = Vector3(3, 14.1864, 3)
-
-[node name="CSGBox3D21" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -7.52249, 7.83027, -9.78252)
-visible = false
-size = Vector3(3, 3, 23.2441)
-
-[node name="CSGBox3D22" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 12.5775, 10.2082, -9.78252)
-visible = false
-size = Vector3(3, 3, 28)
-
-[node name="CSGBox3D23" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0, 0, 1, 2.52426, 14.6989, -10.3341)
-visible = false
-size = Vector3(20.6, 3, 5)
-
-[node name="CSGBox3D25" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 2.52426, 19.911, -11.4332)
-visible = false
-size = Vector3(20.6, 3, 7.19824)
-
-[node name="CSGBox3D26" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(-0.910574, 0.402679, 0.0932979, -0.083968, 0.040805, -0.995633, -0.404728, -0.914431, -0.00334381, -4.33265, -0.430225, 9.15777)
-visible = false
-size = Vector3(3, 3, 12.0767)
-
-[node name="CSGBox3D27" type="CSGBox3D" parent="Protos/Island1_Proto/Temple_Proto"]
-transform = Transform3D(0.989556, -0.0794077, -0.120304, -0.142147, -0.398958, -0.905884, 0.0239378, 0.913524, -0.406079, 7.40029, -1.97156, 11.0723)
-visible = false
-size = Vector3(3, 3, 8.92554)
-
-[node name="Island2_Proto" type="CSGCombiner3D" parent="Protos"]
-transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.867004, -13.4374, -282.296)
-visible = false
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(1, 1.63123e-11, -2.73278e-10, -8.68567e-11, 0.957853, 0.28726, 6.07692e-11, -0.28726, 0.957853, -17.0459, -2.76888, 39.2593)
-visible = false
-size = Vector3(8.10779, 5.10947, 20.1558)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.4487, 9.38917, -20.5432)
-visible = false
-size = Vector3(92.2021, 48.068, 111)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -16.9582, 3.42489, -8.30017)
-visible = false
-operation = 2
-size = Vector3(9, 9, 87.3856)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -13.7339, 14.363, -20.0694)
-visible = false
-operation = 2
-size = Vector3(56, 31, 45)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -15.7247, 20.368, -21.0578)
-visible = false
-operation = 2
-size = Vector3(20, 43, 17)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(0.681635, -0.259934, -0.683965, 0.181483, 0.965623, -0.186109, 0.708828, 0.00273061, 0.705375, -35.1177, -1.45622, -64.7069)
-visible = false
-operation = 2
-size = Vector3(49, 9, 7)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island2_Proto"]
-transform = Transform3D(0.984641, 0.169906, -0.040183, -0.174593, 0.958208, -0.226617, -5.17564e-09, 0.230152, 0.973155, -47.6492, -7.88214, -83.3937)
-visible = false
-size = Vector3(11.304, 2.0938, 20.1558)
-
-[node name="ReflectionProbe" type="ReflectionProbe" parent="Protos/Island2_Proto"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.608, 11.5846, -20.1396)
-visible = false
-update_mode = 1
-size = Vector3(91.2517, 43.1692, 109.526)
-box_projection = true
-interior = true
-enable_shadows = true
-
-[node name="ReflectionProbe4" type="ReflectionProbe" parent="Protos/Island2_Proto"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.7535, 61.207, -21.0011)
-visible = false
-update_mode = 1
-size = Vector3(17.6129, 63.0275, 20.8599)
-enable_shadows = true
-
-[node name="ReflectionProbe2" type="ReflectionProbe" parent="Protos/Island2_Proto"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -14.7792, 5.21374, -126.112)
-visible = false
-update_mode = 1
-size = Vector3(127.245, 85.2818, 131.836)
-enable_shadows = true
-
-[node name="ReflectionProbe3" type="ReflectionProbe" parent="Protos/Island2_Proto"]
-transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, -39.8817, -2.8075, -69.3125)
-visible = false
-update_mode = 1
-size = Vector3(50.1118, 19.2964, 17)
-enable_shadows = true
-
-[node name="Island3_Proto" type="CSGCombiner3D" parent="Protos"]
-transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.867004, 25.1385, -515.296)
-visible = false
-use_collision = true
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(1, 1.63123e-11, -2.73278e-10, -8.68567e-11, 0.957853, 0.28726, 6.07692e-11, -0.28726, 0.957853, -17.0459, 1.94854, -8.74069)
-visible = false
-size = Vector3(8.10779, 5.10947, 20.1558)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(0.999996, 0.00111423, -0.00244154, -0.00112095, 0.999996, -0.00274469, 0.00243846, 0.00274742, 0.999993, -27.7531, -6.06471, -81.5638)
-visible = false
-size = Vector3(67.3304, 16.7977, 129.157)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(0.70538, -0.00115484, -0.708828, -0.00112095, 0.999996, -0.00274469, 0.708828, 0.0027306, 0.705375, 32.1339, -6.14429, -180.101)
-visible = false
-size = Vector3(82.3197, 16.7977, 181.026)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(0.256463, -0.00236542, -0.966551, -0.00112095, 0.999996, -0.00274469, 0.966553, 0.00178735, 0.256459, 134.465, -6.22489, -249.484)
-visible = false
-size = Vector3(79.9997, 16.7977, 117.903)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(0.35369, 0.6103, -0.708828, -0.866582, 0.499027, -0.0027447, 0.352049, 0.615229, 0.705375, -2.81363, 14.9571, -215.138)
-visible = false
-size = Vector3(68.3571, 16.7977, 181.026)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(-0.35169, 0.611455, -0.708828, -0.865461, -0.500969, -0.00274473, -0.356779, 0.612498, 0.705375, -2.90314, 75.0064, -214.994)
-visible = false
-size = Vector3(82.3197, 16.7977, 181.026)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(-0.666729, -0.230292, -0.708828, 0.329084, -0.944297, -0.00274469, -0.668712, -0.235094, 0.705375, 34.5405, 93.7549, -177.294)
-visible = false
-size = Vector3(82.3197, 16.7977, 181.026)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(-0.367775, 0.601917, -0.708828, -0.851877, -0.523735, -0.0027447, -0.37289, 0.602826, 0.705375, 73.3163, 10.2009, -151.041)
-visible = false
-size = Vector3(54.2564, 16.7977, 181.026)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(-0.308607, -0.63429, -0.708828, 0.900416, -0.435022, -0.0027447, -0.306615, -0.639088, 0.705375, 68.1719, 56.4235, -143.644)
-visible = false
-size = Vector3(67.7447, 16.7977, 181.026)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Protos/Island3_Proto"]
-transform = Transform3D(-0.308607, -0.63429, -0.708828, 0.900416, -0.435022, -0.0027447, -0.306615, -0.639088, 0.705375, 40.602, 56.3168, -116.208)
-visible = false
-operation = 2
-size = Vector3(67.7447, 16.7977, 103.236)
-
-[node name="Shaders" type="Node" parent="."]
-
-[node name="hq_lined" type="MeshInstance3D" parent="Shaders"]
+[node name="Terrain3D" type="Terrain3D" parent="Level"]
+debug_level = 1
+data_directory = "res://scenes/Terrain_Data"
+material = ExtResource("12_a15y0")
+assets = ExtResource("13_ld8jg")
+label_distance = 10845.0
+show_grid = true
+collision_layer = 4
+collision_mask = 3
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Miscellaneous" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Miscellaneous"]
+environment = SubResource("Environment_kgbl7")
+camera_attributes = SubResource("CameraAttributesPractical_qo5hu")
+
+[node name="Sun3" type="DirectionalLight3D" parent="Miscellaneous/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, 1, 0, -1, -3.61999e-06, -4.86868, 48.1106, 2.18251)
+light_energy = 0.5
+light_volumetric_fog_energy = 2.0
+shadow_enabled = true
+directional_shadow_max_distance = 200.0
+
+[node name="Day_Night_Cycle" type="AnimationPlayer" parent="Miscellaneous/WorldEnvironment"]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_hs8gh")
+}
+autoplay = "day_night_cycle"
+script = ExtResource("3_nu7pc")
+period_of_time = 2
+
+[node name="Shaders" type="Node" parent="Miscellaneous"]
+
+[node name="hq_lined" type="MeshInstance3D" parent="Miscellaneous/Shaders"]
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_grk8i")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="moebius" type="MeshInstance3D" parent="Shaders"]
+[node name="CanvasLayer" parent="Miscellaneous" instance=ExtResource("17_xfm4i")]
+
+[node name="protos" type="Node" parent="Miscellaneous"]
+
+[node name="HTerrain" type="Node3D" parent="Miscellaneous/protos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.523, 1.03133, -26.0576)
 visible = false
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_pi5me")
+script = ExtResource("7_yl6ky")
+map_scale = Vector3(0.2, 0.1, 0.17)
+centered = true
+_terrain_data = ExtResource("8_j2o12")
+chunk_size = 64
+collision_enabled = false
+collision_layer = 4
+collision_mask = 0
+shader_type = "LowPoly"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_b5yv2")
+render_layers = 1
+cast_shadow = 2
 
-[connection signal="animation_finished" from="WorldEnvironment/Day_Night_Cycle" to="WorldEnvironment/Day_Night_Cycle" method="_on_animation_finished"]
+[connection signal="animation_finished" from="Miscellaneous/WorldEnvironment/Day_Night_Cycle" to="Miscellaneous/WorldEnvironment/Day_Night_Cycle" method="_on_animation_finished"]
+
+[editable path="Level/Island_1/Terrain/Rocks/rock13"]
