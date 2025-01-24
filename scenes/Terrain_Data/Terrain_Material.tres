@@ -81,4 +81,3 @@ _shader_parameters = {
 }
 world_background = 0
 shader_override = SubResource("VisualShader_26v71")
-show_region_grid = true

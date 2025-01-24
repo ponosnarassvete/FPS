@@ -122,16 +122,15 @@ locale/locale_filter_mode=0
 
 [physics]
 
-3d/solver/default_contact_bias=0.6
+3d/run_on_separate_thread=true
 
 [rendering]
 
 lights_and_shadows/use_physical_light_units=true
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
-lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
 camera/depth_of_field/depth_of_field_bokeh_quality=2
 scaling_3d/mode=1
 environment/screen_space_reflection/roughness_quality=2
 environment/subsurface_scattering/subsurface_scattering_quality=2
+global_illumination/sdfgi/frames_to_update_lights=4
 environment/volumetric_fog/volume_size=256
 occlusion_culling/use_occlusion_culling=true

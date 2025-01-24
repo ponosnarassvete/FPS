@@ -57,7 +57,6 @@ shader_parameter/shooting_star_tint = null
 
 [sub_resource type="Sky" id="Sky_wrc8x"]
 sky_material = SubResource("ShaderMaterial_uqc04")
-process_mode = 3
 radiance_size = 2
 
 [resource]

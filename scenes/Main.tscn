@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bim1f1eagd6ev"]
+[gd_scene load_steps=43 format=3 uid="uid://bim1f1eagd6ev"]
 
 [ext_resource type="Script" path="res://scenes/death_trigger.gd" id="2_wjblq"]
 [ext_resource type="ArrayOccluder3D" uid="uid://5fra8u8bhsnx" path="res://scenes/Main.occ" id="3_0alhn"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://c6aoi7j2rgvuu" path="res://models/rocks/red_rock.blend" id="13_w2rvf"]
 [ext_resource type="PackedScene" uid="uid://b20cvg2k8doh0" path="res://models/rocks/path.blend" id="14_kdwn2"]
 [ext_resource type="PackedScene" uid="uid://cggqb75a8w8r" path="res://addons/debug_menu/debug_menu.tscn" id="17_xfm4i"]
+[ext_resource type="PackedScene" uid="uid://dpqc4u23405uh" path="res://models/rocks/red_rock_straight.blend" id="20_6pv3c"]
 [ext_resource type="PackedScene" uid="uid://c17smngje2dux" path="res://models/rocks/red_rock_flat.blend" id="21_b62j0"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://assets/fpc/character.tscn" id="21_toj7m"]
 [ext_resource type="PackedScene" uid="uid://44ay1rk5y85k" path="res://assets/entry_ui.tscn" id="24_wi22o"]
@@ -127,7 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3905, 0.952148, -253.196)
 shape = SubResource("BoxShape3D_lm116")
 
 [node name="Character" parent="." instance=ExtResource("21_toj7m")]
-transform = Transform3D(1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, 1, 41.1773, 97.883, -439.559)
+transform = Transform3D(1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, 1, 195.177, 79.8549, -808.559)
 collision_mask = 6
 
 [node name="Day_Night_Cycle" parent="Character/Head/Camera/WorldEnvironment" index="1"]
@@ -1671,6 +1672,29 @@ transform = Transform3D(-0.537492, 1.75622, 0.791699, 1.21807, -0.326948, 1.5522
 [node name="Caves" type="Node3D" parent="Level"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 96, -619)
 
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="Level/Caves"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.8236, 10.255, 83.7114)
+update_mode = 1
+max_distance = 50.0
+size = Vector3(103, 60, 138)
+interior = true
+enable_shadows = true
+
+[node name="ReflectionProbe5" type="ReflectionProbe" parent="Level/Caves"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.82361, 15.755, -55.7886)
+update_mode = 1
+max_distance = 50.0
+size = Vector3(135, 71, 183)
+interior = true
+enable_shadows = true
+
+[node name="ReflectionProbe6" type="ReflectionProbe" parent="Level/Caves"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.676, 37.755, -193.289)
+max_distance = 50.0
+size = Vector3(392, 121, 220)
+interior = true
+enable_shadows = true
+
 [node name="Top" type="Node3D" parent="Level/Caves"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87, 0, 66)
 
@@ -1698,12 +1722,6 @@ transform = Transform3D(-7.66044, 0, -6.42788, 0, 15, 0, 6.42788, 0, -7.66044, 6
 [node name="red_rock_flat7" parent="Level/Caves/Top" instance=ExtResource("21_b62j0")]
 transform = Transform3D(-7.66044, 0, -6.42788, 0, 15, 0, 6.42788, 0, -7.66044, 115.1, 25, -119.6)
 
-[node name="red_rock_flat8" parent="Level/Caves/Top" instance=ExtResource("21_b62j0")]
-transform = Transform3D(9.06308, 0, -4.22618, 0, 15, 0, 4.22618, 0, 9.06308, -35.2, 3, -121.9)
-
-[node name="red_rock_flat9" parent="Level/Caves/Top" instance=ExtResource("21_b62j0")]
-transform = Transform3D(6.42788, 0, -7.66044, 0, 15, 0, 7.66044, 0, 6.42788, 16.8, 19.7, -156.9)
-
 [node name="red_rock_flat10" parent="Level/Caves/Top" instance=ExtResource("21_b62j0")]
 transform = Transform3D(-4.22618, 0, -9.06308, 0, 15, 0, 9.06308, 0, -4.22618, 97.8, 11.7, -173.9)
 
@@ -1713,7 +1731,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90, 0, 132)
 [node name="CPUParticles3D" type="CPUParticles3D" parent="Level/Caves/Entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.6, 28, -54.3)
 amount = 800
-lifetime = 7.0
+lifetime = 9.0
 preprocess = 60.0
 speed_scale = 0.1
 visibility_aabb = AABB(-40, -40, -40, 80, 80, 80)
@@ -1816,17 +1834,55 @@ transform = Transform3D(7.76457, -1.01333e-06, -14.4889, 0, -12, 1.31134e-06, -2
 [node name="Labyrinth" type="Node3D" parent="Level/Caves"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -5, -41)
 
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Level/Caves/Labyrinth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.4, 28, 29.7)
+amount = 800
+lifetime = 10.0
+preprocess = 60.0
+speed_scale = 0.1
+visibility_aabb = AABB(-40, -40, -40, 80, 80, 80)
+draw_order = 2
+mesh = SubResource("QuadMesh_o5djw")
+emission_shape = 3
+emission_box_extents = Vector3(20, 0, 20)
+particle_flag_rotate_y = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+gravity = Vector3(0, -0.5, 0)
+initial_velocity_max = 2.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+color = Color(0.505344, 0.505344, 0.505344, 1)
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="Level/Caves/Labyrinth"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6, 28, 10.7)
+amount = 800
+lifetime = 7.0
+preprocess = 60.0
+speed_scale = 0.1
+visibility_aabb = AABB(-40, -40, -40, 80, 80, 80)
+draw_order = 2
+mesh = SubResource("QuadMesh_o5djw")
+emission_shape = 3
+emission_box_extents = Vector3(20, 0, 20)
+particle_flag_rotate_y = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+gravity = Vector3(0, -0.5, 0)
+initial_velocity_max = 2.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+color = Color(0.505344, 0.505344, 0.505344, 1)
+
 [node name="red_rock17" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
-transform = Transform3D(14.0954, 0, 10.2606, 0, 12, 0, -5.1303, 0, 28.1908, -93.2661, -2.7, 43.3276)
+transform = Transform3D(14.0954, 0, 10.2606, 0, 12, 0, -5.1303, 0, 28.1908, -78.4661, -2.7, 43.3276)
 
 [node name="red_rock18" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
-transform = Transform3D(-5.1303, -9.85807e-07, -28.1908, -1.3272e-14, -12, 2.62268e-06, -14.0954, 3.58804e-07, 10.2606, -115.979, 46, -32.4528)
-
-[node name="red_rock19" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
-transform = Transform3D(21.2132, 0, 8.48528, 0, 15, 0, -21.2132, 0, 8.48528, -95.8634, -2.7, -75.2567)
-
-[node name="red_rock20" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
-transform = Transform3D(-9.53674e-07, 1.04907e-06, 30, 0, -12, 2.62268e-06, 15, 1.7053e-13, 1.90735e-06, -49.5298, 46, -85.389)
+transform = Transform3D(-5.1303, -9.85807e-07, -28.1908, -1.3272e-14, -12, 2.62268e-06, -14.0954, 3.58804e-07, 10.2606, -56.979, 46, -21.3528)
 
 [node name="red_rock21" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
 transform = Transform3D(15, 0, 0, 0, -12, 2.62268e-06, 0, -1.04907e-06, -30, 39.4386, 46, -87.429)
@@ -1850,7 +1906,7 @@ transform = Transform3D(14.0954, 0, 10.2606, 0, 12, 0, -5.1303, 0, 28.1908, -9.2
 transform = Transform3D(29.8858, 0, -1.30734, 0, 12, 0, 2.61467, 0, 14.9429, -13.0325, -2.7, -32.0386)
 
 [node name="red_rock28" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
-transform = Transform3D(15, 0, 0, 0, -12, 2.62268e-06, 0, -1.04907e-06, -30, -115.03, 46, 6.11102)
+transform = Transform3D(10.6066, 7.41805e-07, 21.2132, 0, -12, 2.62268e-06, 10.6066, -7.41804e-07, -21.2132, -63.63, 40, 6.11102)
 
 [node name="red_rock_pillar" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
 transform = Transform3D(4.24264, 0, -4.24264, 0, 4, 0, 4.24264, 0, 4.24264, -30, -1.1, 37.4)
@@ -1858,45 +1914,426 @@ transform = Transform3D(4.24264, 0, -4.24264, 0, 4, 0, 4.24264, 0, 4.24264, -30,
 [node name="red_rock_pillar2" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
 transform = Transform3D(4.24264, 0, -4.24264, 0, 4, 0, 4.24264, 0, 4.24264, -30, -1.1, 37.4)
 
-[node name="ReflectionProbe2" type="ReflectionProbe" parent="Level/Caves"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.8236, 15.755, 83.7114)
-update_mode = 1
-max_distance = 500.0
-size = Vector3(103, 71, 138)
-interior = true
-enable_shadows = true
+[node name="red_rock_flat" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(8, 0, 0, 0, 2, 0, 0, 0, 5, 10, 10.3, 24)
 
-[node name="ReflectionProbe3" type="ReflectionProbe" parent="Level/Caves"]
-transform = Transform3D(1, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 1, -60.3015, 60.755, 39.587)
-visible = false
-max_distance = 500.0
-size = Vector3(336, 59, 347)
-enable_shadows = true
+[node name="red_rock_flat2" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 5, 10, 8.3, -11)
 
-[node name="ReflectionProbe4" type="ReflectionProbe" parent="Level/Caves"]
-transform = Transform3D(1, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 1, -63.1014, 60.255, 66.787)
-visible = false
-max_distance = 500.0
-size = Vector3(41, 60, 41)
-enable_shadows = true
+[node name="red_rock_flat3" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 5, -17, 6.8, 3)
 
-[node name="ReflectionProbe5" type="ReflectionProbe" parent="Level/Caves"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.8236, 21.755, -53.2886)
-update_mode = 1
-max_distance = 500.0
-size = Vector3(189, 83, 166)
-interior = true
-enable_shadows = true
+[node name="red_rock_flat4" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(7.51754, 0, -1.7101, 0, 2, 0, 2.73616, 0, 4.69846, 41, 10.3, -2)
+
+[node name="red_rock_flat5" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(6.12836, 0, -3.21394, 0, 3, 0, 5.1423, 0, 3.83022, 40.3, 12.2, -46)
+
+[node name="red_rock_pillar3" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(-5.79555, 3.37776e-07, 1.55291, -5.24537e-07, -4, 0, 1.55291, -9.05067e-08, 5.79555, 0, 33.9, -3.59998)
+
+[node name="red_rock_pillar4" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(5.79556, -5.06664e-07, 1.55291, -5.24537e-07, -6, 0, 1.55291, -1.3576e-07, -5.79556, 27, 32.9, -25.6)
+
+[node name="red_rock" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 8, -31, -4, -1)
+
+[node name="red_rock2" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2.57115, 0, -6.12836, 0, 2, 0, 3.06418, 0, 5.1423, -17.5, -1, 13.3)
+
+[node name="red_rock3" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-3.62523, 0, -3.38094, 0, 4, 0, 1.69047, 0, -7.25046, -13.1, -1, 19.9)
+
+[node name="red_rock4" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-3.62523, 0, -3.38095, 0, 2, 0, 1.69047, 0, -7.25046, -5.59999, -2.9, 38.5)
+
+[node name="red_rock5" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-1.04189, 0, -11.8177, 0, 2, 0, 5.90885, 0, -2.08378, -2.3, -1, 17.9)
+
+[node name="red_rock6" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-3.44146, 0, -9.82982, 0, 2, 0, 4.91491, 0, -6.88292, 21.7, -1, 11.9)
+
+[node name="red_rock7" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-4.24264, 0, 8.48528, 0, 2, 0, -4.24264, 0, -8.48528, 9.59999, -7.5, 8.09998)
+
+[node name="red_rock_flat6" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.173648, -8.60946e-08, 0.984808, 0, -1, -8.74228e-08, 0.984808, 1.51808e-08, -0.173648, 29, 7, 31)
+
+[node name="red_rock_flat7" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 16, -1.61729, 29)
+
+[node name="red_rock_flat8" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(2, 0, 0, 0, 1.5, 0, 0, 0, 1, 20, -1, 22)
+
+[node name="red_rock_flat9" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.173648, -8.60946e-08, 0.984808, 0, -1, -8.74228e-08, 0.984808, 1.51808e-08, -0.173648, 32, 8.7, 24.9)
+
+[node name="red_rock_flat10" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.173648, -8.60946e-08, 0.984808, 8.60946e-08, 1, 7.2242e-08, -0.984808, 7.2242e-08, 0.173648, 34.1, 8.7, 22.8)
+
+[node name="red_rock_flat11" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 16, -2, 50)
+
+[node name="red_rock_pillar5" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 2, 19, 3, 38)
+
+[node name="red_rock_flat12" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(8.74228e-08, -6.60024e-15, 2, -3.01992e-07, -1, 0, 2, -1.50996e-07, -8.74228e-08, 18, 10, 46)
+
+[node name="red_rock_flat13" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-6, 2.26494e-07, 0, -9.05975e-07, -1.5, 0, 0, 0, 6, 23, 5, -14.2)
+
+[node name="red_rock_pillar6" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(1, 0, 0, 0, 1.25, 0, 0, 0, 6, 12, -1.3, -13)
+
+[node name="red_rock8" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 3, 11, -1.4, -5.59998)
+
+[node name="red_rock_flat14" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(2.82843, 0, 0.707107, 0, 1, 0, -2.82843, 0, 0.707107, 7, 3, 1)
+
+[node name="red_rock_pillar7" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(3.62523, 0, -0.422618, 0, 1, 0, 1.69047, 0, 0.906308, 36.1, 5, 16.3)
+
+[node name="red_rock_flat15" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -17, -1.7, 2)
+
+[node name="red_rock_pillar8" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -16, -1.4, 1)
+
+[node name="red_rock9" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-0.999999, 0, -1.73205, 0, 6, 0, 1.73205, 0, -0.999999, 12.8, -1.1, -8)
+
+[node name="red_rock_pillar9" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(2.98858, 0, -0.261467, 0, 3, 0, 0.261467, 0, 2.98858, 33, 5, 4)
+
+[node name="red_rock10" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2.81908, 0, -2.05212, 0, 3, 0, 1.02606, 0, 5.63815, 38.6, 2.8, -5.90002)
+
+[node name="red_rock11" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2, 0, 0, 0, 3, 0, 0, 0, 3, 29, 11.1, 13)
+
+[node name="red_rock12" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 6, 28, 11.1, -9)
+
+[node name="red_rock_pillar10" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(-8, 0, -6.03983e-07, 0, 3, 0, 1.20797e-06, 0, -4, 29.4, -3.8, -39.2)
+
+[node name="red_rock_pillar11" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(8, 0, 2.38419e-07, 0, 3, 0, -4.76837e-07, 0, 4, 31.8, 3.39999, -36.8)
+
+[node name="red_rock13" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(0.776457, 0, -5.79556, 0, 2, 0, 2.89778, 0, 1.55291, 19.4, 9.7, -28)
+
+[node name="red_rock_flat16" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-1.36808, 0, -3.75877, 0, 4, 0, 3.75877, 0, -1.36808, 10, 18.8, 24.2)
+
+[node name="red_rock_flat17" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 24, 18, -7)
+
+[node name="red_rock_flat18" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-1.99239, 0, -0.174311, 0, 2, 0, 0.174311, 0, -1.99239, 14, 16.9, 4.90002)
+
+[node name="red_rock14" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 22, 12, 1)
+
+[node name="red_rock15" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(3, 0, 0, 0, 1.5, 0, 0, 0, 3, 21, 12, 12)
+
+[node name="red_rock_pillar12" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(-1.03528, 0, -1.93185, 0, 1, 0, 3.8637, 0, -0.517638, 21, 12, 3)
+
+[node name="red_rock_pillar13" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(1.03528, 0, -1.93185, 0, 1.5, 0, 3.8637, 0, 0.517638, 22.8, 10.5, 36)
+
+[node name="red_rock_pillar14" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(3.93923, 0, -0.520944, 0, 2, 0, 0.694593, 0, 2.95442, 18.7, 10, 22.6)
+
+[node name="red_rock_pillar15" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(2.73616, 0, -3.75877, 0, 2, 0, 7.51754, 0, 1.36808, 16, 10, 25.1)
+
+[node name="red_rock_pillar16" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(7.25046, 0, -1.69047, 0, 2, 0, 3.38095, 0, 3.62523, 37, 10, 3.10004)
+
+[node name="red_rock16" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2.59808, 0, -3, 0, 3, 0, 1.5, 0, 5.19615, 44.8, 12.8, -17.6)
+
+[node name="red_rock_flat19" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 51, 19, -25)
+
+[node name="red_rock_pillar17" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(7.51754, 0, 1.36808, 0, 2, 0, -2.73616, 0, 3.75877, 37, 10, -20.9)
+
+[node name="red_rock_flat20" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-0.68404, 0, 1.87939, 0, 2, 0, -1.87939, 0, -0.68404, 41.6, 15, -33.8)
+
+[node name="red_rock_flat21" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.573576, 0, -0.819152, 0, 2, 0, 0.819152, 0, 0.573576, 44.7, 16.4, -32.4)
+
+[node name="red_rock_flat22" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, 0.642788, 49, 19, -37)
+
+[node name="red_rock_flat23" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-0.68404, 5.16436e-08, -1.87939, -3.01992e-07, -1, -3.55271e-15, -1.87939, 1.4189e-07, 0.68404, 49, 21, -12)
+
+[node name="red_rock_flat24" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-0.34202, 0, -1.40954, 0, 2, 0, 0.939693, 0, -0.51303, 41, -0.300003, -18)
+
+[node name="red_rock29" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, 22, -1, -23)
+
+[node name="red_rock_pillar18" parent="Level/Caves/Labyrinth" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(2, 0, 2.59808, 0, 1, 0, -3.4641, 0, 1.5, 42, -2, -32)
+
+[node name="red_rock30" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, -1, -31)
+
+[node name="red_rock_flat25" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 41, 5, -30)
+
+[node name="red_rock31" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 40, 5, -18)
+
+[node name="red_rock32" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 24, 5, -11)
+
+[node name="red_rock33" parent="Level/Caves/Labyrinth" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-1.02606, 0, 0.939693, 0, 1, 0, -2.81908, 0, -0.34202, 28.7, 5, -4.79999)
+
+[node name="red_rock_flat26" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-2, 1.74846e-07, 0, -1.74846e-07, -2, 0, 0, 0, 2, -62, 8.4, 44)
+
+[node name="red_rock_flat27" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-2.89778, 2.53332e-07, -0.776457, -2.62268e-07, -3, 0, -0.776457, 6.788e-08, 2.89778, -69, 17, 33)
+
+[node name="red_rock_flat28" parent="Level/Caves/Labyrinth" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-1.74846e-07, 0, -4, 0, 4, 0, 4, 0, -1.74846e-07, -41, 23.3, 60)
+
+[node name="Opening" type="Node3D" parent="Level/Caves"]
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Level/Caves/Opening"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 135.6, 66, -174.3)
+amount = 800
+lifetime = 15.0
+preprocess = 120.0
+speed_scale = 0.1
+visibility_aabb = AABB(-40, -90, -40, 80, 180, 80)
+draw_order = 2
+mesh = SubResource("QuadMesh_o5djw")
+emission_shape = 3
+emission_box_extents = Vector3(100, 0, 20)
+particle_flag_rotate_y = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+gravity = Vector3(0, -0.5, 0)
+initial_velocity_max = 2.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+color = Color(0.505344, 0.505344, 0.505344, 1)
+
+[node name="red_rock26" parent="Level/Caves/Opening" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(14.0954, 0, 10.2606, 0, 12, 0, -5.1303, 0, 28.1908, -30.6273, -15.8, -148.14)
+
+[node name="red_rock36" parent="Level/Caves/Opening" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-14.9429, 0, -2.61466, 0, 12, 0, 1.30733, 0, -29.8859, 285.019, -8.60001, -174.092)
+
+[node name="red_rock38" parent="Level/Caves/Opening" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-1.30733, 1.97401e-07, -29.8858, -2.26494e-06, -15, 1.42109e-14, -14.9429, 2.25632e-06, 2.61466, 208.735, 87.3, -122.93)
+
+[node name="red_rock_flat" parent="Level/Caves/Opening" instance=ExtResource("21_b62j0")]
+transform = Transform3D(2.58819, 0, 9.65926, 0, 10, 0, -9.65926, 0, 2.58819, 147.7, -11.6, -135.9)
+
+[node name="red_rock_flat2" parent="Level/Caves/Opening" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-2.58819, 0, 9.65926, 0, 10, 0, -9.65926, 0, -2.58819, 93.1, -11.6, -124.2)
+
+[node name="red_rock_pillar" parent="Level/Caves/Opening" instance=ExtResource("12_s1jw0")]
+transform = Transform3D(-6.88292, 6.92861e-07, 14.7447, -1.81195e-06, -8, 3.48128e-14, 9.82982, -9.89508e-07, 10.3244, 76.8, 63.2, -117.9)
+
+[node name="red_rock_flat3" parent="Level/Caves/Opening" instance=ExtResource("21_b62j0")]
+transform = Transform3D(2.07055, 0, 7.72741, 0, 8, 0, -7.72741, 0, 2.07055, 167, -2.2, -127)
+
+[node name="red_rock_flat4" parent="Level/Caves/Opening" instance=ExtResource("21_b62j0")]
+transform = Transform3D(-1.56283, 0, 8.86327, 0, 9, 0, -8.86327, 0, -1.56283, 108.6, -0.299995, -120.5)
+
+[node name="red_rock_straight" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(2.07055, 0, 7.72741, 0, 8, 0, -7.72741, 0, 2.07055, -26.6, -8.2, -167.2)
+
+[node name="red_rock_straight2" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(2.07055, 0, 7.72741, 0, 8, 0, -7.72741, 0, 2.07055, -14.0806, -8.2, -207.741)
+
+[node name="red_rock_straight3" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(7.96956, 0, -0.697246, 0, 8, 0, 0.697246, 0, 7.96956, 51.222, -8.2, -259.814)
+
+[node name="red_rock_straight4" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(4.58861, 0, 6.55322, 0, 8, 0, -6.55322, 0, 4.58861, 86.1583, -8.2, -273.622)
+
+[node name="red_rock_straight5" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(4.58861, 0, 6.55322, 0, 8, 0, -6.55322, 0, 4.58861, 174.701, -8.2, -273.15)
+
+[node name="red_rock_straight6" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-5.65685, 0, 5.65685, 0, 8, 0, -5.65685, 0, -5.65685, 210.941, -8.2, -256.564)
+
+[node name="red_rock_straight7" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-6.12836, 0, -5.1423, 0, 8, 0, 5.1423, 0, -6.12836, 242.62, -8.2, -229.411)
+
+[node name="red_rock_straight8" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(5.1423, 0, -6.12836, 0, 8, 0, 6.12836, 0, 5.1423, 266.296, -8.2, -194.973)
+
+[node name="red_rock_straight9" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(6.42788, -4.85616, -6.94272, 1.19209e-07, 13.5946, -4.22618, 7.66044, 4.07481, 5.82563, 260.947, -8.2, -216.593)
+
+[node name="red_rock_straight10" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(7.76695, -3.16964, 5.93374, 3.83022, 13.5946, -1.78606, -5.00039, 5.48997, 7.84861, 228.047, -8.2, -248.993)
+
+[node name="red_rock_straight11" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-6.53245, -1.1008, 7.53581, 2.71654, 13.5946, 3.23744, -7.06735, 6.24296, -5.72106, 188.047, -8.2, -273.393)
+
+[node name="red_rock_straight12" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(9.65926, 9.53674e-07, 2.58819, 1.09382, 13.5946, -4.08218, -2.3457, 6.33927, 8.75426, 142.547, -8.2, -277.793)
+
+[node name="red_rock_straight13" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-6.86106, 1.64073, 7.19232, 3.65998, 13.5946, 2.11309, -6.28732, 6.12327, -6.61857, 102.098, -9.71774, -274.538)
+
+[node name="red_rock_straight14" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-9.87901, 2.16816, -0.562027, 1.09382, 13.5946, 4.08218, 1.09942, 5.95697, -9.11153, 75.0983, -9.71774, -269.238)
+
+[node name="red_rock_straight15" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(8.02032, 4.48254, -5.17147, -4.08218, 13.5946, -1.09382, 4.36007, 4.48254, 8.48878, 27.5983, -9.71774, -256.438)
+
+[node name="red_rock_straight16" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-0.405702, 5.48997, -9.29731, -2.11309, 13.5946, 3.65998, 9.76577, 3.16964, 0.405697, 1.5983, -9.71774, -234.838)
+
+[node name="red_rock_straight17" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-1.49491, 6.31515, 8.94653, 1.09381, 13.5946, -4.08218, -9.82694, 0.552503, -1.81536, -16.2017, -9.71774, -185.938)
+
+[node name="red_rock_straight18" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(9.64181, -15.6877, -6.59077, 4.76837e-07, 14.3394, -12.2873, 11.4907, 13.1635, 5.53032, 296.41, 1.36788, -268.76)
+
+[node name="red_rock_straight19" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(0.161158, -8.20193, 14.1688, 9.9384, 17.7463, 3.58516, -11.234, 15.582, 3.37496, 228.047, 9.3, -272.993)
+
+[node name="red_rock_straight20" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-9.79868, -1.83467, 11.3037, 6.67971, 19.1927, 6.91177, -9.18517, 15.9146, -7.03231, 173.931, -4.33486, -308.533)
+
+[node name="red_rock_straight22" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-14.7706, 3.87296, 1.19512, 2.52827, 18.2919, 9.90726, 0.66038, 16.5954, -11.199, 104.956, 11.112, -288.617)
+
+[node name="red_rock_straight23" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-14.7665, 3.87623, 1.24107, 2.54122, 17.8008, 10.221, 0.701083, 17.1203, -10.9083, 62.1241, -2.49635, -305.445)
+
+[node name="red_rock_straight25" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-2.44953, 10.2456, -13.4614, -7.62812, 18.6129, 6.48799, 12.6812, 13.1753, 1.30248, -3.49715, -10.0271, -264.039)
+
+[node name="red_rock_straight26" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(1.64914, 19.9876, 8.85774, 1.64072, 14.5194, -12.1002, -14.8185, 3.83201, -0.353975, -43.2017, 6.98226, -162.938)
+
+[node name="red_rock_straight27" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-10.2005, 14.134, -7.00238, 2.65634, 18.6129, 9.65537, 10.6721, 8.87652, -9.09619, -11.9761, 6.72449, -209.081)
+
+[node name="red_rock_straight28" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-6.17942, 10.6002, -1.53751, -3.02557, -1.50368, 8.42805, 5.80178, 10.506, 2.75756, 47.2817, 84.4158, -171.78)
+
+[node name="red_rock_straight29" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(2.84112, 2.65716, -8.38965, -8.42804, -1.50368, -3.02557, -1.37698, 14.686, 1.20817, 98.4064, 86.0699, -210.923)
+
+[node name="red_rock_straight30" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(0.482064, 5.23602, -8.67271, -8.92394, -2.0049, -0.74114, -1.06343, 19.198, 2.28797, 106.618, 86.9721, -230.977)
+
+[node name="red_rock_straight31" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(6.33294, 0.0799147, -6.39471, -6.35974, -1.80441, -6.30395, -0.669026, 17.9092, -0.606611, 160.451, 84.0202, -227.615)
+
+[node name="red_rock_straight32" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(7.96985, -3.79836, -3.50536, -3.82013, -1.50368, -8.09893, 1.69945, 14.433, -1.76629, 191.402, 83.8699, -206.351)
+
+[node name="red_rock_straight33" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(5.9764, -8.50567, -4.38611, -5.78611, -1.50368, -6.83424, 3.43564, 12.2635, -3.88009, 245.594, 78.986, -190.141)
+
+[node name="red_rock_straight34" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-2.69008, -13.4979, -2.85907, -5.10382, -1.50368, 7.35779, -6.90757, 6.36764, -4.32304, 283.016, 85.975, -158.071)
+
+[node name="red_rock_straight21" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(3.04564, -6.45667, -8.49681, 0.0334361, 13.3881, -4.50958, 9.52486, 2.01757, 2.73275, 283.896, -8.9185, -183.569)
+
+[node name="red_rock_straight24" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(8.07916, -20.2377, -3.50474, 7.85975, 13.4746, -9.89245, 9.89704, 5.8196, 10.7171, 337.322, 13.6976, -200.746)
+
+[node name="red_rock_straight35" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(-0.403393, -0.454878, 5.9767, 1.9822, 7.52631, 0.455997, -5.64873, 2.67354, -0.266801, 80.8, 0.5, -116.4)
+
+[node name="red_rock_straight36" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(4.94147, 0.296956, 3.38451, 0.867264, 4.69846, -1.85985, -3.29086, 1.68412, 4.59195, 99.1563, 6.13815, -112.879)
+
+[node name="red_rock_straight37" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(5.97169, 0.415738, 0.46034, -0.178854, 6.57785, -2.04431, -0.553992, 2.35777, 5.62218, 112.143, -6.73563, -125.494)
+
+[node name="red_rock_straight38" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(0.0314164, 0.149045, 5.99725, 2.04431, 4.69846, -0.178853, -5.6409, 1.70359, -0.0314176, 124.04, -1.37939, -129.081)
+
+[node name="red_rock_straight39" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(3.44146, 5.96046e-08, 4.91491, 1.681, 6.57785, -1.17705, -4.61851, 2.39414, 3.23391, 140.4, -9.36677, -130.691)
+
+[node name="red_rock_straight40" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(3.46562, -0.208663, -4.89464, -1.57202, 6.57785, -1.31908, 4.63878, 2.38503, 3.20975, 155.3, 0.5, -122.3)
+
+[node name="red_rock_straight41" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(5.8145, 2.05924, 0.553992, -1.11506, 8.3074, -2.02094, -0.973761, 2.78326, 5.62218, 169, 0.5, -118.7)
+
+[node name="red_rock_straight42" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(3.81076, 0.0239696, -4.63441, -1.15161, 7.75392, -0.924383, 4.48908, 1.96881, 3.69699, 56.7, -21.7, -141.6)
+
+[node name="red_rock_straight43" parent="Level/Caves/Opening" instance=ExtResource("20_6pv3c")]
+transform = Transform3D(3.45275, 0.271366, 4.90365, 1.16311, 8.69231, -1.03276, -4.76715, 2.31734, 3.29964, 179.5, -14.5, -138)
+
+[node name="Gates" type="Node3D" parent="Level/Caves/Opening"]
+
+[node name="square_pilar" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.873967, 0.00599775, 0.485969, 0.16763, 1.40418, -0.309169, -0.45616, 0.5275, 0.817465, 74.378, -19.9373, -206.689)
+
+[node name="square_pilar2" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.978211, -0.132782, -0.187794, 0.144544, 1.40954, 0.309976, 0.14903, -0.495549, 0.932013, 76.7826, -15.6241, -193.94)
+
+[node name="square_pilar3" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.887629, 0.254503, -1.16998, -1.17941, -0.08448, -0.921251, -0.266641, 1.2209, 0.180142, 77.9598, -15.7772, -209.193)
+
+[node name="square_pilar4" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.977276, -0.17478, 0.177072, 0.16763, 1.40418, -0.309169, -0.129735, 0.497739, 0.934377, 139.572, -17.2693, -212.693)
+
+[node name="square_pilar5" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.868247, 0.0447135, -0.495236, 0.144544, 1.40954, 0.309976, 0.47461, -0.511078, 0.811576, 137.755, -17.1746, -200.274)
+
+[node name="square_pilar6" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.49429, -0.10729, -0.0227016, -9.31323e-10, 0.21706, -1.47721, 0.130734, 1.22633, 0.259481, 138.337, -10.0591, -206.925)
+
+[node name="square_pilar7" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.940542, -0.368758, -0.234403, 0.16763, 1.40418, -0.309169, 0.295434, 0.37724, 0.921667, 209.739, -17.2693, -193.495)
+
+[node name="square_pilar8" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.58632, 0.256515, -0.791823, 0.144544, 1.40954, 0.309976, 0.79708, -0.444297, 0.526242, 202.843, -17.1746, -183.008)
+
+[node name="square_pilar9" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.29904, -0.3125, -0.649519, -4.09782e-08, 1.08253, -0.75, 0.75, 0.541266, 1.125, 206.123, -17.1649, -189.779)
+
+[node name="square_pilar10" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.832029, -0.325825, -0.510435, 0.16763, 1.46337, -0.141917, 0.528798, 0.0487721, 0.848125, 258.482, -12.8987, -148.991)
+
+[node name="square_pilar11" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(0.340384, 0.214478, -0.929351, -0.0276958, 1.4842, 0.14209, 0.939879, -0.0339394, 0.340759, 249.929, -14.2176, -141.415)
+
+[node name="square_pilar12" parent="Level/Caves/Opening/Gates" instance=ExtResource("4_gt5wo")]
+transform = Transform3D(1.14907, -0.803484, 3.63652e-08, 4.53936e-09, -7.33109e-09, -1.5, 0.964181, 0.957556, -3.72529e-08, 253.949, -6.46826, -145.273)
+
+[node name="red_rock37" parent="Level/Caves/Opening" instance=ExtResource("13_w2rvf")]
+transform = Transform3D(-5.13031, 0, -28.1908, 0, 12, 0, 14.0954, 0, -10.2606, 318.019, -8.60001, -146.792)
 
 [node name="Terrain3D" type="Terrain3D" parent="Level"]
 data_directory = "res://scenes/Terrain_Data"
 material = ExtResource("12_a15y0")
 assets = ExtResource("13_ld8jg")
 label_distance = 10845.0
-show_grid = true
 collision_layer = 4
 collision_mask = 3
-gi_mode = 2
 top_level = true
 metadata/_edit_lock_ = true
 
