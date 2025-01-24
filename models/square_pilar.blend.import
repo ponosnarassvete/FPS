@@ -3,13 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cbdr5w2xvu6o7"
-path="res://.godot/imported/square_pilar.blend-d3f0daef147d21073b59b215b339bbea.scn"
+uid="uid://cfcgyqsraiv2g"
+valid=false
 
 [deps]
 
 source_file="res://models/square_pilar.blend"
-dest_files=["res://.godot/imported/square_pilar.blend-d3f0daef147d21073b59b215b339bbea.scn"]
 
 [params]
 
@@ -31,16 +30,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"nodes": {
-"PATH:Cube": {
-"generate/physics": true,
-"physics/layer": 4,
-"physics/mask": 0,
-"physics/shape_type": 3
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

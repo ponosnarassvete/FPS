@@ -33,10 +33,13 @@ render_mode unshaded, blend_mix, depth_draw_never, depth_test_disabled;
 //#define NAIVE_NORMAL_RECONSTRUCTION
 
 group_uniforms outline;
-uniform vec4 outlineColor: source_color = vec4(0.0, 0.0, 0.0, 0.78);
+uniform vec4 dark_outlineColor: source_color = vec4(0.0, 0.0, 0.0, 0.78);
+uniform vec4 light_top_outlineColor: source_color = vec4(0.0, 0.0, 0.0, 0.78);
+uniform vec4 light_bottom_outlineColor: source_color = vec4(0.0, 0.0, 0.0, 0.78);
 uniform float depth_threshold = 0.025;
 uniform float normal_threshold : hint_range(0.0, 1.5) = 0.5;
 uniform float normal_smoothing : hint_range(0.0, 1.0) = 0.25;
+uniform float dark_zone : hint_range(0.0, 1.0, 0.01) = 0.0;
 
 group_uniforms thickness;
 uniform float max_thickness: hint_range(0.0, 5.0) = 1.3;
@@ -49,6 +52,7 @@ uniform float grazing_fresnel_power = 5.0;
 uniform float grazing_angle_mask_power = 1.0;
 uniform float grazing_angle_modulation_factor = 50.0;
 
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear, repeat_disable;
 
 #ifndef SUPPORT_MOBILE
@@ -56,6 +60,11 @@ uniform sampler2D NORMR_TEXTURE : hint_normal_roughness_texture, filter_linear, 
 #else
 varying flat mat4 model_view_matrix;
 #endif// !SUPPORT_MOBILE
+
+float luminance(vec3 color) {
+	const vec3 magic = vec3(0.2125, 0.7154, 0.0721);
+	return dot(magic, color);
+}
 
 struct UVNeighbors {
 	vec2 center; 
@@ -266,7 +275,18 @@ void fragment() {
 #else
 	float normEdges = min(detectEdgesNormalReconstructed(n, DEPTH_TEXTURE, model_view_matrix, INV_PROJECTION_MATRIX, SCREEN_UV, MODEL_MATRIX, INV_VIEW_MATRIX, VIEWPORT_SIZE.xy), 1.0);
 #endif
+
+	vec2 uv = SCREEN_UV;
+	vec3 pixelColor = texture(SCREEN_TEXTURE, uv).rgb; 
+	float pixelLuma = luminance(pixelColor);
 	
-	ALBEDO.rgb = outlineColor.rgb;
-	ALPHA = max(depthEdges, normEdges) * outlineColor.a * fade_a;
+	if(pixelLuma >= dark_zone) {
+		ALBEDO.rgb = dark_outlineColor.rgb;
+		ALPHA = max(depthEdges, normEdges) * dark_outlineColor.a * fade_a;
+	} else {
+		float screen_y = FRAGCOORD.y / VIEWPORT_SIZE.y;
+		vec4 gradientcolor = mix(light_top_outlineColor, light_bottom_outlineColor, screen_y);
+		ALBEDO.rgb = gradientcolor.rgb;
+		ALPHA = max(depthEdges, normEdges) * light_top_outlineColor.a * fade_a;
+	}
 }

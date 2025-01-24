@@ -3,13 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c17l7pq2kjpw5"
-path="res://.godot/imported/small_brick_wall.blend-6c5a2ad5cb80eda6fca8a277ab47b704.scn"
+uid="uid://s7shnqt2ffu1"
+valid=false
 
 [deps]
 
 source_file="res://models/small_brick_wall.blend"
-dest_files=["res://.godot/imported/small_brick_wall.blend-6c5a2ad5cb80eda6fca8a277ab47b704.scn"]
 
 [params]
 
@@ -31,28 +30,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"nodes": {
-"PATH:Cube": {
-"generate/physics": true,
-"physics/layer": 4,
-"physics/mask": 0,
-"physics/shape_type": 1
-},
-"PATH:Cube_001": {
-"import/skip_import": true
-},
-"PATH:Cube_002": {
-"import/skip_import": true
-},
-"PATH:Cube_003": {
-"import/skip_import": true
-},
-"PATH:Cube_004": {
-"import/skip_import": true
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

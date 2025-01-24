@@ -3,7 +3,7 @@
 # MIT licence
 # Quality Godot First Person Controller v2
 
-
+class_name Player
 extends CharacterBody3D
 
 
@@ -49,6 +49,8 @@ extends CharacterBody3D
 @export var PAUSE : String = "ui_cancel"
 @export var CROUCH : String = "crouch"
 @export var SPRINT : String = "sprint"
+@export var FULLSCREEN : String = "fullscreen_mode"
+@export var RESPAWN : String = "player_respawn"
 
 # Uncomment if you want controller support
 #@export var controller_sensitivity : float = 0.035
@@ -95,6 +97,7 @@ var RETICLE : Control
 
 # Get the gravity from the project settings to be synced with RigidBody nodes
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") # Don't set this as a const, see the gravity section in _physics_process
+var gravity_modifier : float = 1.0
 
 # Stores mouse input for rotating the camera in the phyhsics process
 var mouseInput : Vector2 = Vector2(0,0)
@@ -172,7 +175,7 @@ func _physics_process(delta):
 	# Gravity
 	#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
 	if not is_on_floor() and gravity and gravity_enabled:
-		velocity.y -= gravity * delta
+		velocity.y -= gravity * gravity_modifier * delta
 	
 	handle_jumping()
 	
@@ -363,12 +366,21 @@ func headbob_animation(moving):
 			HEADBOB_ANIMATION.play("RESET", 1)
 
 
-func _process(delta):
+func _process(_delta):
 	$UserInterface/DebugPanel.add_property("FPS", Performance.get_monitor(Performance.TIME_FPS), 0)
 	var status : String = state
 	if !is_on_floor():
 		status += " in the air"
 	$UserInterface/DebugPanel.add_property("State", status, 4)
+	
+	if Input.is_action_just_pressed(RESPAWN):
+		self.global_position = CheckPoint.last_checkpoint_position
+	
+	if Input.is_action_just_pressed(FULLSCREEN):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	
 	if pausing_enabled:
 		if Input.is_action_just_pressed(PAUSE):

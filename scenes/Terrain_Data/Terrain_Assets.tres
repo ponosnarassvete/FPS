@@ -1,4 +1,7 @@
-[gd_resource type="Terrain3DAssets" load_steps=3 format=3 uid="uid://cpy43ocvq745q"]
+[gd_resource type="Terrain3DAssets" load_steps=6 format=3 uid="uid://cpy43ocvq745q"]
+
+[ext_resource type="Texture2D" uid="uid://cf3rnm522o3cw" path="res://texture/sand.jpg" id="1_bkybp"]
+[ext_resource type="Texture2D" uid="uid://dhafo6qa8tn1f" path="res://texture/sand_normal.png" id="2_ijrih"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsipw"]
 transparency = 4
@@ -16,5 +19,13 @@ density = 10.0
 material_override = SubResource("StandardMaterial3D_dsipw")
 generated_type = 1
 
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ebu3y"]
+name = "Sand"
+albedo_texture = ExtResource("1_bkybp")
+normal_texture = ExtResource("2_ijrih")
+uv_scale = 0.3
+detiling = 0.025
+
 [resource]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_e6wdn")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_ebu3y")])

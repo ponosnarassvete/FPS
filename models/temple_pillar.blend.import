@@ -3,13 +3,12 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bu5t5vtg43t1p"
-path="res://.godot/imported/temple_pillar.blend-2793ea4e322eb9e45e71858a4e93a383.scn"
+uid="uid://df85yuxcgnn0k"
+valid=false
 
 [deps]
 
 source_file="res://models/temple_pillar.blend"
-dest_files=["res://.godot/imported/temple_pillar.blend-2793ea4e322eb9e45e71858a4e93a383.scn"]
 
 [params]
 
@@ -31,16 +30,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"nodes": {
-"PATH:Temple_Pillar": {
-"generate/physics": true,
-"physics/layer": 4,
-"physics/mask": 0,
-"physics/shape_type": 1
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

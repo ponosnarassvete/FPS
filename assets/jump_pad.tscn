@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3cdbrhje3pss"]
+
+[ext_resource type="PackedScene" uid="uid://cee8iiildj8pq" path="res://models/jump_pad.blend" id="1_dto1v"]
+[ext_resource type="Script" path="res://assets/jump_pad.gd" id="1_l225p"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_glax0"]
+radius = 0.372813
+
+[node name="Jump_Pad" type="Node3D"]
+script = ExtResource("1_l225p")
+
+[node name="jump_pad" parent="." instance=ExtResource("1_dto1v")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="jump_area" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="jump_area"]
+shape = SubResource("SphereShape3D_glax0")
+
+[connection signal="body_entered" from="jump_area" to="." method="_on_jump_area_body_entered"]

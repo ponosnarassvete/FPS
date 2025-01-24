@@ -1,4 +1,7 @@
-[gd_resource type="Terrain3DMaterial" load_steps=4 format=3 uid="uid://c4vp22pco84id"]
+[gd_resource type="Terrain3DMaterial" load_steps=9 format=3 uid="uid://c4vp22pco84id"]
+
+[ext_resource type="Texture2D" uid="uid://cf3rnm522o3cw" path="res://texture/sand.jpg" id="1_isunv"]
+[ext_resource type="Texture2D" uid="uid://dhafo6qa8tn1f" path="res://texture/sand_normal.png" id="2_mcx3p"]
 
 [sub_resource type="Gradient" id="Gradient_gddje"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -21,6 +24,47 @@ seamless = true
 color_ramp = SubResource("Gradient_gddje")
 noise = SubResource("FastNoiseLite_n13jo")
 
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_g2q4j"]
+texture = ExtResource("1_isunv")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_mx6rq"]
+texture = ExtResource("2_mcx3p")
+texture_type = 2
+
+[sub_resource type="VisualShader" id="VisualShader_26v71"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_toon;
+
+uniform sampler2D tex_frg_3 : source_color;
+uniform sampler2D tex_frg_4 : hint_normal;
+
+
+
+void fragment() {
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, UV);
+
+
+// Texture2D:4
+	vec4 n_out4p0 = texture(tex_frg_4, UV);
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	NORMAL_MAP = vec3(n_out4p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-335.495, 100.792)
+modes/specular = 1
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_g2q4j")
+nodes/fragment/3/position = Vector2(-260, 60)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_mx6rq")
+nodes/fragment/4/position = Vector2(-186.384, 387.897)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 4, 0, 0, 9)
+
 [resource]
 _shader_parameters = {
 "blend_sharpness": 0.87,
@@ -36,5 +80,5 @@ _shader_parameters = {
 "vertex_normals_distance": 128.0
 }
 world_background = 0
-show_checkered = true
+shader_override = SubResource("VisualShader_26v71")
 show_region_grid = true

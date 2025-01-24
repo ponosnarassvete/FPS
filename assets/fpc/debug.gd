@@ -1,7 +1,7 @@
 extends PanelContainer
 
 
-func _process(delta):
+func _process(_delta):
 	if visible:
 		pass
 
