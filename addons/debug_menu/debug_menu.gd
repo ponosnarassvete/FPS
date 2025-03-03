@@ -399,7 +399,7 @@ func _process(_delta: float) -> void:
 
 		frame_history_cpu_last.text = str(frametime_cpu).pad_decimals(2)
 		frame_history_cpu_last.modulate = frame_time_gradient.sample(remap(1000.0 / frametime_cpu, GRAPH_MIN_FPS, GRAPH_MAX_FPS, 0.0, 1.0))
-
+		
 		var frametime_gpu := RenderingServer.viewport_get_measured_render_time_gpu(viewport_rid)
 		frame_history_gpu.push_back(frametime_gpu)
 		if frame_history_gpu.size() > HISTORY_NUM_FRAMES:

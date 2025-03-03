@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://br75xfiuumump"]
+
+[ext_resource type="Texture2D" uid="uid://b5nxylylg7vpp" path="res://texture/terrain/rock.jpg" id="1_qk2vo"]
+[ext_resource type="Texture2D" uid="uid://dvehk3a6i7ykb" path="res://texture/terrain/rock_roughness.jpg" id="2_dm0kn"]
+[ext_resource type="Texture2D" uid="uid://d4iidfq62a1bq" path="res://texture/terrain/rock_normal.jpg" id="3_cjray"]
+
+[resource]
+resource_name = "Rock"
+albedo_texture = ExtResource("1_qk2vo")
+metallic = 0.2
+metallic_specular = 0.0
+metallic_texture = ExtResource("2_dm0kn")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_dm0kn")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = -0.75
+normal_texture = ExtResource("3_cjray")
+uv1_scale = Vector3(0.025, 0.025, 0.025)
+uv1_triplanar = true
+uv1_world_triplanar = true

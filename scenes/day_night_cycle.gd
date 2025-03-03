@@ -21,6 +21,7 @@ enum PERIOD {START, MIDDLE, END}
 
 @export var time_of_the_cycle: CYCLE = CYCLE.DAY 
 @export var period_of_time: PERIOD = PERIOD.START 
+@export var PLAYER: Player
 
 func _ready() -> void:
 	match time_of_the_cycle:
@@ -67,3 +68,6 @@ func _ready() -> void:
 					advance(MORNING_MIDDLE_POSITION)
 				PERIOD.END:
 					advance(MORNING_END_POSITION)
+
+func _process(_delta: float) -> void:
+	speed_scale = remap(PLAYER.current_speed, 0, 10, 0, 10)

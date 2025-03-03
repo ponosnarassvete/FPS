@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://h547w5ro42qx"]
+
+[ext_resource type="Script" path="res://assets/weapon/weapon_init.gd" id="1_vqjg8"]
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_vqjg8")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+layers = 2
+
+[node name="Shadow" type="MeshInstance3D" parent="."]

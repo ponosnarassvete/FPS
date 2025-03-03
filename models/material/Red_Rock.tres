@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://46nsrx4nriyj"]
+
+[resource]
+resource_name = "Red_Rock"
+cull_mode = 2
+albedo_color = Color(0.676385, 0.444318, 0.362281, 1)
+metallic = 0.5

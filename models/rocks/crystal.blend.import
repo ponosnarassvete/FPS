@@ -31,7 +31,34 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Crystal": {
+"use_external/enabled": true,
+"use_external/path": "res://models/rocks/crystal.tres"
+}
+},
+"nodes": {
+"PATH:Crystal": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 0,
+"physics/shape_type": 2
+},
+"PATH:Point": {
+"import/skip_import": true
+},
+"PATH:Point_001": {
+"import/skip_import": true
+},
+"PATH:Point_002": {
+"import/skip_import": true
+},
+"PATH:Point_003": {
+"import/skip_import": true
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

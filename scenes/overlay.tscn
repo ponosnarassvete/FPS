@@ -1,0 +1,340 @@
+[gd_scene load_steps=13 format=3 uid="uid://c817k3r7ibnl1"]
+
+[ext_resource type="Script" path="res://scenes/overlay.gd" id="1_tsxn8"]
+[ext_resource type="Shader" path="res://shaders/film_grain.gdshader" id="2_50op5"]
+[ext_resource type="Shader" path="res://shaders/blur_vignette.gdshader" id="3_pnpuq"]
+
+[sub_resource type="Gradient" id="Gradient_cnss1"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.9, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yge34"]
+gradient = SubResource("Gradient_cnss1")
+width = 640
+height = 320
+fill = 1
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0.125)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kruen"]
+gradient = SubResource("Gradient_cnss1")
+width = 640
+height = 320
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 0.85)
+
+[sub_resource type="Animation" id="Animation_4nmx7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("upped_eye_lid:texture:fill_to")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.125)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("lower_eye_lid:texture:fill_to")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.85)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lower_eye_lid:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("upped_eye_lid:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("upped_eye_lid:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-704, -316)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("lower_eye_lid:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-704, -316)]
+}
+
+[sub_resource type="Animation" id="Animation_sw0yj"]
+resource_name = "close"
+length = 1.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("upped_eye_lid:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("upped_eye_lid:texture:fill_to")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.125), Vector2(0.5, 0.275)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lower_eye_lid:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("lower_eye_lid:texture:fill_to")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.85), Vector2(0.5, 0.75)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("upped_eye_lid:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-704, -316), Vector2(-704, -56), Vector2(-704, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("lower_eye_lid:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-704, -316), Vector2(-704, -476), Vector2(-704, -556)]
+}
+
+[sub_resource type="Animation" id="Animation_aqasw"]
+resource_name = "open"
+length = 1.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("upped_eye_lid:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("upped_eye_lid:texture:fill_to")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.275), Vector2(0.5, 0.125)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("lower_eye_lid:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("lower_eye_lid:texture:fill_to")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.25, 1.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.75), Vector2(0.5, 0.85)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("upped_eye_lid:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-704, 0), Vector2(-704, -56), Vector2(-704, -316)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("lower_eye_lid:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-704, -556), Vector2(-704, -476), Vector2(-704, -316)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8jm6h"]
+_data = {
+"RESET": SubResource("Animation_4nmx7"),
+"close": SubResource("Animation_sw0yj"),
+"open": SubResource("Animation_aqasw")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1a2a"]
+shader = ExtResource("2_50op5")
+shader_parameter/grain_amount = 0.05
+shader_parameter/grain_size = 0.5
+shader_parameter/animate = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y7j18"]
+shader = ExtResource("3_pnpuq")
+shader_parameter/blur_radius = 0.125
+shader_parameter/blur_amount = 1.0
+shader_parameter/blur_inner = 0.25
+shader_parameter/blur_outer = 1.0
+
+[node name="Overlay" type="CanvasLayer" node_paths=PackedStringArray("eye_animation", "effects")]
+script = ExtResource("1_tsxn8")
+eye_animation = NodePath("eye_lid_animation")
+effects = [NodePath("film_grain"), NodePath("vignette_blur")]
+
+[node name="upped_eye_lid" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1280.0
+offset_top = -640.0
+offset_right = -640.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_yge34")
+stretch_mode = 3
+
+[node name="lower_eye_lid" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1280.0
+offset_top = -640.0
+offset_right = -640.0
+offset_bottom = -320.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_kruen")
+stretch_mode = 3
+
+[node name="eye_lid_animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8jm6h")
+}
+speed_scale = 2.5
+
+[node name="film_grain" type="ColorRect" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_g1a2a")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="vignette_blur" type="ColorRect" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_y7j18")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

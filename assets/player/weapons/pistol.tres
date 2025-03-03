@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://2gxim3jfu3nr"]
+
+[ext_resource type="ArrayMesh" uid="uid://bphqmcgp7apsa" path="res://models/mesh/weapons/gun_Cube_001.res" id="1_oum4o"]
+[ext_resource type="Script" path="res://assets/weapon/weapon_class.gd" id="2_hsa1b"]
+[ext_resource type="Script" path="res://assets/weapon/weapon_stats.gd" id="3_jcmor"]
+
+[sub_resource type="Resource" id="Resource_qhxvb"]
+script = ExtResource("3_jcmor")
+damage_type = 1
+damage_amount = 5.0
+penetration = 0
+ready_time = 0.5
+reload_time = 2.0
+max_ammo = 100
+magazine_size = 10
+
+[resource]
+script = ExtResource("2_hsa1b")
+name = "Pistol"
+weapon_stats = SubResource("Resource_qhxvb")
+position = Vector3(-0.6, -0.25, -0.1)
+rotation = Vector3(0, 0, 0)
+mesh = ExtResource("1_oum4o")
+shadow = true

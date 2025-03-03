@@ -1,31 +1,49 @@
-[gd_resource type="Terrain3DAssets" load_steps=6 format=3 uid="uid://cpy43ocvq745q"]
+[gd_resource type="Terrain3DAssets" load_steps=15 format=3 uid="uid://c2gdn8w2a055m"]
 
-[ext_resource type="Texture2D" uid="uid://cf3rnm522o3cw" path="res://texture/sand.jpg" id="1_bkybp"]
-[ext_resource type="Texture2D" uid="uid://dhafo6qa8tn1f" path="res://texture/sand_normal.png" id="2_ijrih"]
+[ext_resource type="Material" uid="uid://doupakovdhg0d" path="res://models/material/grass.tres" id="1_gyans"]
+[ext_resource type="PackedScene" uid="uid://bxnm6dv28rkhr" path="res://models/grass.tscn" id="2_5jewi"]
+[ext_resource type="PackedScene" uid="uid://8fi2nceqs4ub" path="res://models/rocks/small_rock.tscn" id="3_7txwv"]
+[ext_resource type="PackedScene" uid="uid://datmnh0jfm3ny" path="res://models/rocks/red_small_rock.tscn" id="3_kxfi3"]
+[ext_resource type="Material" uid="uid://46nsrx4nriyj" path="res://models/material/Red_Rock.tres" id="4_dxti3"]
+[ext_resource type="Texture2D" path="res://texture/terrain/sand.dds" id="6_xg0wv"]
+[ext_resource type="Texture2D" uid="uid://dhafo6qa8tn1f" path="res://texture/terrain/sand_normal.png" id="7_uirfb"]
+[ext_resource type="Texture2D" path="res://texture/terrain/dirt.dds" id="8_107nv"]
+[ext_resource type="Texture2D" uid="uid://c3jmwgp6yvy1r" path="res://texture/terrain/dirt_normal.png" id="9_dkdew"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dsipw"]
-transparency = 4
-cull_mode = 2
-vertex_color_use_as_albedo = true
-backlight_enabled = true
-backlight = Color(0.5, 0.5, 0.5, 1)
-distance_fade_mode = 1
-distance_fade_min_distance = 960.0
-distance_fade_max_distance = 480.0
-
-[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_e6wdn"]
-height_offset = 0.5
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_p5s05"]
+name = "grass"
 density = 10.0
-material_override = SubResource("StandardMaterial3D_dsipw")
-generated_type = 1
+visibility_range = 200.0
+cast_shadows = 0
+scene_file = ExtResource("2_5jewi")
+material_override = ExtResource("1_gyans")
 
-[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ebu3y"]
-name = "Sand"
-albedo_texture = ExtResource("1_bkybp")
-normal_texture = ExtResource("2_ijrih")
-uv_scale = 0.3
-detiling = 0.025
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_rpdep"]
+name = "red_rock"
+id = 1
+density = 10.0
+scene_file = ExtResource("3_kxfi3")
+material_override = ExtResource("4_dxti3")
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_y7nr8"]
+name = "rock"
+id = 2
+density = 10.0
+scene_file = ExtResource("3_7txwv")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_q3d88"]
+name = "sand"
+albedo_texture = ExtResource("6_xg0wv")
+normal_texture = ExtResource("7_uirfb")
+uv_scale = 0.2
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_deop5"]
+name = "dirt"
+id = 1
+albedo_texture = ExtResource("8_107nv")
+normal_texture = ExtResource("9_dkdew")
+uv_scale = 0.2
 
 [resource]
-mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_e6wdn")])
-texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_ebu3y")])
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_p5s05"), SubResource("Terrain3DMeshAsset_rpdep"), SubResource("Terrain3DMeshAsset_y7nr8")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_q3d88"), SubResource("Terrain3DTextureAsset_deop5")])

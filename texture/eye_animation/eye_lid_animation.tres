@@ -1,0 +1,130 @@
+[gd_resource type="SpriteFrames" load_steps=31 format=3 uid="uid://dy12yu31m6r4h"]
+
+[ext_resource type="Texture2D" uid="uid://vwkjs1dtxijr" path="res://texture/eye_animation/eye_animation00.png" id="1_ngw81"]
+[ext_resource type="Texture2D" uid="uid://0w5muweesuxf" path="res://texture/eye_animation/eye_animation01.png" id="2_rbxu1"]
+[ext_resource type="Texture2D" uid="uid://dqetxu6ha1yi2" path="res://texture/eye_animation/eye_animation02.png" id="3_4t2tw"]
+[ext_resource type="Texture2D" uid="uid://d4f847qu2gtwl" path="res://texture/eye_animation/eye_animation03.png" id="4_wihi0"]
+[ext_resource type="Texture2D" uid="uid://b05nll0vupp2t" path="res://texture/eye_animation/eye_animation04.png" id="5_ocv7m"]
+[ext_resource type="Texture2D" uid="uid://bkhxnhi34cxaj" path="res://texture/eye_animation/eye_animation05.png" id="6_cxb67"]
+[ext_resource type="Texture2D" uid="uid://cxp8u0mpqsgof" path="res://texture/eye_animation/eye_animation06.png" id="7_senh1"]
+[ext_resource type="Texture2D" uid="uid://fk7k17cj3h5r" path="res://texture/eye_animation/eye_animation07.png" id="8_jydck"]
+[ext_resource type="Texture2D" uid="uid://b5vq21jqy1xil" path="res://texture/eye_animation/eye_animation08.png" id="9_rklis"]
+[ext_resource type="Texture2D" uid="uid://d1ftnkcdxspea" path="res://texture/eye_animation/eye_animation09.png" id="10_gme0n"]
+[ext_resource type="Texture2D" uid="uid://cktph48c3yais" path="res://texture/eye_animation/eye_animation10.png" id="11_vap3o"]
+[ext_resource type="Texture2D" uid="uid://gj7a7pcg4jie" path="res://texture/eye_animation/eye_animation11.png" id="12_7vffi"]
+[ext_resource type="Texture2D" uid="uid://df6f4kb30v7ok" path="res://texture/eye_animation/eye_animation12.png" id="13_8763k"]
+[ext_resource type="Texture2D" uid="uid://bx6phoy82pu23" path="res://texture/eye_animation/eye_animation13.png" id="14_m4elq"]
+[ext_resource type="Texture2D" uid="uid://b4pc6qvck32au" path="res://texture/eye_animation/eye_animation14.png" id="15_8n3cp"]
+[ext_resource type="Texture2D" uid="uid://grv32pnmthbl" path="res://texture/eye_animation/eye_animation15.png" id="16_l8am0"]
+[ext_resource type="Texture2D" uid="uid://bsauf4cmieuv4" path="res://texture/eye_animation/eye_animation16.png" id="17_1j2fu"]
+[ext_resource type="Texture2D" uid="uid://cneuru4liu4ei" path="res://texture/eye_animation/eye_animation17.png" id="18_vmwap"]
+[ext_resource type="Texture2D" uid="uid://bc50ormyh0ye4" path="res://texture/eye_animation/eye_animation18.png" id="19_3rcl5"]
+[ext_resource type="Texture2D" uid="uid://cwnruxhd0gha5" path="res://texture/eye_animation/eye_animation19.png" id="20_d7o1r"]
+[ext_resource type="Texture2D" uid="uid://ktk0px7f54p3" path="res://texture/eye_animation/eye_animation20.png" id="21_jt4km"]
+[ext_resource type="Texture2D" uid="uid://b24yw2jx0bf3n" path="res://texture/eye_animation/eye_animation21.png" id="22_408cp"]
+[ext_resource type="Texture2D" uid="uid://bj12p15l052rd" path="res://texture/eye_animation/eye_animation22.png" id="23_5hm2i"]
+[ext_resource type="Texture2D" uid="uid://bibgth8aabsd2" path="res://texture/eye_animation/eye_animation23.png" id="24_qa7dn"]
+[ext_resource type="Texture2D" uid="uid://dgyjxwgn0wy0k" path="res://texture/eye_animation/eye_animation24.png" id="25_50jt5"]
+[ext_resource type="Texture2D" uid="uid://c1858krp7jhak" path="res://texture/eye_animation/eye_animation25.png" id="26_p25rw"]
+[ext_resource type="Texture2D" uid="uid://cbhevaltg0l0e" path="res://texture/eye_animation/eye_animation26.png" id="27_ifmm8"]
+[ext_resource type="Texture2D" uid="uid://bi82l3jdwa0dd" path="res://texture/eye_animation/eye_animation27.png" id="28_2m677"]
+[ext_resource type="Texture2D" uid="uid://dkoddcktscw3j" path="res://texture/eye_animation/eye_animation28.png" id="29_m6722"]
+[ext_resource type="Texture2D" uid="uid://bm2lgewfo6s7v" path="res://texture/eye_animation/eye_animation29.png" id="30_a8c15"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ngw81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rbxu1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4t2tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wihi0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ocv7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cxb67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_senh1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jydck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rklis")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gme0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vap3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7vffi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_8763k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_m4elq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_8n3cp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_l8am0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_1j2fu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_vmwap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_3rcl5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_d7o1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_jt4km")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_408cp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_5hm2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_qa7dn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_50jt5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_p25rw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ifmm8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_2m677")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_m6722")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_a8c15")
+}],
+"loop": true,
+"name": &"default",
+"speed": 60.0
+}]

@@ -5,4 +5,5 @@ extends Node3D
 
 func _on_jump_area_body_entered(body: Node3D) -> void:
 	if body is Player:
-		body.velocity.y += jump_force
+		body.velocity.y = jump_force
+		body.STATE_MACHINE.on_child_transition("JumpingPlayerState")

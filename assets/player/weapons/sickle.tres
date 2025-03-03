@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://dpguxh3kg02ju"]
+
+[ext_resource type="ArrayMesh" uid="uid://cm8i6i20wqbgv" path="res://models/mesh/weapons/sickle_Cylinder.res" id="1_lnut1"]
+[ext_resource type="Script" path="res://assets/weapon/weapon_class.gd" id="2_a1t70"]
+[ext_resource type="Script" path="res://assets/weapon/weapon_stats.gd" id="3_daq5y"]
+
+[sub_resource type="Resource" id="Resource_724ba"]
+script = ExtResource("3_daq5y")
+damage_type = 0
+damage_amount = 2.0
+penetration = 0
+ready_time = 0.5
+reload_time = 2.0
+max_ammo = 100
+magazine_size = 10
+
+[resource]
+script = ExtResource("2_a1t70")
+name = "Sickle"
+weapon_stats = SubResource("Resource_724ba")
+position = Vector3(-0.8, -1, -0.1)
+rotation = Vector3(184.99, -150, 0)
+sway_min = Vector2(-40, -40)
+sway_max = Vector2(40, 40)
+sway_speed_position = 0.07
+sway_speed_rotation = 0.1
+sway_amount_position = 0.25
+sway_amount_rotation = 30.0
+idle_random_sway = 5.0
+idle_sway_adjustment = 10.0
+idle_sway_rotation_strength = 300.0
+mesh = ExtResource("1_lnut1")
+shadow = true

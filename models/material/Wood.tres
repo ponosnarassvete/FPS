@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bw8op17bxji3u"]
+
+[ext_resource type="Texture2D" uid="uid://bsby0h5qnxn12" path="res://texture/weapons/wood.jpg" id="1_cucpn"]
+
+[resource]
+resource_name = "Wood"
+cull_mode = 2
+albedo_texture = ExtResource("1_cucpn")
+roughness = 0.74

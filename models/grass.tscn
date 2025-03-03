@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxnm6dv28rkhr"]
+
+[ext_resource type="ArrayMesh" uid="uid://cin4f1o0lentf" path="res://models/mesh/grass.res" id="1_k5jne"]
+
+[node name="grass" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+gi_mode = 0
+mesh = ExtResource("1_k5jne")

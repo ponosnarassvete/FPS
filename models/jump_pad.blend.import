@@ -34,10 +34,15 @@ import_script/path=""
 _subresources={
 "nodes": {
 "PATH:Jump_pad": {
+"physics/layer": 8,
+"physics/mask": 0,
+"physics/shape_type": 0
+},
+"PATH:Jump_pad_001": {
 "generate/physics": true,
 "physics/layer": 8,
 "physics/mask": 0,
-"physics/shape_type": 2
+"physics/shape_type": 1
 }
 }
 }
